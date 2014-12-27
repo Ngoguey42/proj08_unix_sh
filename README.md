@@ -7,9 +7,9 @@
 --------  -----------------------
 
 This project is subdivided into 4 parts.
-- [ ] Sh1: Implement basic built-in commands, execute any command from PATH, etc...
-- [ ] Sh2: Handle those six operators: "**; | < << >> >**" Introduced in [[PIPEX project](https://github.com/Ngoguey42/proj07_unix_pipex)].
-- [ ] Sh3: Cursor position and keyboard control keys. Introduced in [ft_select project].
+- [ ] sh1: Implement basic built-in commands, execute any command from PATH, etc...
+- [ ] sh2: Handle those six operators: "**; | < << >> >**" Introduced in [[PIPEX project](https://github.com/Ngoguey42/proj07_unix_pipex)].
+- [ ] sh3: Cursor position and keyboard control keys. Introduced in [ft_select project].
 - [ ] 42sh: Group project.
 
 <br><br>

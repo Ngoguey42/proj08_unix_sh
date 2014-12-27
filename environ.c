@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 13:47:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 15:32:54 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 15:42:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,3 @@ char	**msh_update_envvar(t_msh *msh, char *line)
 		exit(1);
 	return (ptr);
 }
-
-
-char    **msh_update_envvar(t_msh *msh, char *line);
-char    **msh_new_envvar(t_msh *msh, char *line);
-char    *msh_get_envvar(const t_msh *msh, const char *key);
-char    **msh_get_envvarp(const t_msh *msh, const char *key);

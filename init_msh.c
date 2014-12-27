@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 15:33:51 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 16:11:24 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,14 @@ static int	update_environ(t_msh *msh)
 	
 }
 
-int			msh_init_msh(t_msh *msh)
+int			msh_init_msh(t_msh *msh, char *ex)
 {
 	ft_bzero(msh, sizeof(msh));
+	msh->mshex = ex;
+	if ((msh->mshstwd = getcwd(NULL, 0)) == NULL)
+		return (1);
+	if (msh_resolve_binpath(msh))
+		return (1);
 	if (dup_environ(&msh->env, environ) || update_environ(msh))
 		return (1);
 	return (0);

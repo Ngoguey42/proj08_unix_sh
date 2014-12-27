@@ -6,13 +6,13 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 15:12:49 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 15:53:20 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-# define PUTL ft_putendl
+#define PUTL ft_putendl
 
 void		msh_header(void)
 {
@@ -24,15 +24,14 @@ void		msh_header(void)
 	PUTL("|__|  |__| |__| |__| \\__| |__| |_______/    |__|  |__|   (__)");
 }
 
-
-int			main(void)
+int			main(int ac, char *av[])
 {
 	t_msh	msh;
 
 	msh_header();
-	if (msh_init_msh(&msh))
+	if (msh_init_msh(&msh, av[0]))
 		return (1);
 	msh_print_env(&msh);//debug;
-	
+	(void)ac;
 	return (0);
 }

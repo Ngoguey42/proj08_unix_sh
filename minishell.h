@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 15:28:02 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 16:11:56 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,24 @@ typedef struct	s_cmd
 /*
 ** 'struct	s_msh' MiniSHell env.
 ** *
-**		shex		sh's binary name
-** 		shenv		pointer to sh's environ variable, from parent shell.
+**		mshex		msh's binary name
+**		mshstwd		msh's start working directory, from getcwd.
+**		mshpath		msh's binary path, resolved from the shex and mshstwd.
+** 		mshenv		pointer to sh's environ variable, from parent shell.
 **		env			sh's env.
 */
 
 typedef struct	s_msh
 {
 	char		*mshex;
+	char		*mshstwd;
+	char		mshpath[PATH_MAX - 1];
 	char		**mshenv;
 	char		**env;
 }				t_msh;
 
 
-int				msh_init_msh(t_msh *msh);
+int				msh_init_msh(t_msh *msh, char *ex);
 
 /*
 ** Env Manipulation.
@@ -70,6 +74,8 @@ char			**msh_update_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar(t_msh *msh, char *line);
 char			*msh_get_envvar(const t_msh *msh, const char *key);
 char			**msh_get_envvarp(const t_msh *msh, const char *key);
+
+char			**msh_resolve_binpath(t_msh *msh);
 
 
 #endif

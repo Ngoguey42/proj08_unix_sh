@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/27 14:27:20 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/27 16:12:25 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,7 +35,7 @@ LFTRE = re
 LFTG = g
 LFTGRE = gre
 
-SRCSFILES = main.c init_msh.c environ.c\
+SRCSFILES = main.c init_msh.c environ.c resolve_binpath.c\
 builtin_env.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))

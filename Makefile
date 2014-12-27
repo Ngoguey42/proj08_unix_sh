@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/27 12:38:49 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/27 14:27:20 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,7 +35,8 @@ LFTRE = re
 LFTG = g
 LFTGRE = gre
 
-SRCSFILES = main.c init_msh.c
+SRCSFILES = main.c init_msh.c environ.c\
+builtin_env.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)

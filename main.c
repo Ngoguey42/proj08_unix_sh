@@ -6,18 +6,33 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 12:39:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 15:12:49 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+# define PUTL ft_putendl
+
+void		msh_header(void)
+{
+	PUTL(".___  ___.  __  .__   __.  __       _______. __    __     __ ");
+	PUTL("|   \\/   | |  | |  \\ |  | |  |     /       ||  |  |  |   |  |");
+	PUTL("|  \\  /  | |  | |   \\|  | |  |    |   (----`|  |__|  |   |  |");
+	PUTL("|  |\\/|  | |  | |  . `  | |  |     \\   \\    |   __   |   |  |");
+	PUTL("|  |  |  | |  | |  |\\   | |  | .----)   |   |  |  |  |   |__|");
+	PUTL("|__|  |__| |__| |__| \\__| |__| |_______/    |__|  |__|   (__)");
+}
+
+
 int			main(void)
 {
 	t_msh	msh;
 
+	msh_header();
 	if (msh_init_msh(&msh))
 		return (1);
+	msh_print_env(&msh);//debug;
 	
 	return (0);
 }

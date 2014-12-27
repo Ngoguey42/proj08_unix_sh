@@ -1,9 +1,9 @@
 # Project #8 SH, Jan 2015
 >>>>> #####A shell of my own.
 
-#####Grade sh1 ``(tbd/100)`` ``(tbd/118)*``
-#####Grade sh2 ``(tbd/100)`` ``(tbd/118)*``
-#####Grade sh3 ``(tbd/100)`` ``(tbd/118)*``
+#####sh1 grade ``(tbd/100)`` ``(tbd/118)*``
+#####sh2 grade ``(tbd/100)`` ``(tbd/118)*``
+#####sh3 grade ``(tbd/100)`` ``(tbd/118)*``
 --------  -----------------------
 
 This project is subdivided into 4 parts.
@@ -11,6 +11,8 @@ This project is subdivided into 4 parts.
 - [ ] Sh2: Handle those six operators: **"; | < << >> >"** Introduced in [[PIPEX project](https://github.com/Ngoguey42/proj07_unix_pipex)].
 - [ ] Sh3: Cursor position and keyboard control keys. Introduced in [ft_select project].
 - [ ] 42sh: Group project.
+
+<br><br>
 
 sh1 Goals:
 - [ ] Display a prompt.

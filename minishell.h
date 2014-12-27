@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 16:11:56 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 17:39:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,20 @@ typedef struct	s_msh
 	char		**env;
 }				t_msh;
 
-
 int				msh_init_msh(t_msh *msh, char *ex);
 
 /*
 ** Env Manipulation.
 */
-char 			**msh_get_envvarp(const t_msh *msh, const char *key);
-char 			*msh_get_envvar(const t_msh *msh, const char *key);
+char			**msh_get_envvarp(const t_msh *msh, const char *key);
+char			*msh_get_envvar(const t_msh *msh, const char *key);
 void			msh_print_env(const t_msh *msh);
 char			**msh_update_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar(t_msh *msh, char *line);
+char			**msh_new_envvar_m(t_msh *msh, char *line);
 char			*msh_get_envvar(const t_msh *msh, const char *key);
 char			**msh_get_envvarp(const t_msh *msh, const char *key);
 
-char			**msh_resolve_binpath(t_msh *msh);
-
+int				msh_resolve_binpath(t_msh *msh);
 
 #endif

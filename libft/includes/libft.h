@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/23 14:22:27 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 16:43:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ size_t	ft_strlcpy(char *s1, const char *s2, size_t num);
 char	*ft_strccpy(char *dst, const char *src);
 char	*ft_catpath(const char *path, const char *file, char *dst);
 char	*ft_filename(const char *path, char *dst);
+int		ft_resolve_path(char *buf);
 void	*ft_memccpy2(void *dst, const void *src, size_t n);
 /*
 ** Concatenation:

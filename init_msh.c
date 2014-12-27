@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 16:11:24 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 17:38:03 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 #include <stdlib.h>
 #include <minishell.h>
 
-extern char	**environ;
+/*
+** All shells have a 'PWD' and 'SHLVL' on loading default.
+** All shells but csh and tcsh have '_' env variable on loading default.
+*/
 
 static int	dup_environ(char ***env, char **envp)
 {
@@ -30,7 +33,7 @@ static int	dup_environ(char ***env, char **envp)
 	while (count-- > 0)
 	{
 		(*env)[count] = (char*)malloc(sizeof(char) *
-								(ft_strlen(envp[count] + 1)));
+								(ft_strlen(envp[count]) + 1));
 		if ((*env)[count] == NULL)
 			return (1);
 		ft_strcpy((*env)[count], envp[count]);
@@ -46,37 +49,62 @@ static void	update_shlvl(t_msh *msh)
 
 	ptr = msh_get_envvarp(msh, "SHLVL");
 	if (ptr == NULL)
-	{
-		if (msh_new_envvar(msh, "SHLVL=1") == NULL)
-			exit(1);
-	}
+		(void)msh_new_envvar_m(msh, "SHLVL=1");
 	else
 	{
 		n = ft_atoi(*ptr + ft_strcharlen(*ptr, '=') + 1);
-
 		ft_strcpy(str, "SHLVL=");
-		ft_itoa_c(n + 1, str + 6,  10);
+		ft_itoa_c(n + 1, str + 6, 10);
 		qprintf("DEBUG: %s %d\n", *ptr, n);
 		msh_update_envvar(msh, str);
 	}
+	return ;
 }
 
-static int	update_environ(t_msh *msh)
+static void	update_pwd(t_msh *msh)
 {
-	update_shlvl(msh);
-	return (0);
-	
+	char	str[4 + 1 + PATH_MAX + 5];
+
+	if (msh_get_envvarp(msh, "PWD") == NULL)
+	{
+		ft_strcpy(str, "PWD=");
+		ft_strcat(str, msh->mshpath);
+		(void)msh_new_envvar_m(msh, str);
+	}
+	return ;
+}
+
+static void	update__(t_msh *msh)
+{
+	char	str[1 + 1 + 1];
+	char	*str2;
+
+	(void)msh;
+	if (msh_get_envvarp(msh, "_") == NULL)
+	{
+		ft_strcpy(str, "_=");
+		str2 = ft_strjoin(str, msh->mshex);
+		if (str2 == NULL)
+			exit(1);
+		(void)msh_new_envvar(msh, str2);
+	}
+	return ;
 }
 
 int			msh_init_msh(t_msh *msh, char *ex)
 {
+	extern char	**environ;
+
 	ft_bzero(msh, sizeof(msh));
 	msh->mshex = ex;
 	if ((msh->mshstwd = getcwd(NULL, 0)) == NULL)
 		return (1);
 	if (msh_resolve_binpath(msh))
 		return (1);
-	if (dup_environ(&msh->env, environ) || update_environ(msh))
+	if (dup_environ(&msh->env, environ))
 		return (1);
+	update_shlvl(msh);
+	update_pwd(msh);
+	update__(msh);
 	return (0);
 }

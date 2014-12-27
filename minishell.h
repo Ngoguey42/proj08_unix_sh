@@ -6,17 +6,17 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 12:22:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/27 12:38:54 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_H
-# define SH_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include <limits.h>
 # include <libft.h>
 
-# define ERRNO1ARGS 2, "%s, %s, %s\n", pipex->ex, sys_errlist[errno]
+# define ERRNO1ARGS 2, "%s, %s, %s\n", msh->shex, sys_errlist[errno]
 # define ERRPRINTF_ERRNO(STR) ft_dprintf(ERRNO1ARGS, STR)
 
 # define ERRNO2ARGS2(ERR) (ERR == -2 ? "Command not found" : sys_errlist[ERR])
@@ -52,9 +52,13 @@ typedef struct	s_cmd
 
 typedef struct	s_msh
 {
-	char		*shex;
-	char		**shenv;
+	char		*mshex;
+	char		**mshenv;
 	char		**env;
 }				t_msh;
+
+
+int				msh_init_msh(t_msh *msh);
+
 
 #endif

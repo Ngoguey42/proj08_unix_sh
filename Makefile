@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/28 10:45:10 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/28 16:15:28 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,8 +35,9 @@ LFTRE = re
 LFTG = g
 LFTGRE = gre
 
-SRCSFILES = main.c init_msh.c environ.c resolve_binpath.c pause.c\
-builtin_env.c
+SRCSFILES = main.c init_msh.c environ.c resolve_binpath.c pause.c tokenize.c\
+builtin_env.c\
+debug.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)

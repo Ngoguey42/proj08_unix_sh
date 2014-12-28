@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/28 12:45:26 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/28 16:15:50 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,39 @@
 
 # define NUMBUILTINS 5
 
-# define DEFAULT_PATH "PATH=/usr/bin:/bin"
-# define MSH_OP (char[][3]){"|", ";", "<", "<<", ">", ">>", ""}
+# define MSH_OP (char[][3]){"<<", ">>", "<", ">", ";", "|", ""}
+# define NUMOPERATORS 6
 
 # define MSH_PS1 "msh> "
+# define MSH_PSHERE "h-doc> "
 
-# define MTK_PIPE 0x1
-# define MTK_SEMI 0x2
+# define DEFAULT_PATH "PATH=/usr/bin:/bin"
+
+
+# define MTK_HERE 0x1
+# define MTK_APND 0x2
 # define MTK_READ 0x3
-# define MTK_HERE 0x4
-# define MTK_WRIT 0x5
-# define MTK_APND 0x6
+# define MTK_WRIT 0x4
+# define MTK_SEMI 0x5
+# define MTK_PIPE 0x6
+
 # define MTK_WORD 0x7
-# define MTK_END 0x8
+# define MTK_CMD 0x8
+# define MTK_FILE 0x9
+
+# define MTK_END 0xf0
+
 
 /*
 **
 */
 
-typedef struct	s_token
+typedef struct	s_tkn
 {
 	int		type;
-	
-
-}				t_token;
+	char	*ptr;
+	size_t	len;
+}				t_tkn;
 
 /*
 **		'struct s_cmd'
@@ -113,12 +122,16 @@ typedef struct	s_msh
 	int			continue_;
 	void		(*bi_f[NUMBUILTINS + 1])(struct s_msh *msh, t_cmd *cmd);
 	char		bi_n[NUMBUILTINS + 1][MSHBIN_MAXN];
+	char		op[NUMOPERATORS + 1][3];
 }				t_msh;
 
 typedef void	(*t_mshbi)(t_msh*, t_cmd*);
 
 int				msh_init_msh(t_msh *msh, char *ex);
 void			msh_pause(t_msh *msh);
+void			msh_tokenize(t_msh *msh, t_list *atknp[1], char *line);
+void			msh_print_tokens(t_list *tkn);
+
 
 /*
 ** Env Manipulation.

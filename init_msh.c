@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/28 10:39:59 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/28 13:48:24 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,6 @@ int			msh_init_msh(t_msh *msh, char *ex)
 	update__(msh);
 	ft_memcpy(msh->bi_f, (t_mshbi[])MSHBIN_F, sizeof(msh->bi_f));
 	ft_memcpy(msh->bi_n, (char[][MSHBIN_MAXN])MSHBIN_N, sizeof(msh->bi_n));
+	ft_memcpy(msh->op, MSH_OP, sizeof(msh->op));
 	return (0);
 }

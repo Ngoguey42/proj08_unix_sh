@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 17:38:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/28 10:31:33 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,18 @@ static void	update_shlvl(t_msh *msh)
 		ft_strcpy(str, "SHLVL=");
 		ft_itoa_c(n + 1, str + 6, 10);
 		qprintf("DEBUG: %s %d\n", *ptr, n);
-		msh_update_envvar(msh, str);
+		(void)msh_update_envvar_m(msh, str);
 	}
 	return ;
 }
 
 static void	update_pwd(t_msh *msh)
 {
-	char	str[4 + 1 + PATH_MAX + 5];
+	char	str[4 + 1 + PATH_MAX + 1];
 
-	if (msh_get_envvarp(msh, "PWD") == NULL)
-	{
-		ft_strcpy(str, "PWD=");
-		ft_strcat(str, msh->mshpath);
-		(void)msh_new_envvar_m(msh, str);
-	}
+	ft_strcpy(str, "PWD=");
+	ft_strcat(str, msh->mshpath);
+	(void)msh_update_envvar_m(msh, str);
 	return ;
 }
 
@@ -106,5 +103,7 @@ int			msh_init_msh(t_msh *msh, char *ex)
 	update_shlvl(msh);
 	update_pwd(msh);
 	update__(msh);
+	ft_memcpy(msh->bi_f, (t_mshbi[])MSHBIN_F, sizeof(msh->bi_f));
+	ft_memcpy(msh->bi_n, (char[][MSHBIN_MAXN])MSHBIN_N, sizeof(msh->bi_n));
 	return (0);
 }

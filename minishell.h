@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 17:39:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/28 10:30:15 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,31 @@
 # define ERRNO2ARGS(ERR) 2, "%s, %s, %s\n", pipex->ex, ERRNO2ARGS2(ERR)
 # define ERRPRINTF_ERRNO2(ERR, STR) ft_dprintf(ERRNO2ARGS(ERR), STR)
 
+
+
+/*
+** 'built-in storing'
+*/
+# define MSHBIN_MAXN 9
+
+# define MSHBI1N "cd"
+# define MSHBI1F &msh_builtin_cd
+# define MSHBI2N "setenv"
+# define MSHBI2F &msh_builtin_setenv
+# define MSHBI3N "unsetenv"
+# define MSHBI3F &msh_builtin_unsetenv
+# define MSHBI4N "env"
+# define MSHBI4F &msh_builtin_env
+# define MSHBI5N "exit"
+# define MSHBI5F &msh_builtin_exit
+
+# define MSHBIN_N {MSHBI1N, MSHBI2N, MSHBI3N, MSHBI4N, MSHBI5N, ""}
+# define MSHBIN_F {MSHBI1F, MSHBI2F, MSHBI3F, MSHBI4F, MSHBI5F, NULL}
+
+# define NUMBUILTINS 5
+
+
+
 /*
 **		'struct s_cmd'
 ** 		cmdpath		full path to cmd's binary.
@@ -33,6 +58,7 @@
 
 typedef struct	s_cmd
 {
+
 	char		cmdpath[PATH_MAX + 1];
 	int			cmdaccess;
 	char		**cmdav;
@@ -59,7 +85,12 @@ typedef struct	s_msh
 	char		mshpath[PATH_MAX - 1];
 	char		**mshenv;
 	char		**env;
+/* 	t_mshbi		bi_f[NUMBUILTINS + 1]; */
+	void		(*bi_f[NUMBUILTINS + 1])(struct s_msh *msh, t_cmd *cmd);
+	char		bi_n[NUMBUILTINS + 1][MSHBIN_MAXN];
 }				t_msh;
+
+typedef void	(*t_mshbi)(t_msh*, t_cmd*);
 
 int				msh_init_msh(t_msh *msh, char *ex);
 
@@ -69,12 +100,22 @@ int				msh_init_msh(t_msh *msh, char *ex);
 char			**msh_get_envvarp(const t_msh *msh, const char *key);
 char			*msh_get_envvar(const t_msh *msh, const char *key);
 void			msh_print_env(const t_msh *msh);
-char			**msh_update_envvar(t_msh *msh, char *line);
+char			**msh_update_envvar_m(t_msh *msh, char *line);
 char			**msh_new_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar_m(t_msh *msh, char *line);
 char			*msh_get_envvar(const t_msh *msh, const char *key);
 char			**msh_get_envvarp(const t_msh *msh, const char *key);
 
 int				msh_resolve_binpath(t_msh *msh);
+
+/*
+** Built in functions.
+*/
+void    msh_builtin_cd(t_msh *msh, t_cmd *cmd);
+void    msh_builtin_env(t_msh *msh, t_cmd *cmd);
+void    msh_builtin_setenv(t_msh *msh, t_cmd *cmd);
+void    msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd);
+void    msh_builtin_exit(t_msh *msh, t_cmd *cmd);
+
 
 #endif

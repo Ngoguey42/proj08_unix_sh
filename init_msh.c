@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/28 10:31:33 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/28 10:39:59 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int			msh_init_msh(t_msh *msh, char *ex)
 	extern char	**environ;
 
 	ft_bzero(msh, sizeof(msh));
+	msh->continue_ = 1;
 	msh->mshex = ex;
 	if ((msh->mshstwd = getcwd(NULL, 0)) == NULL)
 		return (1);

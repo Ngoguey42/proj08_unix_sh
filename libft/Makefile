@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/27 16:43:21 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/28 11:07:12 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -59,7 +59,7 @@ ft_realloc.c    ft_crealloc.c  ft_memdup.c                             ft_strspl
 \
 ft_isalnum.c ft_iscntrl.c      ft_islower.c ft_isspace.c  ft_tolower.c\
 ft_isalpha.c ft_isdigit.c      ft_ispair.c  ft_isupper.c  ft_toupper.c\
-ft_isascii.c ft_isdigit_base.c ft_isprint.c ft_isxdigit.c \
+ft_isascii.c ft_isdigit_base.c ft_isprint.c ft_isxdigit.c ft_isunixspace.c\
 ft_isblank.c ft_isgraph.c      ft_ispunct.c ft_isescape.c \
 \
 ft_memcpy.c   ft_strcat.c     ft_memcmp.c  ft_memchr.c  ft_memset.c\

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/28 10:30:15 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/28 12:45:26 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 # include <limits.h>
 # include <libft.h>
 
-# define ERRNO1ARGS 2, "%s, %s, %s\n", msh->shex, sys_errlist[errno]
-# define ERRPRINTF_ERRNO(STR) ft_dprintf(ERRNO1ARGS, STR)
+/* # define ERRNO1ARGS 2, "%s, %s, %s\n", msh->shex, sys_errlist[errno] */
+/* # define ERRPRINTF_ERRNO(STR) ft_dprintf(ERRNO1ARGS, STR) */
 
-# define ERRNO2ARGS2(ERR) (ERR == -2 ? "Command not found" : sys_errlist[ERR])
-# define ERRNO2ARGS(ERR) 2, "%s, %s, %s\n", pipex->ex, ERRNO2ARGS2(ERR)
-# define ERRPRINTF_ERRNO2(ERR, STR) ft_dprintf(ERRNO2ARGS(ERR), STR)
+/* # define ERRNO2ARGS2(ERR) (ERR == -2 ? "Command not found" : sys_errlist[ERR]) */
+/* # define ERRNO2ARGS(ERR) 2, "%s, %s, %s\n", pipex->ex, ERRNO2ARGS2(ERR) */
+/* # define ERRPRINTF_ERRNO2(ERR, STR) ft_dprintf(ERRNO2ARGS(ERR), STR) */
 
 
 
@@ -46,10 +46,34 @@
 
 # define NUMBUILTINS 5
 
+# define DEFAULT_PATH "PATH=/usr/bin:/bin"
+# define MSH_OP (char[][3]){"|", ";", "<", "<<", ">", ">>", ""}
 
+# define MSH_PS1 "msh> "
+
+# define MTK_PIPE 0x1
+# define MTK_SEMI 0x2
+# define MTK_READ 0x3
+# define MTK_HERE 0x4
+# define MTK_WRIT 0x5
+# define MTK_APND 0x6
+# define MTK_WORD 0x7
+# define MTK_END 0x8
+
+/*
+**
+*/
+
+typedef struct	s_token
+{
+	int		type;
+	
+
+}				t_token;
 
 /*
 **		'struct s_cmd'
+**		
 ** 		cmdpath		full path to cmd's binary.
 ** 		cmdaccess		result of access testing for all 4 arguments:
 ** 						Error if ([0] != [3] != 0) || ([1] != [2] != -1)
@@ -58,7 +82,7 @@
 
 typedef struct	s_cmd
 {
-
+	int			type;
 	char		cmdpath[PATH_MAX + 1];
 	int			cmdaccess;
 	char		**cmdav;
@@ -66,6 +90,7 @@ typedef struct	s_cmd
 	int			ioaccess[2];
 	int			iofd[2];
 	char		*iofile[2];
+	
 }				t_cmd;
 
 /*
@@ -85,7 +110,7 @@ typedef struct	s_msh
 	char		mshpath[PATH_MAX - 1];
 	char		**mshenv;
 	char		**env;
-/* 	t_mshbi		bi_f[NUMBUILTINS + 1]; */
+	int			continue_;
 	void		(*bi_f[NUMBUILTINS + 1])(struct s_msh *msh, t_cmd *cmd);
 	char		bi_n[NUMBUILTINS + 1][MSHBIN_MAXN];
 }				t_msh;
@@ -93,6 +118,7 @@ typedef struct	s_msh
 typedef void	(*t_mshbi)(t_msh*, t_cmd*);
 
 int				msh_init_msh(t_msh *msh, char *ex);
+void			msh_pause(t_msh *msh);
 
 /*
 ** Env Manipulation.

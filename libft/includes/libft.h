@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 16:43:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/28 11:07:24 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int		ft_islower(int c);
 int		ft_isprint(int c);
 int		ft_ispunct(int c);
 int		ft_isspace(int c);
+int		ft_isunixspace(int c);
 int		ft_isupper(int c);
 int		ft_isxdigit(int c);
 int		ft_tolower(int c);

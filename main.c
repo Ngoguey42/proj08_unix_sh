@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/28 10:30:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/28 11:00:38 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ int			main(int ac, char *av[])
 	msh_header();
 	if (msh_init_msh(&msh, av[0]))
 		return (1);
-	msh_print_env(&msh);//debug;
-	qprintf("sizeof() = %u \n", sizeof(msh.bi_n));
-	qprintf("sizeof() = %u \n", sizeof(msh.bi_f));
+/* 	msh_print_env(&msh);//debug; */
+	msh_pause(&msh);
 /* 	ft_memprint(&msh, sizeof(msh)); //debug */
 	(void)ac;
 	return (0);

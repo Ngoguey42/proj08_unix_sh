@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 12:50:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/28 16:40:02 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/29 16:57:43 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,6 @@
 #define IS_OP *line == ';' || *line == '|' || *line == '<' || *line == '>'
 #define IS_FILE p[1] >= MTK_HERE && p[1] <= MTK_WRIT
 #define IS_CMD p[0] == 0
-
-static t_tkn	*new_token(int type, char *line, t_tkn *tkn)
-{
-	tkn->type = type;
-	tkn->ptr = line;
-	if (type == MTK_FILE || type == MTK_CMD)
-		tkn->len = ft_strcspn(line, "<>;| \t");
-	else if (type >= MTK_HERE && type <= MTK_APND)
-		tkn->len = 2;
-	else if (type >= MTK_READ && type <= MTK_PIPE)
-		tkn->len = 1;
-	else if (type == MTK_END)
-		tkn->len = 0;
-	else
-		tkn->len = ft_strcspn(line, " \t");
-	return (tkn);
-}
 
 static int		get_op(t_msh *msh, char *line)
 {
@@ -47,16 +30,29 @@ static int		get_op(t_msh *msh, char *line)
 	if (msh->op[i][0] == '\0')
 	{
 		ft_dprintf(2, "Error, Operator not found\n");
-		exit(1);
+
 	}
 	return (i + 1);
+}
+
+static int		is_op(char *line)
+{
+	if (ft_isdigit(*line))
+	{
+		while (ft_isdigit(*line))
+			line++;
+		if (*line == '<' || *line == '>')
+			return (1);
+	}
+	if ()
+	return (0);
 }
 
 static int		new_token_type(t_list *atkn[1], char **line, int type)
 {
 	t_tkn	tkn;
 
-	(void)new_token(type, *line, &tkn);
+	(void)msh_new_token(type, *line, &tkn);
 	if (ft_lstnewback((t_list**)atkn, (void*)&tkn, sizeof(t_tkn)) == NULL)
 		exit(1);
 	*line += tkn.len;

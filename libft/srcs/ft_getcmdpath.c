@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 10:04:04 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 11:17:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 12:06:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,11 @@ static int	test_path(char *dirpath, char *cmdname)
 	ft_strcat(fullpath, cmdname);
 	if (access(fullpath, X_OK) < 0)
 		return (1);
+	qprintf("access on %s\n", fullpath);
 	return (0);
 }
 
-static int	cmd_as_cmd(char *path, char *buf, char cmdname[PATH_MAX + 1])
+static int	cmd_as_cmd(const char *path, char *buf, char cmdname[PATH_MAX + 1])
 {
 	char	dirpath[PATH_MAX + 1];
 	size_t	n;
@@ -87,18 +88,22 @@ static int	cmd_as_path(char *buf, char cmdname[PATH_MAX + 1])
 	return (1);
 }
 
-int			ft_getcmdpath(char *cmd, char *envpath, char *buf)
+int			ft_getcmdpath(const char *cmd, const char *envpath, char *buf)
 {
 	char	cmdname[PATH_MAX + 1];
 	size_t	n;
 
-	n = ft_strspn(cmd, ALLOWED_CHARS);
+	n = ft_strcspn(cmd, "<>;| \t");
+/* 	n = ft_strspn(cmd, ALLOWED_CHARS); */
 	n = (n < PATH_MAX) ? n : PATH_MAX;
 	ft_strlcpy(cmdname, cmd, n + 1);
-	if (ft_memchr((void*)cmd, (int)'/', sizeof(char) * n) != NULL)
+/* 	qprintf("strchr %s %d", cmdname, ft_strchr(cmdname, (int)'/')); */
+	if (ft_strchr(cmdname, (int)'/') != NULL)
 		return (cmd_as_path(buf, cmdname));
 	if (envpath == NULL)
 		return (2);
+/* 	n = (n < PATH_MAX) ? n : PATH_MAX; */
+/* 	ft_strlcpy(cmdname, cmd, n + 1); */
 	if (ft_strnequ(envpath, "PATH=", 5))
 		envpath += 5;
 	return (cmd_as_cmd(envpath, buf, cmdname));

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 11:16:07 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 12:35:49 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ typedef struct	s_tkn
 typedef struct	s_cmd
 {
 	int			error;
-	int			binerror;
+	int			binerr;
 	t_list		*atkn[1];
 	char		cmdpath[PATH_MAX + 1];
 	int			is_built_in;

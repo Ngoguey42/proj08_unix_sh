@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 10:01:43 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 12:39:37 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ void		msh_print_cmds(t_list *lst)
 	while (lst != NULL)
     {
 		cmd = (t_cmd*)lst->content;
-		ft_dprintf(2, "'struct s_cmd'#%d \"%$K zr\"\n", ++i, cmd->cmdpath);
+		ft_dprintf(2, "'struct s_cmd'#%d \"%$K zr\" binerr(%Kd)\n",
+			++i, cmd->cmdpath, cmd->binerr);
 		msh_print_tokens(*cmd->atkn);
 		lst = lst->next;
 	}

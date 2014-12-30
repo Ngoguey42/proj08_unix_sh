@@ -6,12 +6,11 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 09:24:58 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 10:01:43 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 /* #define FOR(a,b)    a; while (b) { (void)0 */
 /* #define ENDFOR(c)    c; } */

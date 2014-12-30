@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 08:50:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 09:24:28 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 11:17:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include <minishell.h>
 
 #define TOKENTYPE ((t_tkn*)(*atknp)->content)->type
-
-
 
 static void		move_tokens(t_list *atknp[1], t_cmd *cmd)
 {
@@ -36,7 +34,23 @@ static void		move_tokens(t_list *atknp[1], t_cmd *cmd)
 	}
 }
 
-static int		new_cmd(t_list *atknp[1], t_list *acmd[1])
+static void		parse_token(t_msh *msh, t_cmd *cmd)
+{
+	t_list	*lst;
+	t_tkn	*tkn;
+
+	lst = cmd->atkn == NULL ? NULL : *cmd->atkn;
+	while (lst != NULL)
+	{
+		tkn = (t_tkn*)lst->content;
+		if (tkn->type == MTK_CMD)
+			cmd->binerror = ft_getcmdpath(tkn->ptr,
+				msh_get_envvar(msh, "PATH"), cmd->cmdpath);
+		lst = lst->next;
+	}
+}
+
+static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 {
 	t_list	*tmp_tkn;
 	t_cmd	cmd;
@@ -50,8 +64,9 @@ static int		new_cmd(t_list *atknp[1], t_list *acmd[1])
 		if ((tmp_tkn = ft_lstpullfirst(atknp)) != NULL)
 			ft_lstdelone(&tmp_tkn, &ft_lstfreecont);
 		else
-			msh_err(NULL, "Could not pull token link. 2");
+			msh_err(msh, "Could not pull token link. 2");
 	}
+	parse_token(msh, &cmd);
 	if (ft_lstnewback((t_list**)acmd, (void*)&cmd, sizeof(t_cmd)) == NULL)
         exit(1);
 	return (0);
@@ -62,7 +77,7 @@ void            msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 {
 	while (*atknp != NULL && TOKENTYPE != MTK_END)
 	{
-		(void)new_cmd(atknp, acmd);
+		(void)new_cmd(msh, atknp, acmd);
 		
 	}
 	(void)msh;

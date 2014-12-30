@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 12:50:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 07:48:24 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 08:06:19 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,16 @@
 **	  --MTK_END '\0'
 ** *
 **	Rules:
+**	--A 'Command block' is delimited by:
+**			- MTK_SEMI
+**			- MTK_PIPE
+**			- line beginning
+**			- line end '\0'
 **	--A token end is delimited by:
-**			-string beginning.
-**			-an 'isblank' character (<SPACE> || \t)
-**			-an 'operator start'
-**			-string end '\0'.
+**			- line beginning.
+**			- an 'isblank' character (<SPACE> || \t)
+**			- an 'operator start'
+**			- line end '\0'.
 **	--Successives isblank characters are ignored.
 **	--A token is an MTK_WORD if it doesn't meet any rule below.
 **	--A token is an Operator if an operator pattern is detected.
@@ -51,11 +56,13 @@
 */
 
 /*
-** 'msh_tokenize'
-**		p[0]		command found.
-**		p[1]		last token.
+** 'get_op' returns the TNK_ type once a token has been ID as an Operator.
+** 'is_op' determines if the token starting at 'line' is an Operator.
+** 'new_token_type' mallocs a new link one a token has beed ID.
+** 'msh_tokenize' parses line splitting it into tokens.
+**		p[0]		Is MTK_CMD found in current command block.
+**		p[1]		Last MTK_ in line.
 */
-
 
 static int		get_op(t_msh *msh, char *line)
 {
@@ -66,7 +73,7 @@ static int		get_op(t_msh *msh, char *line)
 		line++;
 	else if (ft_isdigit(*line))
 		while (ft_isdigit(*line))
-            line++;
+			line++;
 	while (msh->op[++i][0] != '\0')
 	{
 		if (ft_strnequ(line, msh->op[i], ft_strlen(msh->op[i])))
@@ -91,7 +98,7 @@ static int		is_op(char *line)
 	}
 	else if (*line == '&' && line[1] == '>')
 		return (1);
-	else if (*line == '>' || *line == '<')
+	else if (*line == '>' || *line == '<' || *line == ';' || *line == '|')
 		return (1);
 	return (0);
 }
@@ -122,7 +129,7 @@ void			msh_tokenize(t_msh *msh, t_list *atkn[1], char *line)
 		else if ((IS_FILE) && new_token_type(atkn, &line, MTK_FILE))
 			p[1] = MTK_FILE;
 		else if ((IS_CMD) && new_token_type(atkn, &line, MTK_CMD) &&
-				 (p[0] = 1))
+				(p[0] = 1))
 			p[1] = MTK_CMD;
 		else if (new_token_type(atkn, &line, MTK_WORD))
 			p[1] = MTK_WORD;

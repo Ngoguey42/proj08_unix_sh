@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/29 16:57:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 07:13:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 08:01:08 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 #include <minishell.h>
 
 /*
-** ''
+** 'redir_len' Calculates the len of a redirection, including prefix.
+** 'msh_new_token' Edits 'tkn' for a given 'type' starting at 'line'.
 */
-
 
 static size_t	redir_len(int type, char *line)
 {
@@ -49,5 +49,3 @@ t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn)
 		tkn->len = 0;
 	return (tkn);
 }
-
-

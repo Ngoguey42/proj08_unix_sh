@@ -17,7 +17,7 @@ This project is subdivided into 4 parts.
 sh1 Goals:
 - [ ] Display a prompt.
 - [ ] Execute any command from PATH.
-- [ ] Error handling
+- [ ] Error handling without errno.
 - [ ] Built-ins: cd, setenv, unsetenv, env, exit.
 
 My sh1 additions:

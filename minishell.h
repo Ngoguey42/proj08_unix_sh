@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/29 10:48:41 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 07:18:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@
 # define MTK_CMD 0x8
 # define MTK_FILE 0x9
 
-# define MTK_END 0xf0
+# define MTK_END 0xa
 
+# define MTKNAMES1 "HERE", "APND", "READ", "WRIT", "SEMI", "PIPE"
+# define MTKNAMES {"", MTKNAMES1, "WORD", "CMD", "FILE", "END"}
 
 /*
 **
@@ -130,6 +132,7 @@ typedef void	(*t_mshbi)(t_msh*, t_cmd*);
 int				msh_init_msh(t_msh *msh, char *ex);
 void			msh_pause(t_msh *msh);
 void			msh_tokenize(t_msh *msh, t_list *atknp[1], char *line);
+t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn);
 void			msh_print_tokens(t_list *tkn);
 
 

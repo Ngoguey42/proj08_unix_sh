@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 08:14:20 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 09:21:11 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct	s_tkn
 **		atkn		pointer to the first token of the command block.
 ** 		cmdpath		full path to cmd's binary.
 ** 		cmdav		cmd1's argv to be sent.
-**		iofd		in/out fd of command block. Default is {0, 1}.
+**		iofds		in/out fd of command block. Default is {0, 1}.
 */
 
 typedef struct	s_cmd
@@ -96,8 +96,10 @@ typedef struct	s_cmd
 	int			error;
 	t_list		*atkn[1];
 	char		cmdpath[PATH_MAX + 1];
+	int			is_built_in;
 	char		**cmdav;
-	int			iofd[2];
+	int			iotypes[2];
+	int			iofds[2];
 }				t_cmd;
 
 /*
@@ -128,8 +130,11 @@ typedef void	(*t_mshbi)(t_msh*, t_cmd*);
 int				msh_init_msh(t_msh *msh, char *ex);
 void			msh_pause(t_msh *msh);
 void			msh_tokenize(t_msh *msh, t_list *atknp[1], char *line);
+void			msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1]);
 t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn);
 void			msh_print_tokens(t_list *tkn);
+void			msh_print_cmds(t_list *lst);
+void			msh_err(t_msh *msh, const char *format, ...);
 
 
 /*

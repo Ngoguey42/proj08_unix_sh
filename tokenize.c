@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 12:50:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 08:06:19 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 08:40:17 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@
 **	--Successives isblank characters are ignored.
 **	--A token is an MTK_WORD if it doesn't meet any rule below.
 **	--A token is an Operator if an operator pattern is detected.
-**	--A word following a redirection is a MTK_FILE.
-**	--The first MTK_WORD of a Command block, is a MTK_CMD.
+**	--A word following a redirection is an MTK_FILE.
+**	--The first MTK_WORD of a Command block, is an MTK_CMD.
 */
 
 /*
@@ -107,6 +107,7 @@ static int		new_token_type(t_list *atkn[1], char **line, int type)
 {
 	t_tkn	tkn;
 
+	ft_bzero(&tkn, sizeof(t_tkn));
 	(void)msh_new_token(type, *line, &tkn);
 	if (ft_lstnewback((t_list**)atkn, (void*)&tkn, sizeof(t_tkn)) == NULL)
 		exit(1);

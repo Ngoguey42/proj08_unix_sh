@@ -20,13 +20,22 @@ sh1 Goals:
 - [ ] Error handling
 - [ ] Built-ins: cd, setenv, unsetenv, env, exit.
 
+My sh1 additions:
+- [ ] All env's options.
+
 sh2 Goals:
-- [ ] ;
-- [ ] |
-- [ ] <
-- [ ] <<
-- [ ] >>
-- [ ] >
+- [ ] Semicolons ';'.
+- [ ] Pipes '|'.
+- [ ] In redirection '<'.
+- [ ] Here document '<<'.
+- [ ] Append out redirection '>>'.
+- [ ] Out redirection '>'.
+
+My sh2 additions:
+- [ ] Arguments for in redirection: '[digits]**<**{&digits|file}'
+- [ ] Arguments for out redirections: '[digits|&]**>[>]**{&digits|file}'
+
+
 <br><br><br><br><br><br>
 
 

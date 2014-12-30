@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 10:52:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/30 15:08:27 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,35 @@ void		msh_header(void)
 	PUTL("|__|  |__| |__| |__| \\__| |__| |_______/    |__|  |__|   (__)");
 }
 
+#include <errno.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 int			main(int ac, char *av[])
 {
 	t_msh	msh;
 
 	msh_header();
+
+#define WTF(ARG, A2)	errno = 0 ;qprintf("%10s %3d  ", ARG, access(ARG,A2)\
+										   , errno);					\
+	qprintf("errno%2d: %s\n", errno, strerror(errno))
+
+	int	right = 0;
+
+	WTF(".", right);
+	WTF("..", right);
+	WTF("/", right);
+	WTF("//", right);
+	WTF("//.", right);
+	WTF("~", right);
+	WTF("~/", right);
+	WTF("Makefile/lol", right);
+	WTF("libft/Makefile", right);
+	exit(0);
 	if (msh_init_msh(&msh, av[0]))
 		return (1);
 /* 	msh_print_env(&msh);//debug; */

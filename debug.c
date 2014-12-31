@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 10:20:58 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 11:44:29 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,26 @@ void		msh_print_tokens(t_list *tkn)
 	return ;
 }
 
+void		msh_print_av(char **tab)
+{
+	int		i;
+	int		ret;
+
+	if (tab == NULL)
+		ft_dprintf(2, "AV pointer to NULL.\n");
+	else if (*tab == NULL)
+		ft_dprintf(2, "No AV to send.\n");
+	i = -1;
+	while (tab != NULL && *tab != NULL)
+	{
+		ret = ft_dprintf(2, "av[%d]", ++i);
+		ft_dprintf(2, "%*s\"%J $zr\" \n", 6 - ret + 4, " == ", *tab);
+		tab++;
+	}
+	return ;
+}
+
+
 #define CMDPRINT(KEY, SUB) ft_dprintf(2, #KEY"(%"SUB") ", cmd->KEY)
 
 void		msh_print_cmds(t_list *lst)
@@ -52,6 +72,7 @@ void		msh_print_cmds(t_list *lst)
 		else
 			ft_dprintf(2," \"%$K zr\" binerr(%Kd)\n", cmd->cmdpath, cmd->binerr);
 		msh_print_tokens(*cmd->atkn);
+		msh_print_av(cmd->cmdav);
 		lst = lst->next;
 	}
 	return ;

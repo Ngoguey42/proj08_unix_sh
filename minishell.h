@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 10:47:27 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 11:14:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn);
 void			msh_print_tokens(t_list *tkn);
 void			msh_print_cmds(t_list *lst);
 void			msh_err(const t_msh *msh, const char *format, ...);
+void			msh_errmem(const t_msh *msh);
 void			msh_exec_cmds(t_msh *msh, t_list *lst);
 void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
 

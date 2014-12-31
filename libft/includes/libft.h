@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 08:39:43 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 11:10:56 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,6 +332,7 @@ t_tabdt	*ft_tabcc(void **requested);
 size_t	ft_tabsize(void **tab);
 int		ft_tabdel(void ***atab);
 int		ft_tabdel2(void ***atab);
+int		ft_tabdel3(void ***atab);
 int		ft_tabdelf(void ***atab, void (*f)(void *c));
 void	ft_tabsort(void **tab, int (*f)(const void *s1, const void *s2), int n);
 /*

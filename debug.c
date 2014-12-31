@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 12:39:37 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 10:20:58 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,19 @@ void		msh_print_tokens(t_list *tkn)
 
 void		msh_print_cmds(t_list *lst)
 {
-	t_cmd	*cmd;
-	int		i;
+	t_cmd		*cmd;
+	int			i;
+	const char	bi_n[][MSHBIN_MAXN] = MSHBIN_N;
 
 	i = 0;
 	while (lst != NULL)
     {
 		cmd = (t_cmd*)lst->content;
-		ft_dprintf(2, "'struct s_cmd'#%d \"%$K zr\" binerr(%Kd)\n",
-			++i, cmd->cmdpath, cmd->binerr);
+		ft_dprintf(2, "'struct s_cmd'#%d", ++i);
+		if (cmd->is_builtin == true)
+			ft_dprintf(2," %Ks: \"%$K zr\"\n", "builtin", bi_n[cmd->bi_index]);
+		else
+			ft_dprintf(2," \"%$K zr\" binerr(%Kd)\n", cmd->cmdpath, cmd->binerr);
 		msh_print_tokens(*cmd->atkn);
 		lst = lst->next;
 	}

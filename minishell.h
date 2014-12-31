@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 08:52:05 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 10:47:27 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct	s_tkn
 ** *
 **		atkn		pointer to the first token of the command block.
 ** *
-**		is_built_in	boolean, whether cmd is a built-in or not.
+**		is_builtin	boolean, whether cmd is a built-in or not.
 **		cmdpath		full path to the binary, NULL if not found.
 **		binerr		error regarding cmdpath's NULL value.
 ** 		cmdav		cmd1's argv to be sent.
@@ -102,7 +102,8 @@ typedef struct	s_cmd
 
 	t_list		*atkn[1];
 
-	t_bool		is_build_in;
+	t_bool		is_builtin;
+	int			bi_index;
 	char		*cmdpath;
 	int			binerr;
 	char		**cmdav;
@@ -124,8 +125,8 @@ typedef struct	s_cmd
 typedef struct	s_msh
 {
 	char		*mshex;
-	char		*mshstwd;
-	char		mshpath[PATH_MAX - 1];
+/* 	char		*mshstwd; */
+/* 	char		mshpath[PATH_MAX - 1]; */
 	char		**mshenv;
 	char		**env;
 	int			continue_;
@@ -143,7 +144,9 @@ void			msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1]);
 t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn);
 void			msh_print_tokens(t_list *tkn);
 void			msh_print_cmds(t_list *lst);
-void			msh_err(t_msh *msh, const char *format, ...);
+void			msh_err(const t_msh *msh, const char *format, ...);
+void			msh_exec_cmds(t_msh *msh, t_list *lst);
+void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
 
 
 /*
@@ -158,7 +161,7 @@ char			**msh_new_envvar_m(t_msh *msh, char *line);
 char			*msh_get_envvar(const t_msh *msh, const char *key);
 char			**msh_get_envvarp(const t_msh *msh, const char *key);
 
-int				msh_resolve_binpath(t_msh *msh);
+/* int				msh_resolve_binpath(t_msh *msh); */
 
 /*
 ** Built in functions.
@@ -168,6 +171,7 @@ void    msh_builtin_env(t_msh *msh, t_cmd *cmd);
 void    msh_builtin_setenv(t_msh *msh, t_cmd *cmd);
 void    msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd);
 void    msh_builtin_exit(t_msh *msh, t_cmd *cmd);
-
+t_bool	msh_is_builtin(const t_msh *msh, const char *cmd, size_t len);
+int		msh_get_builtin_index(const t_msh *msh, const char *cmd, size_t len);
 
 #endif

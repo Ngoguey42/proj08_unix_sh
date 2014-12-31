@@ -1,35 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   builtin_cd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/30 08:46:55 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 11:01:17 by ngoguey          ###   ########.fr       */
+/*   Created: 2014/12/31 10:39:25 by ngoguey           #+#    #+#             */
+/*   Updated: 2014/12/31 10:40:28 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void		msh_err(const t_msh *msh, const char *format, ...)
+void    msh_builtin_cd(t_msh *msh, t_cmd *cmd)
 {
-	va_list	ap;
-
-	if (msh != NULL)
-		ft_dprintf(2, "%s: ", msh->mshex);
-	else
-		ft_putstr_fd("msh: ", 2);
-	va_start(ap, format);
-	ft_vdprintf(2, format, ap);
-	va_end(ap);
-	ft_putchar_fd('\n', 2);
+	(void)msh;
+	(void)cmd;
 	return ;
-}
-
-void		msh_errmem(const t_msh *msh)
-{
-
-
-q
 }

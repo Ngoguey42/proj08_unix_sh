@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/30 08:50:22 by ngoguey          ###   ########.fr        #
+#    Updated: 2014/12/31 10:40:57 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,9 +35,9 @@ LFTRE = re
 LFTG = g
 LFTGRE = gre
 
-SRCSFILES = main.c init_msh.c environ.c resolve_binpath.c pause.c\
-tokenize.c new_token.c create_cmds.c\
-builtin_env.c\
+SRCSFILES = main.c init_msh.c environ.c pause.c\
+tokenize.c new_token.c create_cmds.c exec_cmds.c\
+builtin_env.c builtin_cd.c built_in_cc.c\
 debug.c error.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))

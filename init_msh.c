@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/28 13:48:24 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 10:37:14 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,27 +66,31 @@ static void	update_pwd(t_msh *msh)
 	char	str[4 + 1 + PATH_MAX + 1];
 
 	ft_strcpy(str, "PWD=");
-	ft_strcat(str, msh->mshpath);
+	if (getcwd(str + 4, PATH_MAX + 1) == NULL)
+	{
+		msh_err(msh, "Could not collect cwd from getcwd.");
+		exit(1);
+	}
 	(void)msh_update_envvar_m(msh, str);
 	return ;
 }
 
-static void	update__(t_msh *msh)
-{
-	char	str[1 + 1 + 1];
-	char	*str2;
+/* static void	update__(t_msh *msh) */
+/* { */
+/* 	char	str[1 + 1 + 1]; */
+/* 	char	*str2; */
 
-	(void)msh;
-	if (msh_get_envvarp(msh, "_") == NULL)
-	{
-		ft_strcpy(str, "_=");
-		str2 = ft_strjoin(str, msh->mshex);
-		if (str2 == NULL)
-			exit(1);
-		(void)msh_new_envvar(msh, str2);
-	}
-	return ;
-}
+/* 	(void)msh; */
+/* 	if (msh_get_envvarp(msh, "_") == NULL) */
+/* 	{ */
+/* 		ft_strcpy(str, "_="); */
+/* 		str2 = ft_strjoin(str, msh->mshex); */
+/* 		if (str2 == NULL) */
+/* 			exit(1); */
+/* 		(void)msh_new_envvar(msh, str2); */
+/* 	} */
+/* 	return ; */
+/* } */
 
 int			msh_init_msh(t_msh *msh, char *ex)
 {
@@ -95,15 +99,15 @@ int			msh_init_msh(t_msh *msh, char *ex)
 	ft_bzero(msh, sizeof(msh));
 	msh->continue_ = 1;
 	msh->mshex = ex;
-	if ((msh->mshstwd = getcwd(NULL, 0)) == NULL)
-		return (1);
-	if (msh_resolve_binpath(msh))
-		return (1);
+/* 	if ((msh->mshstwd = getcwd(NULL, 0)) == NULL) */
+/* 		return (1); */
+/* 	if (ft_resolve_path(msh)) */
+/* 		return (1); */
 	if (dup_environ(&msh->env, environ))
 		return (1);
 	update_shlvl(msh);
 	update_pwd(msh);
-	update__(msh);
+/* 	update__(msh); */
 	ft_memcpy(msh->bi_f, (t_mshbi[])MSHBIN_F, sizeof(msh->bi_f));
 	ft_memcpy(msh->bi_n, (char[][MSHBIN_MAXN])MSHBIN_N, sizeof(msh->bi_n));
 	ft_memcpy(msh->op, MSH_OP, sizeof(msh->op));

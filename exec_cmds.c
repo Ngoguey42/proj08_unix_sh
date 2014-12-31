@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   exec_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/30 08:46:55 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 11:01:17 by ngoguey          ###   ########.fr       */
+/*   Created: 2014/12/31 10:24:35 by ngoguey           #+#    #+#             */
+/*   Updated: 2014/12/31 10:30:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void		msh_err(const t_msh *msh, const char *format, ...)
-{
-	va_list	ap;
 
-	if (msh != NULL)
-		ft_dprintf(2, "%s: ", msh->mshex);
-	else
-		ft_putstr_fd("msh: ", 2);
-	va_start(ap, format);
-	ft_vdprintf(2, format, ap);
-	va_end(ap);
-	ft_putchar_fd('\n', 2);
+
+
+
+
+
+
+
+
+
+void		msh_exec_cmds(t_msh *msh, t_list *lst)
+{
+	t_cmd		*cmd;
+
+	while (lst != NULL)
+	{
+		cmd = (t_cmd*)lst->content;
+		if (cmd->is_builtin == true)
+			msh->bi_f[cmd->bi_index](msh, cmd);
+		else if (cmd->cmdpath != NULL)
+			(void)1;
+		lst = lst->next;
+	}
+	
 	return ;
-}
-
-void		msh_errmem(const t_msh *msh)
-{
-
-
-q
 }

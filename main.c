@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 08:57:24 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 10:39:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 #define PUTL ft_putendl
 
-void	msh_builtin_cd(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
-void	msh_builtin_env(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 void	msh_builtin_setenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 void	msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 void	msh_builtin_exit(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}

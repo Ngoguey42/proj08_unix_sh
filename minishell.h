@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 12:49:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 16:04:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,14 @@
 # include <limits.h>
 # include <libft.h>
 
-/* # define ERRNO1ARGS 2, "%s, %s, %s\n", msh->shex, sys_errlist[errno] */
-/* # define ERRPRINTF_ERRNO(STR) ft_dprintf(ERRNO1ARGS, STR) */
-
-/* # define ERRNO2ARGS2(ERR) (ERR == -2 ? "Command not found" : sys_errlist[ERR]) */
-/* # define ERRNO2ARGS(ERR) 2, "%s, %s, %s\n", pipex->ex, ERRNO2ARGS2(ERR) */
-/* # define ERRPRINTF_ERRNO2(ERR, STR) ft_dprintf(ERRNO2ARGS(ERR), STR) */
-
-
 
 /*
-** 'built-in storing'
+** ************************************************************************** **
 */
+/*
+** Built-ins
+*/
+# define NUMBUILTINS 5
 # define MSHBIN_MAXN 9
 
 # define MSHBI1N "cd"
@@ -44,8 +40,12 @@
 # define MSHBIN_N {MSHBI1N, MSHBI2N, MSHBI3N, MSHBI4N, MSHBI5N, ""}
 # define MSHBIN_F {MSHBI1F, MSHBI2F, MSHBI3F, MSHBI4F, MSHBI5F, NULL}
 
-# define NUMBUILTINS 5
-
+/*
+** ************************************************************************** **
+*/
+/*
+** Misc
+*/
 # define MSH_OP (char[][3]){"<<", ">>", "<", ">", ";", "|", ""}
 # define NUMOPERATORS 6
 
@@ -55,7 +55,12 @@
 # define DEFAULT_PATH "PATH=/usr/bin:/bin"
 # define FD_PATH "/dev/fd/"
 
-
+/*
+** ************************************************************************** **
+*/
+/*
+** Tokens
+*/
 # define MTK_HERE 0x1
 # define MTK_APND 0x2
 # define MTK_READ 0x3
@@ -73,16 +78,40 @@
 # define MTKNAMES {"", MTKNAMES1, "WORD", "CMD", "FILE", "END"}
 
 /*
-**
+** ************************************************************************** **
 */
-
+/*
+**		'struct s_red'	Redirection.
+**		type	type as in MTK_ defines.
+**		lhsfd	left hand side file descriptor.		(-1) if all.
+**		rhsfd	right hand side file descriptor.	(-2) if non existant.
+**		file	right hand side file name.			NULL if non existant.
+*/
+typedef struct	s_red
+{
+	int			type;
+	int			lhsfd;
+	int			rhsfd;
+	char		*file;
+}				t_red;
+/*
+** ************************************************************************** **
+*/
+/*
+**		'struct s_tkn'	Token
+**		type	type as in MTK_ defines.
+**		ptr		pointer into the string.
+**		len		token's length in 'ptr'.
+*/
 typedef struct	s_tkn
 {
-	int		type;
-	char	*ptr;
-	size_t	len;
+	int			type;
+	char		*ptr;
+	size_t		len;
 }				t_tkn;
-
+/*
+** ************************************************************************** **
+*/
 /*
 **		'struct s_cmd'	For a command block
 **		error		0 == no error.
@@ -96,7 +125,6 @@ typedef struct	s_tkn
 ** *
 **		iofds		in/out fd of command block. Default is {0, 1}.
 */
-
 typedef struct	s_cmd
 {
 /* 	int			error; */
@@ -112,7 +140,9 @@ typedef struct	s_cmd
 	int			iotypes[2];
 	int			iofds[2];
 }				t_cmd;
-
+/*
+** ************************************************************************** **
+*/
 /*
 ** 'struct	s_msh' MiniSHell env.
 ** *
@@ -122,12 +152,9 @@ typedef struct	s_cmd
 ** 		mshenv		pointer to sh's environ variable, from parent shell.
 **		env			sh's env.
 */
-
 typedef struct	s_msh
 {
 	char		*mshex;
-/* 	char		*mshstwd; */
-/* 	char		mshpath[PATH_MAX - 1]; */
 	char		**mshenv;
 	char		**env;
 	int			continue_;
@@ -135,8 +162,15 @@ typedef struct	s_msh
 	char		bi_n[NUMBUILTINS + 1][MSHBIN_MAXN];
 	char		op[NUMOPERATORS + 1][3];
 }				t_msh;
-
+/*
+** ************************************************************************** **
+*/
 typedef void	(*t_mshbi)(t_msh*, t_cmd*);
+
+
+# define CMSH	const t_msh
+
+typedef CMSH	*t_cmshp;
 
 int				msh_init_msh(t_msh *msh, char *ex);
 void			msh_pause(t_msh *msh);
@@ -149,6 +183,7 @@ void			msh_err(const t_msh *msh, const char *format, ...);
 void			msh_errmem(const t_msh *msh);
 void			msh_exec_cmds(t_msh *msh, t_list *lst);
 void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
+void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
 
 
 /*

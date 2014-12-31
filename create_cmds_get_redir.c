@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmds.c                                        :+:      :+:    :+:   */
+/*   create_cmds_get_redir.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/31 15:36:13 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 15:36:14 by ngoguey          ###   ########.fr       */
+/*   Created: 2014/12/31 15:37:01 by ngoguey           #+#    #+#             */
+/*   Updated: 2014/12/31 15:37:28 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-void		msh_exec_cmds(t_msh *msh, t_list *lst)
+void	msh_cmd_get_av(t_msh *msh, t_cmd *cmd)
 {
-	t_cmd		*cmd;
-
-	while (lst != NULL)
-	{
-		cmd = (t_cmd*)lst->content;
-		if (cmd->is_builtin == true)
-			msh->bi_f[cmd->bi_index](msh, cmd);
-		else if (cmd->cmdpath != NULL)
-			(void)1;
-		lst = lst->next;
-	}
+	
+	
 	
 	return ;
 }

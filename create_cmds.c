@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 08:50:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 11:35:55 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 15:34:39 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,20 @@
 
 #define TOKENTYPE ((t_tkn*)(*atknp)->content)->type
 
+/*
+** 'move_tokens' Moves all tokens into t_cmd.
+** *
+** 'new_cmd' Creates a new t_cmd, fills it, and stores it in 'acmd'
+** *
+** 'msh_split_cmd' Fills 'acmd' and empties 'atknp'.
+** *
+*/
+
 static void		move_tokens(t_list *atknp[1], t_cmd *cmd)
 {
 	t_list	*tmp_tkn;
 	int		t;
-	
+
 	while (*atknp != NULL && (t = TOKENTYPE) !=
 		MTK_END && t != MTK_SEMI && t != MTK_PIPE)
 	{
@@ -31,28 +40,6 @@ static void		move_tokens(t_list *atknp[1], t_cmd *cmd)
 			msh_err(NULL, "Could not pull token link. 1");
 			break ;
 		}
-	}
-}
-
-static void		get_command(t_msh *msh, t_cmd *cmd)
-{
-	t_list	*lst;
-	t_tkn	*tkn;
-
-	lst = cmd->atkn == NULL ? NULL : *cmd->atkn;
-	while (lst != NULL)
-	{
-		tkn = (t_tkn*)lst->content;
-		if (tkn->type == MTK_CMD)
-		{
-			cmd->is_builtin = msh_is_builtin(msh, tkn->ptr, tkn->len);
-			if (cmd->is_builtin == false)
-				cmd->binerr = ft_getcmdpath(tkn->ptr,
-					msh_get_envvar(msh, "PATH"), &cmd->cmdpath);
-			else
-				cmd->bi_index = msh_get_builtin_index(msh, tkn->ptr, tkn->len);
-		}
-		lst = lst->next;
 	}
 }
 
@@ -72,7 +59,7 @@ static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 		else
 			msh_err(msh, "Could not pull token link. 2");
 	}
-	get_command(msh, &cmd);
+	msh_cmd_get_cmd(msh, &cmd);
 	if (cmd.is_builtin == true || cmd.cmdpath != NULL)
 		msh_cmd_get_av(msh, &cmd);
 	if (ft_lstnewback((t_list**)acmd, (void*)&cmd, sizeof(t_cmd)) == NULL)
@@ -80,9 +67,10 @@ static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 	return (0);
 }
 
-
 void            msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 {
+	if (atknp == NULL)
+		return ;
 	while (*atknp != NULL && TOKENTYPE != MTK_END)
 	{
 		(void)new_cmd(msh, atknp, acmd);

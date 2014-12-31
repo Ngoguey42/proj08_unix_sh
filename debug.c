@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 11:44:29 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 12:24:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ void		msh_print_av(char **tab)
 	i = -1;
 	while (tab != NULL && *tab != NULL)
 	{
-		ret = ft_dprintf(2, "av[%d]", ++i);
-		ft_dprintf(2, "%*s\"%J $zr\" \n", 6 - ret + 4, " == ", *tab);
+		ft_dprintf(2, "av[:YEL::red:");
+		ret = ft_dprintf(2, "%d", ++i);
+		ft_dprintf(2, ":eof:]");
+		ft_dprintf(2, "%*s\"%J $zr\" \n", 6 - ret, " == ", *tab);
 		tab++;
 	}
 	return ;

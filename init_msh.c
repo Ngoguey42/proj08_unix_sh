@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 10:37:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 12:20:37 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,22 +75,12 @@ static void	update_pwd(t_msh *msh)
 	return ;
 }
 
-/* static void	update__(t_msh *msh) */
-/* { */
-/* 	char	str[1 + 1 + 1]; */
-/* 	char	*str2; */
-
-/* 	(void)msh; */
-/* 	if (msh_get_envvarp(msh, "_") == NULL) */
-/* 	{ */
-/* 		ft_strcpy(str, "_="); */
-/* 		str2 = ft_strjoin(str, msh->mshex); */
-/* 		if (str2 == NULL) */
-/* 			exit(1); */
-/* 		(void)msh_new_envvar(msh, str2); */
-/* 	} */
-/* 	return ; */
-/* } */
+static void	update_path(t_msh *msh)
+{
+	if (msh_get_envvarp(msh, "PATH") == NULL) 
+		msh_update_envvar_m(msh, DEFAULT_PATH);
+	return ;
+}
 
 int			msh_init_msh(t_msh *msh, char *ex)
 {
@@ -107,7 +97,7 @@ int			msh_init_msh(t_msh *msh, char *ex)
 		return (1);
 	update_shlvl(msh);
 	update_pwd(msh);
-/* 	update__(msh); */
+	update_path(msh);
 	ft_memcpy(msh->bi_f, (t_mshbi[])MSHBIN_F, sizeof(msh->bi_f));
 	ft_memcpy(msh->bi_n, (char[][MSHBIN_MAXN])MSHBIN_N, sizeof(msh->bi_n));
 	ft_memcpy(msh->op, MSH_OP, sizeof(msh->op));

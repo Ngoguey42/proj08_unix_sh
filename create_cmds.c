@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 08:50:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 12:37:01 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 08:44:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void		parse_token(t_msh *msh, t_cmd *cmd)
 		tkn = (t_tkn*)lst->content;
 		if (tkn->type == MTK_CMD)
 			cmd->binerr = ft_getcmdpath(tkn->ptr,
-				msh_get_envvar(msh, "PATH"), cmd->cmdpath);
+				msh_get_envvar(msh, "PATH"), &cmd->cmdpath);
 		lst = lst->next;
 	}
 }

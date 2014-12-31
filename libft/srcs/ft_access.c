@@ -6,86 +6,108 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 13:41:31 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 15:09:15 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 08:33:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <errno.h>
 #include <limits.h>
-#include <fcntl.h>
-#include <dirent.h>
-#include <sys/types.h>
 #include <sys/stat.h>
-#include "libft"
+#include "libft.h"
+#include "ft_math.h"
 
 /*
 ** 'ft_access' in case 'errno' is not allowed.
 **		>0	Errno equivalent.
 **		0	No error encountered.
-**		-1	Undefined error.	
+**		-1	Undefined error. (Unused)
 ** *
+**		Errors catched in 'ft_access':
 ** EFAULT		'pathname' pointer incorrect.
-** EINVAL		'mode' incorrect.
 ** ENAMETOOLONG	'pathname' too long.
-** ELOOP		
-** ENOTDIR		
-** ENOENT		
-** EACCES		
-** ENOMEM		'malloc' returns NULL.
-** EIO			
-** EROFS		
-** ETXTBSY		
+** *
+**		Errors catched if 'access(fullpath, 0)' returns 0:
+** EACCES		Access with current 'mode' denied.
+** *
+**		Errors catched while following down fullpath
+** ENOTDIR		Part of the path is not a directory.
+** ENOENT		No such file or directory.
+** EIO			In / Out error.
+** *
+**		Errors not handled:
+** EINVAL		'mode' incorrect.
+** ETXTBSY		W_OK on currently executed file.
+** EROFS		W_OK on read-only file.
+** ELOOP		Too many symbolic links encountered while exploring path.
 */
 
-#define FULL_MASK (R_OK & W_OK & X_OK)
-
-
-int		is_path_valid(char *path, int mode)
-{	
-	qprintf("Testing %s\n", path);
-	if (access(path, mode) == 0)
-		return (1);
-
-
-	
-}
-
-
-int		explore_path(char *path, int mode)
+static int	analyse_fullpath(const char *path, int mode)
 {
-	char	pathchunk[PATH_MAX + 1];
-
-	if (*path == '/' )
-	{
-		ft_strcpy(pathchunk, "/");
-		path++;
-	}
-	else
-		ft_strcpy(pathchunk, ".");
-	if (!test_path(path, mode))
-		
+	if (access(path, mode) == 0)
+		return (0);
+	if (access(path, 0) == 0)
+		return (EACCES);
+	return (ENOENT);
 }
 
-int		ft_access(const char *pathname, int mode)
+static int	analyse_pathchunk(const char *path)
+{
+	struct stat		s;
+
+	if (access(path, 0) == 0)
+	{
+		if (lstat(path, &s) < 0)
+			return (EIO);
+		if (!(S_ISDIR(s.st_mode)))
+			return (ENOTDIR);
+		return (0);
+	}
+	return (ENOENT);
+}
+
+static int	explore_path(const char *path)
+{
+	char	*slash_ptr;
+	int		i;
+
+	while ((slash_ptr = ft_strrchr(path, (int)'/')) != NULL)
+	{
+		*slash_ptr = '\0';
+		if ((i = analyse_pathchunk(path)) != ENOENT)
+			return (i == 0 ? ENOENT : i);
+	}
+	return (ENOENT);
+}
+
+static int	max_file_len(const char *str)
+{
+	int		max;
+	char	*tmp;
+
+	max = 0;
+	if (ft_strchr(str, (int)'/') == NULL)
+		return (ft_strlen(str));
+	while ((tmp = ft_strchr(str, (int)'/')) != NULL)
+	{
+		max = MAX(max, tmp - str);
+		str = tmp + 1;
+	}
+	return (max);
+}
+
+int			ft_access(const char *pathname, int mode)
 {
 	char		path[PATH_MAX + 1];
 	int			i;
-/* 	const int	rights[][2] = {{R_OK, S_IRUSR}, {W_OK, S_IWUSR}, */
 
-/* 	{X_OK, S_IXUSR}, {R_OK & W_OK, S_IRUSR & S_IWUSR}, */
-/* 	{R_OK & X_OK, S_IRUSR & S_IXUSR}, {W_OK & X_OK, S_IWUSR & S_IXUSR}, */
-/* 	{R_OK & W_OK & X_OK, S_IRUSR & S_IWUSR & S_IXUSR}, {0, 0}}; */
 	if (pathname == NULL)
 		return (EFAULT);
-	if (mode == 0 || (mode & FULL_MASK != FULL_MASK))
-		return (EINVAL);
-	if (ft_strlen(pathname) > PATH_MAX)
+	if (ft_strlen(pathname) >= PATH_MAX || max_file_len(pathname) > NAME_MAX)
 		return (ENAMETOOLONG);
 	*path = '\0';
-	(void)ft_resolve_path(ft_resolve_path(ft_strcpy(path, pathname)));
-	i = -1;
-/* 	while (rights[i] != mode && rights[i] != 0) */
-/* 		i++; */
-/* 	mode = rights[i]; */
-	return (explore_path(path, mode));
+	(void)ft_resolve_path(ft_strcpy(path, pathname));
+	if ((i = analyse_fullpath(path, mode)) != ENOENT)
+		return (i);
+	return (explore_path(path));
 }

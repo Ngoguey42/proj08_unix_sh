@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 12:35:49 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 08:52:05 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,28 @@ typedef struct	s_tkn
 /*
 **		'struct s_cmd'	For a command block
 **		error		0 == no error.
+** *
 **		atkn		pointer to the first token of the command block.
-** 		cmdpath		full path to cmd's binary.
+** *
+**		is_built_in	boolean, whether cmd is a built-in or not.
+**		cmdpath		full path to the binary, NULL if not found.
+**		binerr		error regarding cmdpath's NULL value.
 ** 		cmdav		cmd1's argv to be sent.
+** *
 **		iofds		in/out fd of command block. Default is {0, 1}.
 */
 
 typedef struct	s_cmd
 {
-	int			error;
-	int			binerr;
+/* 	int			error; */
+
 	t_list		*atkn[1];
-	char		cmdpath[PATH_MAX + 1];
-	int			is_built_in;
+
+	t_bool		is_build_in;
+	char		*cmdpath;
+	int			binerr;
 	char		**cmdav;
+
 	int			iotypes[2];
 	int			iofds[2];
 }				t_cmd;

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 08:45:05 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 08:57:24 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,20 @@ void		msh_header(void)
 #include <stdio.h>
 #include <string.h>
 
-int			main(int ac, char *av[])
-{
-	t_msh	msh;
-
-	msh_header();
-
 #define WTF(ARG, A2)	errno = 0;								\
 	qprintf("REF: %18s %3d  ", ARG, access(ARG, A2), errno);	\
 	qprintf("errno%2d: %s\n", errno, strerror(errno));			\
 	ret = ft_access(ARG, A2);									\
 	qprintf("CUS: %18s %3d  ", ARG, ret, ret);	\
 	qprintf("errno%2d: %s\n\n", ret, strerror(ret))
+
+
+int			main(int ac, char *av[])
+{
+	t_msh	msh;
+
+	msh_header();
+
 
 
 	if (msh_init_msh(&msh, av[0]))

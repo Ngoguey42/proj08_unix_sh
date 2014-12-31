@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 10:04:04 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 08:43:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 09:11:50 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,24 @@ static int	test_path(const char *dirpath, const char *cmdname)
 	return (ft_access(fullpath, X_OK));
 }
 
-static int	cmd_as_cmd(const char *path, const char *cmdname)
+static int	alloc_new_string(size_t n, char *dirpath, char **cmdname, int prev)
+{
+	char	*new;
+
+	n += ft_strlen(*cmdname) + 1;
+	new = (char*)malloc(sizeof(char) * (n + 1));
+	if (new == NULL)
+		return (ENOMEM);
+	*new = '\0';
+	ft_strcpy(new, dirpath);
+	ft_strcat(new, "/");
+	ft_strcat(new, *cmdname);
+	free(*cmdname);
+	*cmdname = new;
+	return (prev);
+}
+
+static int	cmd_as_cmd(const char *path, char **cmdname)
 {
 	char	dirpath[PATH_MAX + 1];
 	size_t	n;
@@ -67,8 +84,12 @@ static int	cmd_as_cmd(const char *path, const char *cmdname)
 		if (n < PATH_MAX)
 		{
 			ft_strlcpy(dirpath, path, n + 1);
-			if ((ret = test_path(dirpath, cmdname)) != ENOENT)
+			if ((ret = test_path(dirpath, *cmdname)) != ENOENT)
+			{
+				if (ret == 0)
+					return (alloc_new_string(n, dirpath, cmdname, ret));
 				return (ret);
+			}
 		}
 		path += n;
 		path += (*path == ':') ? 1 : 0;
@@ -96,7 +117,7 @@ int			ft_getcmdpath(const char *cmd, const char *envpath, char **ptr)
 	{
 		if (ft_strnequ(envpath, "PATH=", 5))
 			envpath += 5;
-		ret = cmd_as_cmd(envpath, cmdname);
+		ret = cmd_as_cmd(envpath, &cmdname);
 	}
 	if (ret != 0)
 		free(cmdname);

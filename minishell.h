@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 11:14:55 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 12:49:47 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@
 # define MSH_PSHERE "h-doc> "
 
 # define DEFAULT_PATH "PATH=/usr/bin:/bin"
+# define FD_PATH "/dev/fd/"
 
 
 # define MTK_HERE 0x1

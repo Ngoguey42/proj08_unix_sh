@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 16:33:30 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 16:42:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2014/12/31 14:17:56 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	part1(char *tmp)
 {
 	while (tmp[0] != '\0' && tmp[1] != '\0')
 	{
-		if (ft_strnequ(tmp, "//", 2))
-			ft_memmove((void*)tmp, (void*)tmp + 1, ft_strlen(tmp) - 0);
+		if (ft_strnequ(tmp, "/""/", 2))
+			ft_memmove((void*)tmp, (void*)(tmp + 1), ft_strlen(tmp));
 		else
 			tmp++;
 	}

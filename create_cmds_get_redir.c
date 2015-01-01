@@ -6,16 +6,25 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/31 15:37:01 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 12:49:08 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 16:00:29 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include <minishell.h>
 
-
-static void	extract_redir_and_file(t_msh *msh, t_red *ret, t_list **lstp)
+static void	extract_redir_and_file(t_msh *msh, t_red *red, t_list **lstp)
 {
+	t_tkn	*redir;
+	t_tkn	*next;
 	
+	ft_bzero(red, sizeof(t_red));
+	redir = (t_tkn*)(*lstp)->content;
+	next = (t_tkn*)(*lstp)->next->content;
+	red->type = redir->type;
+	msh->red_f[redir->type - 1](msh, red, redir, next);
+	if (next->type == MTK_FILE)
+		*lstp = (*lstp)->next;
 	return ;
 }
 
@@ -29,7 +38,7 @@ void		msh_cmd_get_redir(t_msh *msh, t_cmd *cmd)
 	while (lst != NULL)
 	{
 		tkn = (t_tkn*)lst->content;
-		if (tkn->type >= MTK_HERE && tkn->type <= MTK_WRITE)
+		if (tkn->type >= MTK_HERE && tkn->type <= MTK_WRIT)
 		{
 			extract_redir_and_file(msh, &red, &lst);
 			if (ft_lstnewback((t_list**)cmd->ared, (void*)&red,

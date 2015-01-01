@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 12:52:30 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 16:02:32 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <limits.h>
 # include <libft.h>
-
 
 /*
 ** ************************************************************************** **
@@ -26,19 +25,10 @@
 # define NUMBUILTINS 5
 # define MSHBIN_MAXN 9
 
-# define MSHBI1N "cd"
-# define MSHBI1F &msh_builtin_cd
-# define MSHBI2N "setenv"
-# define MSHBI2F &msh_builtin_setenv
-# define MSHBI3N "unsetenv"
-# define MSHBI3F &msh_builtin_unsetenv
-# define MSHBI4N "env"
-# define MSHBI4F &msh_builtin_env
-# define MSHBI5N "exit"
-# define MSHBI5F &msh_builtin_exit
+# define PR(ARG) &msh_builtin_ ## ARG
 
-# define MSHBIN_N {MSHBI1N, MSHBI2N, MSHBI3N, MSHBI4N, MSHBI5N, ""}
-# define MSHBIN_F {MSHBI1F, MSHBI2F, MSHBI3F, MSHBI4F, MSHBI5F, NULL}
+# define MSHBIN_N {"cd", "setenv", "unsetenv", "env", "exit", ""}
+# define MSHBIN_F {PR(cd), PR(setenv), PR(unsetenv), PR(env), PR(exit), NULL}
 
 /*
 ** ************************************************************************** **
@@ -46,14 +36,27 @@
 /*
 ** Misc
 */
-# define MSH_OP (char[][3]){"<<", ">>", "<", ">", ";", "|", ""}
-# define NUMOPERATORS 6
-
 # define MSH_PS1 "msh> "
 # define MSH_PSHERE "h-doc> "
 
 # define DEFAULT_PATH "PATH=/usr/bin:/bin"
 # define FD_PATH "/dev/fd/"
+/*
+** ************************************************************************** **
+*/
+/*
+** Redirections
+*/
+# define MSH_OP (char[][3]){"<<", ">>", "<", ">", ";", "|", ""}
+# define NUMOPERATORS 6
+
+# define MSH_LFDTOOLONG 0x01
+# define MSH_LFDOVERLIM 0x02
+# define MSH_LINVALID 0x04
+
+# define MSH_RFDTOOLONG 0x08
+# define MSH_RFDOVERLIM 0x10
+# define MSH_RINVALID 0x20
 
 /*
 ** ************************************************************************** **
@@ -77,6 +80,9 @@
 # define MTKNAMES1 "HERE", "APND", "READ", "WRIT", "SEMI", "PIPE"
 # define MTKNAMES {"", MTKNAMES1, "WORD", "CMD", "FILE", "END"}
 
+# define RPFX(ARG) &msh_saveredir_ ## ARG
+# define REDSAVEFUNCS {RPFX(here), RPFX(apnd), RPFX(read), RPFX(write)}
+
 /*
 ** ************************************************************************** **
 */
@@ -87,9 +93,12 @@
 **		rhsfd	right hand side file descriptor.	(-2) if non existant.
 **		file	right hand side file name.			NULL if non existant.
 **		error	errors encountered for this redirection:
-**		
-**		
-**		
+**				0x1		lhsfd too long
+**				0x2		lhsfd over limit
+**				0x4		lhs  is invalid(unused)
+**				0x8		rhsfd too long
+**				0x10	rhsfd over limit
+**				0x20	rhs is invalid
 */
 typedef struct	s_red
 {
@@ -122,8 +131,7 @@ typedef struct	s_tkn
 **		error		==0, no error.
 **					0x1, error in command.
 **					0x2, error(s) in redirection(s).
-**					
-**					
+**					*
 ** *
 **		atkn		pointer to the first token of the command block.
 ** *
@@ -159,11 +167,14 @@ typedef struct	s_cmd
 /*
 ** 'struct	s_msh' MiniSHell env.
 ** *
-**		mshex		msh's binary name
-**		mshstwd		msh's start working directory, from getcwd.
-**		mshpath		msh's binary path, resolved from the shex and mshstwd.
-** 		mshenv		pointer to sh's environ variable, from parent shell.
-**		env			sh's env.
+**		mshex		msh's binary name, from main's av[0].
+** 		mshenv		pointer to sh's environ variable.
+**		env			allocated msh's env.
+** *	
+**		bi_f		builtin_functions's array.
+**		bi_n		buitin_name's array.
+**		op			operators' list handled by msh.
+**		red_f		redirections storing functions.
 */
 typedef struct	s_msh
 {
@@ -174,12 +185,13 @@ typedef struct	s_msh
 	void		(*bi_f[NUMBUILTINS + 1])(struct s_msh *msh, t_cmd *cmd);
 	char		bi_n[NUMBUILTINS + 1][MSHBIN_MAXN];
 	char		op[NUMOPERATORS + 1][3];
+	void		(*red_f[4])(struct s_msh *ms, t_red *re, t_tkn *r, t_tkn *n);
 }				t_msh;
 /*
 ** ************************************************************************** **
 */
-typedef void	(*t_mshbi)(t_msh*, t_cmd*);
-
+/* typedef void	(*t_mshbi)(t_msh*, t_cmd*); */
+/* typedef void	(*t_mshsred)(t_msh*, t_red*, t_list*); */
 
 # define CMSH	const t_msh
 
@@ -198,6 +210,10 @@ void			msh_exec_cmds(t_msh *msh, t_list *lst);
 void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
 
+void			msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 
 /*
 ** Env Manipulation.
@@ -211,17 +227,16 @@ char			**msh_new_envvar_m(t_msh *msh, char *line);
 char			*msh_get_envvar(const t_msh *msh, const char *key);
 char			**msh_get_envvarp(const t_msh *msh, const char *key);
 
-/* int				msh_resolve_binpath(t_msh *msh); */
-
 /*
 ** Built in functions.
 */
-void    msh_builtin_cd(t_msh *msh, t_cmd *cmd);
-void    msh_builtin_env(t_msh *msh, t_cmd *cmd);
-void    msh_builtin_setenv(t_msh *msh, t_cmd *cmd);
-void    msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd);
-void    msh_builtin_exit(t_msh *msh, t_cmd *cmd);
-t_bool	msh_is_builtin(const t_msh *msh, const char *cmd, size_t len);
-int		msh_get_builtin_index(const t_msh *msh, const char *cmd, size_t len);
+void			msh_builtin_cd(t_msh *msh, t_cmd *cmd);
+void			msh_builtin_env(t_msh *msh, t_cmd *cmd);
+void			msh_builtin_setenv(t_msh *msh, t_cmd *cmd);
+void			msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd);
+void			msh_builtin_exit(t_msh *msh, t_cmd *cmd);
+t_bool			msh_is_builtin(const t_msh *msh, const char *cmd, size_t len);
+int				msh_get_builtin_index(const t_msh *msh, const char *cmd,
+						size_t len);
 
 #endif

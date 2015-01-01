@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 16:04:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 12:52:30 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** ************************************************************************** **
 */
 /*
-** Built-ins
+** Built-ins commands.
 */
 # define NUMBUILTINS 5
 # define MSHBIN_MAXN 9
@@ -59,7 +59,7 @@
 ** ************************************************************************** **
 */
 /*
-** Tokens
+** Tokens types
 */
 # define MTK_HERE 0x1
 # define MTK_APND 0x2
@@ -81,11 +81,15 @@
 ** ************************************************************************** **
 */
 /*
-**		'struct s_red'	Redirection.
+**		'struct s_red'	One per redirection token.
 **		type	type as in MTK_ defines.
 **		lhsfd	left hand side file descriptor.		(-1) if all.
 **		rhsfd	right hand side file descriptor.	(-2) if non existant.
 **		file	right hand side file name.			NULL if non existant.
+**		error	errors encountered for this redirection:
+**		
+**		
+**		
 */
 typedef struct	s_red
 {
@@ -93,12 +97,13 @@ typedef struct	s_red
 	int			lhsfd;
 	int			rhsfd;
 	char		*file;
+	int			error;
 }				t_red;
 /*
 ** ************************************************************************** **
 */
 /*
-**		'struct s_tkn'	Token
+**		'struct s_tkn'	Token, as extracted from the input. (See tokenize.c)
 **		type	type as in MTK_ defines.
 **		ptr		pointer into the string.
 **		len		token's length in 'ptr'.
@@ -113,8 +118,12 @@ typedef struct	s_tkn
 ** ************************************************************************** **
 */
 /*
-**		'struct s_cmd'	For a command block
-**		error		0 == no error.
+**		'struct s_cmd'	One per command block. (See tokenize.c)
+**		error		==0, no error.
+**					0x1, error in command.
+**					0x2, error(s) in redirection(s).
+**					
+**					
 ** *
 **		atkn		pointer to the first token of the command block.
 ** *
@@ -123,11 +132,13 @@ typedef struct	s_tkn
 **		binerr		error regarding cmdpath's NULL value.
 ** 		cmdav		cmd1's argv to be sent.
 ** *
+**		ared		pointer to the first redirection
+** *
 **		iofds		in/out fd of command block. Default is {0, 1}.
 */
 typedef struct	s_cmd
 {
-/* 	int			error; */
+	int			error;
 
 	t_list		*atkn[1];
 
@@ -136,6 +147,8 @@ typedef struct	s_cmd
 	char		*cmdpath;
 	int			binerr;
 	char		**cmdav;
+
+	t_list		*ared[1];
 
 	int			iotypes[2];
 	int			iofds[2];

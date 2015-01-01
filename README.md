@@ -32,9 +32,10 @@ sh2 Goals:
 - [ ] Out redirection '>'.
 
 My sh2 additions:
-- [ ] Arguments for in redirection: '[digits]**<**{&digits|file}'
-- [ ] Arguments for out redirections: '[digits|&]**>[>]**{&digits|file}'
-
+- [ ] Arguments for 'in' redirection: '[digits]**<**{&digits|file}'
+- [ ] Arguments for 'here document' redirection: '[digits]**<<**keyword'
+- [ ] Arguments for 'out' redirections: '[digits|&]**>**{&digits|file}'
+- [ ] Arguments for 'append' redirections: '[digits]**>>**file'
 
 <br><br><br><br><br><br>
 

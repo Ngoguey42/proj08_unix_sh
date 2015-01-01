@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/31 15:35:13 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 15:35:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 12:35:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ void		msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd)
 		}
 		lst = lst->next;
 	}
+	if (cmd->is_builtin == false && cmd->cmdpath == NULL)
+		cmd->error |= 0x1;
 }

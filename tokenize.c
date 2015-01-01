@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 12:50:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/30 08:40:17 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 12:32:42 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 **	  ------MTK_HERE '[digits]<<'
 **	  ------MTK_READ '[digits]<'
 **	  ----Out:
-**	  ------MTK_APND '[digits|&]>>'
+**	  ------MTK_APND '[digits]>>'
 **	  ------MTK_WRIT '[digits|&]>'
 **    --Command bocks splitters:
 **	  ----MTK_SEMI ';'
@@ -96,7 +96,7 @@ static int		is_op(char *line)
 		if (*line == '<' || *line == '>')
 			return (1);
 	}
-	else if (*line == '&' && line[1] == '>')
+	else if (*line == '&' && line[1] == '>' && line[2] != '>')
 		return (1);
 	else if (*line == '>' || *line == '<' || *line == ';' || *line == '|')
 		return (1);

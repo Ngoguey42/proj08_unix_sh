@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 10:39:48 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 12:33:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,27 @@ int			main(int ac, char *av[])
 {
 	t_msh	msh;
 
+
+/* 	char	*test; */
+/* 	int		ret; */
+/* 	ret = get_next_line(0, &test); */
+/* 	if (ret <= 0) */
+/* 	{ */
+/* 		ft_dprintf(1, "STDOUT 1: %Hs\n", "Nothing in stdin."); */
+/* 		ft_dprintf(2, "STDERR 2: %Is\n", "Nothing in stdin."); */
+		
+/* 	} */
+/* 	else */
+/* 	{ */
+/* 		ft_dprintf(1, "STDOUT 1: %H_s\n", test); */
+/* 		ft_dprintf(2, "STDERR 2: %I_s\n", test); */
+		
+/* 	} */
+/* 	ft_putstr("end\n"); */
+
+/* 	exit(1); */
+
 	msh_header();
-
-
-
 	if (msh_init_msh(&msh, av[0]))
 		return (1);
 /* 	msh_print_env(&msh);//debug; */

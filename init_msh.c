@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 12:20:37 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 11:24:08 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int	dup_environ(char ***env, char **envp)
 	if ((*env = (char**)malloc(sizeof(char*) * (count + 1))) == NULL)
 		return (1);
 	(*env)[count] = NULL;
-	qprintf("found %u env lines\n", count); //debug
 	while (count-- > 0)
 	{
 		(*env)[count] = (char*)malloc(sizeof(char) *
@@ -55,7 +54,6 @@ static void	update_shlvl(t_msh *msh)
 		n = ft_atoi(*ptr + ft_strcharlen(*ptr, '=') + 1);
 		ft_strcpy(str, "SHLVL=");
 		ft_itoa_c(n + 1, str + 6, 10);
-		qprintf("DEBUG: %s %d\n", *ptr, n);
 		(void)msh_update_envvar_m(msh, str);
 	}
 	return ;

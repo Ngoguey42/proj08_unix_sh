@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 08:50:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 11:59:56 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 17:03:40 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 			msh_err(msh, "Could not pull token link. 2");
 	}
 	msh_cmd_get_cmd(msh, &cmd);
+	msh_cmd_get_redir(msh, &cmd);
 	if (cmd.error == 0)
 		msh_cmd_get_av(msh, &cmd);
 	if (ft_lstnewback((t_list**)acmd, (void*)&cmd, sizeof(t_cmd)) == NULL)

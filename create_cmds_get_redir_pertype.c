@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/01 13:55:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 16:05:48 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 17:24:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	extract_nbr(const char *ptr, int *fdp, int def)
 		if (*fdp > 255)
 			error = MSH_LFDOVERLIM;
 	}
-	else if (*ptr == '<' || *ptr == '>')
+	else if (def > 0 && (*ptr == '<' || *ptr == '>'))
 		*fdp = def;
 	else
 		error = MSH_LINVALID;
@@ -93,17 +93,18 @@ void	msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 	if (*redir->ptr == '&')
 		red->lhsfd = -1;
 	else
-		red->error |= extract_nbr(redir->ptr, &red->lhsfd, 1);	
+		red->error |= extract_nbr(redir->ptr, &red->lhsfd, 1);
 	if (next->type != MTK_FILE)
 		red->error |= MSH_RINVALID;
 	else if (*next->ptr == '&')
-		red->error |= extract_nbr(redir->ptr + 1, &red->rhsfd, -1) << 3;
+		red->error |= extract_nbr(next->ptr + 1, &red->rhsfd, -1) << 3;
 	else
 	{
 		red->rhsfd = -2;
-		red->file = ft_memdup((void*)next->ptr, next->len);
+		red->file = ft_memdup((void*)next->ptr, next->len + 1);
 		if (red->file == NULL)
 			msh_errmem(msh);
+		red->file[next->len] = '\0';
 	}
 	return ;
 }

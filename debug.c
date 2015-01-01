@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 15:07:21 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/01 17:18:39 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,27 @@ void		msh_print_av(char **tab)
 	return ;
 }
 
+void		msh_print_redirs(t_list *lst)
+{
+	int		i;
+	t_red	*red;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		red = (t_red*)lst->content;
+		ft_dprintf(2, "Redirection#%Nd: Type:%N#x  ", ++i, red->type);
+		ft_dprintf(2, "lfd(%3d) ", red->lhsfd);
+		if (red->file != NULL)
+			ft_dprintf(2, "rfile:\"%!N $zr\" ", red->file);
+		else
+			ft_dprintf(2, "rfd(%3d) ", red->rhsfd);
+		ft_dprintf(2, "err:%.6b", red->error);
+		ft_putchar_fd('\n', 2);
+		lst = lst->next;
+	}
+
+}
 
 #define CMDPRINT(KEY, SUB) ft_dprintf(2, #KEY"(%"SUB") ", cmd->KEY)
 
@@ -68,13 +89,14 @@ void		msh_print_cmds(t_list *lst)
 	while (lst != NULL)
     {
 		cmd = (t_cmd*)lst->content;
-		ft_dprintf(2, "'struct s_cmd'#%d", ++i);
+		ft_dprintf(2, "':RED:struct s_cmd:eof:#%d", ++i);
 		if (cmd->is_builtin == true)
 			ft_dprintf(2," %Ks: \"%$K zr\"\n", "builtin", bi_n[cmd->bi_index]);
 		else
 			ft_dprintf(2," \"%$K zr\" binerr(%Kd)\n", cmd->cmdpath, cmd->binerr);
 		msh_print_tokens(*cmd->atkn);
 		msh_print_av(cmd->cmdav);
+		msh_print_redirs(*cmd->ared);
 		lst = lst->next;
 	}
 	return ;

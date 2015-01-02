@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/02 11:51:54 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/02 12:12:51 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -39,6 +39,7 @@ SRCSFILES = main.c init_msh.c environ.c msh_pause.c\
 tokenize.c token_new.c\
 create_cmds.c create_cmds_get_av.c create_cmds_get_cmd.c\
 create_cmds_get_redir.c create_cmds_get_redir_pertype.c\
+create_cmds_get_heredoc.c\
 \
 exec_cmds.c\
 builtin_env.c builtin_cd.c builtins_cc.c\

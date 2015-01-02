@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 11:42:12 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 12:39:08 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,14 @@ void		msh_print_redirs(t_list *lst)
 		ft_dprintf(2, "Redir#%Nd: type:%N#x  ", ++i, red->type);
 		ft_dprintf(2, "err:%.6b ", red->error);
 		ft_dprintf(2, "lfd:%-N3d ", red->lhsfd);
-		if (red->file != NULL)
+		if (red->type == MTK_HERE)
+		{
+			ft_dprintf(2, "delim:%!N $zr ", red->file);
+			ft_dprintf(2, "result:%!N $zr ", red->hdoc);
+			
+			
+		}
+		else if (red->file != NULL)
 			ft_dprintf(2, "rfl:%!N $zr ", red->file);
 		else
 			ft_dprintf(2, "rfd:%-N3d ", red->rhsfd);

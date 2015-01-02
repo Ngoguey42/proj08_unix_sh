@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/01 13:55:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 11:07:43 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 12:11:25 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 void	msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 {
 	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 1);
-	if (next->type != MTK_FILE)
+	if (next->type != MTK_FILE || next->len == 0)
 		red->error |= MSH_RINVALID;
 	else
 	{

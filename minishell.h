@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 11:11:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 12:17:21 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@
 **		lhsfd	left hand side file descriptor.		(-1) if all.
 **		rhsfd	right hand side file descriptor.	(-2) if non existant.
 **		file	right hand side file name.			NULL if non existant.
+**		hdoc	here document string.
 **		error	errors encountered for this redirection:
 **				0x1		lhsfd too long
 **				0x2		lhsfd over limit
@@ -108,6 +109,7 @@ typedef struct	s_red
 	int			lhsfd;
 	int			rhsfd;
 	char		*file;
+	char		*hdoc;
 	int			error;
 	char		*ptr[2];
 	size_t		len[2];
@@ -214,6 +216,7 @@ void			msh_exec_cmds(t_msh *msh, t_list *lst);
 void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_msh *msh, t_cmd *cmd);
+void			msh_cmd_get_heredoc(t_msh *msh, t_cmd *cmd);
 
 
 void			msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);

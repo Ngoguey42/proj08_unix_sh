@@ -1,0 +1,74 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_cmds_get_heredoc.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/01/02 12:01:54 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/02 12:51:58 by ngoguey          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
+#include <minishell.h>
+
+static char	*concat(char *rhs, char *lhs)
+{
+	char	*ret;
+	size_t	len;
+
+	if (rhs == NULL)
+		len = ft_strlen(lhs) + 1;
+	else
+		len = ft_strlen(rhs) + ft_strlen(lhs) + 1;
+	ret = (char*)malloc(sizeof(char) * (len + 1));
+	if (ret == NULL)
+		msh_errmem(NULL);
+	*ret = '\0';
+	if (rhs != NULL)
+		ft_strcpy(ret, rhs);
+	ft_strcat(ret, lhs);
+	ft_strcat(ret, "\n");
+	ret[len] = '\0';
+	return (ret);
+}
+
+static void	request_heredoc(t_msh *msh, t_red *red)
+{
+	char	*line;
+	int		ret;
+	char	*cat;
+
+	ft_putstr(MSH_PSHERE);
+	cat = NULL;
+	while ((ret = get_next_line(0, &line)) > 0)
+	{
+		if (ft_strequ(red->file, line))
+			break ;
+		cat = concat(cat, line);
+		ft_putstr(MSH_PSHERE);
+	}
+	red->hdoc = cat;
+	(void)msh;
+	return ;
+}
+
+void		msh_cmd_get_heredoc(t_msh *msh, t_cmd *cmd)
+{
+	
+	t_list	*lst;
+	t_red	*red;
+
+	if (!cmd->ared)
+		return ;
+	lst = *cmd->ared;
+	while (lst != NULL)
+	{
+		red = (t_red*)lst->content;
+		if (red->type == MTK_HERE && (red->error & MSH_RINVALID) == 0)
+			request_heredoc(msh, red);
+		lst = lst->next;
+	}
+	return ;
+}

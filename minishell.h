@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 12:17:21 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 17:34:35 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 
 /*
 ** ************************************************************************** **
-*/
-/*
+** *
 ** Built-ins commands.
 */
 # define NUMBUILTINS 5
@@ -32,8 +31,7 @@
 
 /*
 ** ************************************************************************** **
-*/
-/*
+** *
 ** Misc
 */
 # define MSH_PS1 "msh> "
@@ -43,8 +41,7 @@
 # define FD_PATH "/dev/fd/"
 /*
 ** ************************************************************************** **
-*/
-/*
+** *
 ** Redirections
 */
 # define MSH_OP (char[][3]){"<<", ">>", "<", ">", ";", "|", ""}
@@ -60,8 +57,7 @@
 
 /*
 ** ************************************************************************** **
-*/
-/*
+** *
 ** Tokens types
 */
 # define MTK_HERE 0x1
@@ -85,8 +81,7 @@
 
 /*
 ** ************************************************************************** **
-*/
-/*
+** *
 **		'struct s_red'	One per redirection token.
 **		type	type as in MTK_ defines.
 **		lhsfd	left hand side file descriptor.		(-1) if all.
@@ -116,8 +111,7 @@ typedef struct	s_red
 }				t_red;
 /*
 ** ************************************************************************** **
-*/
-/*
+** *
 **		'struct s_tkn'	Token, as extracted from the input. (See tokenize.c)
 **		type	type as in MTK_ defines.
 **		ptr		pointer into the string.
@@ -131,8 +125,7 @@ typedef struct	s_tkn
 }				t_tkn;
 /*
 ** ************************************************************************** **
-*/
-/*
+** *
 **		'struct s_cmd'	One per command block. (See tokenize.c)
 **		error		==0, no error.
 **					0x1, error in command.
@@ -165,12 +158,11 @@ typedef struct	s_cmd
 	t_list		*ared[1];
 
 	int			iotypes[2];
-	int			iofds[2];
+	int			iofds[3];
 }				t_cmd;
 /*
 ** ************************************************************************** **
-*/
-/*
+** *
 ** 'struct	s_msh' MiniSHell env.
 ** *
 **		mshex		msh's binary name, from main's av[0].
@@ -212,11 +204,12 @@ void			msh_print_tokens(t_list *tkn);
 void			msh_print_cmds(t_list *lst);
 void			msh_err(const t_msh *msh, const char *format, ...);
 void			msh_errmem(const t_msh *msh);
-void			msh_exec_cmds(t_msh *msh, t_list *lst);
+int				msh_exec_cmd(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_msh *msh, t_cmd *cmd);
+int				msh_cmd_errors(t_msh *msh, t_cmd *cmd);
 
 
 void			msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);

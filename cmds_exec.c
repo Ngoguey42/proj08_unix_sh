@@ -6,11 +6,12 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/02 17:10:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 17:59:54 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 18:30:59 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/wait.h>
 #include <minishell.h>
 

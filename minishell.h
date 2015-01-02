@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 16:02:32 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 11:11:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@
 **				0x8		rhsfd too long
 **				0x10	rhsfd over limit
 **				0x20	rhs is invalid
+**		ptr		pointers of the two tokens into the user input
+		len		characters inside the two tokens.
 */
 typedef struct	s_red
 {
@@ -107,6 +109,8 @@ typedef struct	s_red
 	int			rhsfd;
 	char		*file;
 	int			error;
+	char		*ptr[2];
+	size_t		len[2];
 }				t_red;
 /*
 ** ************************************************************************** **
@@ -209,6 +213,8 @@ void			msh_errmem(const t_msh *msh);
 void			msh_exec_cmds(t_msh *msh, t_list *lst);
 void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
+void			msh_cmd_get_redir(t_msh *msh, t_cmd *cmd);
+
 
 void			msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);

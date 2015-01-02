@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 08:50:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 17:03:40 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 11:28:25 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,5 @@ void            msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 	if (atknp == NULL)
 		return ;
 	while (*atknp != NULL && TOKENTYPE != MTK_END)
-	{
 		(void)new_cmd(msh, atknp, acmd);
-		
-	}
-	(void)msh;
-	(void)atknp;
-	(void)acmd;
-	(void)msh;
-	
 }

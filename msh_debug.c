@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 17:18:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 11:42:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ void		msh_print_av(char **tab)
 	int		ret;
 
 	if (tab == NULL)
-		ft_dprintf(2, "AV pointer to NULL.\n");
+		ft_dprintf(2, ":YEL::red:AV:eof: pointer to NULL.\n");
 	else if (*tab == NULL)
-		ft_dprintf(2, "No AV to send.\n");
+		ft_dprintf(2, ":YEL::red:No AV:eof: to send.\n");
 	i = -1;
 	while (tab != NULL && *tab != NULL)
 	{
-		ft_dprintf(2, "av[:YEL::red:");
+		ft_dprintf(2, "argv[:YEL::red:");
 		ret = ft_dprintf(2, "%d", ++i);
 		ft_dprintf(2, ":eof:]");
 		ft_dprintf(2, "%*s\"%J $zr\" \n", 6 - ret, " == ", *tab);
@@ -64,13 +64,15 @@ void		msh_print_redirs(t_list *lst)
 	while (lst != NULL)
 	{
 		red = (t_red*)lst->content;
-		ft_dprintf(2, "Redirection#%Nd: Type:%N#x  ", ++i, red->type);
-		ft_dprintf(2, "lfd(%3d) ", red->lhsfd);
+		ft_dprintf(2, "Redir#%Nd: type:%N#x  ", ++i, red->type);
+		ft_dprintf(2, "err:%.6b ", red->error);
+		ft_dprintf(2, "lfd:%-N3d ", red->lhsfd);
 		if (red->file != NULL)
-			ft_dprintf(2, "rfile:\"%!N $zr\" ", red->file);
+			ft_dprintf(2, "rfl:%!N $zr ", red->file);
 		else
-			ft_dprintf(2, "rfd(%3d) ", red->rhsfd);
-		ft_dprintf(2, "err:%.6b", red->error);
+			ft_dprintf(2, "rfd:%-N3d ", red->rhsfd);
+		ft_dprintf(2, "\":und:%! $.*zr", red->len[0], red->ptr[0]);
+		ft_dprintf(2, "%! $.*zr:eou:\"", red->len[1], red->ptr[1]);
 		ft_putchar_fd('\n', 2);
 		lst = lst->next;
 	}
@@ -98,6 +100,7 @@ void		msh_print_cmds(t_list *lst)
 		msh_print_av(cmd->cmdav);
 		msh_print_redirs(*cmd->ared);
 		lst = lst->next;
+		ft_putchar_fd('\n', 2);
 	}
 	return ;
 }

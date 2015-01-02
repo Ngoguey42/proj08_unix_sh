@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/01 13:55:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 17:24:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/02 11:07:43 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,51 @@ static int	extract_nbr(const char *ptr, int *fdp, int def)
 
 void	msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 {
-    (void)msh;
-    (void)red;
-	(void)redir;
-	(void)next;
+	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 0);
+	if (next->type != MTK_FILE)
+		red->error |= MSH_RINVALID;
+	else
+	{
+		red->rhsfd = -2;
+		red->file = ft_memdup((void*)next->ptr, next->len + 1);
+		if (red->file == NULL)
+			msh_errmem(msh);
+		red->file[next->len] = '\0';
+	}
 	return ;
 }
 
 void	msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 {
-    (void)msh;
-    (void)red;
-	(void)redir;
-	(void)next;
-	
+	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 1);
+	if (next->type != MTK_FILE)
+		red->error |= MSH_RINVALID;
+	else
+	{
+		red->rhsfd = -2;
+		red->file = ft_memdup((void*)next->ptr, next->len + 1);
+		if (red->file == NULL)
+			msh_errmem(msh);
+		red->file[next->len] = '\0';
+	}
 	return ;
 }
 
 void	msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 {
-    (void)msh;
-    (void)red;
-	(void)redir;
-	(void)next;
-	
+	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 0);
+	if (next->type != MTK_FILE)
+		red->error |= MSH_RINVALID;
+	else if (*next->ptr == '&')
+		red->error |= extract_nbr(next->ptr + 1, &red->rhsfd, -1) << 3;
+	else
+	{
+		red->rhsfd = -2;
+		red->file = ft_memdup((void*)next->ptr, next->len + 1);
+		if (red->file == NULL)
+			msh_errmem(msh);
+		red->file[next->len] = '\0';
+	}
 	return ;
 }
 

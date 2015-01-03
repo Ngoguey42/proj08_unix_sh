@@ -14,32 +14,14 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <minishell.h>
-
-static void	dodup2(int fd, int def_fd)
-{
-	if (fd == def_fd)
-		return ;
-	
-}
+// #include <fcntl.h>
 
 static void	child(t_msh *msh, t_cmd *cmd)
 {
-	if (cmd->iofds[0] != 0 && dup2(cmd->iofds[0], 0) < 0)
+	if (cmd->ared != NULL)
 	{
-		msh_err(msh, "%s: in dup2 failed.", cmd->cmdpath);
-		exit(0);
+		msh_inredirections(msh, *cmd->ared);
 	}
-	if (cmd->iofds[0] != 0)
-		close(cmd->iofds[0]);
-	if (cmd->iofds[1] != 1 && dup2(cmd->iofds[1], 1) < 0)
-	{
-		msh_err(msh, "%s: out dup2 failed.", cmd->cmdpath);
-		exit(0);
-	}
-	if (cmd->iofds[0] != 0)
-		close(cmd->iofds[0]);
-
-	close(cmd->iofds[0]);
 	execve(cmd->cmdpath, cmd->cmdav, msh->env);
 	msh_err(msh, "%s: execve failed.", cmd->cmdpath);
 	exit(1);

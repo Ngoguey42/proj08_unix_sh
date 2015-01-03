@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <minishell.h>
 
 /*
@@ -87,6 +88,8 @@ void	msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 		if (red->file == NULL)
 			msh_errmem(msh);
 		red->file[next->len] = '\0';
+		if ((red->file_err = ft_access(red->file, W_OK)) != 0)
+			red->error |= MSH_RINVALID;
 	}
 	return ;
 }
@@ -105,6 +108,8 @@ void	msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 		if (red->file == NULL)
 			msh_errmem(msh);
 		red->file[next->len] = '\0';
+		if ((red->file_err = ft_access(red->file, R_OK)) != 0)
+			red->error |= MSH_RINVALID;
 	}
 	return ;
 }
@@ -126,6 +131,8 @@ void	msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
 		if (red->file == NULL)
 			msh_errmem(msh);
 		red->file[next->len] = '\0';
+		if ((red->file_err = ft_access(red->file, W_OK)) != 0)
+			red->error |= MSH_RINVALID;
 	}
 	return ;
 }

@@ -93,7 +93,8 @@ void		msh_pause(t_msh *msh)
 
 	while (msh->continue_)
 	{
-		ft_putstr(MSH_PS1);
+		// ft_putstr(MSH_PS1);
+		ft_putstr("Nicomonloulou:");
 		if ((ret = get_next_line(0, &buf)) <= 0 || buf == NULL)
 		{
 			if (ret == 0)

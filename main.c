@@ -12,8 +12,6 @@
 
 #include <minishell.h>
 
-#define PUTL ft_putendl
-
 /*
 **	---main()	(main.c)
 **	------msh_pause() (msh_pause.c)
@@ -40,60 +38,25 @@ void	msh_builtin_setenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 void	msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 void	msh_builtin_exit(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 
-void		msh_header(void)
+static int	from_string(int ac, char *av[])
 {
-	PUTL(".___  ___.  __  .__   __.  __       _______. __    __     __ ");
-	PUTL("|   \\/   | |  | |  \\ |  | |  |     /       ||  |  |  |   |  |");
-	PUTL("|  \\  /  | |  | |   \\|  | |  |    |   (----`|  |__|  |   |  |");
-	PUTL("|  |\\/|  | |  | |  . `  | |  |     \\   \\    |   __   |   |  |");
-	PUTL("|  |  |  | |  | |  |\\   | |  | .----)   |   |  |  |  |   |__|");
-	PUTL("|__|  |__| |__| |__| \\__| |__| |_______/    |__|  |__|   (__)");
+	if (ac > 1 && ft_strequ("-c", av[1]))
+		return (1);
+	return (0);
 }
-
-#include <errno.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
-#define WTF(ARG, A2)	errno = 0;								\
-	qprintf("REF: %18s %3d  ", ARG, access(ARG, A2), errno);	\
-	qprintf("errno%2d: %s\n", errno, strerror(errno));			\
-	ret = ft_access(ARG, A2);									\
-	qprintf("CUS: %18s %3d  ", ARG, ret, ret);	\
-	qprintf("errno%2d: %s\n\n", ret, strerror(ret))
-
 
 int			main(int ac, char *av[])
 {
 	t_msh	msh;
 
-/* 	char	*test; */
-/* 	int		ret; */
-/* 	ret = get_next_line(0, &test); */
-/* 	if (ret <= 0) */
-/* 	{ */
-/* 		ft_dprintf(1, "STDOUT 1: %Hs\n", "Nothing in stdin."); */
-/* 		ft_dprintf(2, "STDERR 2: %Is\n", "Nothing in stdin."); */
-		
-/* 	} */
-/* 	else */
-/* 	{ */
-/* 		ft_dprintf(1, "STDOUT 1: %H_s\n", test); */
-/* 		ft_dprintf(2, "STDERR 2: %I_s\n", test); */
-		
-/* 	} */
-/* 	ft_putstr("end\n"); */
-
-/* 	exit(1); */
-
-	msh_header();
 	if (msh_init_msh(&msh, av[0]))
 		return (1);
-/* 	msh_print_env(&msh);//debug; */
-	msh_pause(&msh);
-/* 	ft_memprint(&msh, sizeof(msh)); //debug */
-	(void)ac;
+	if (from_string(ac, av))
+		msh_process_line(&msh, av[2]);
+	else
+	{
+		msh_header();
+		msh_pause(&msh);
+	}
 	return (0);
 }

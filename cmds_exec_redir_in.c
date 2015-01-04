@@ -20,7 +20,7 @@ static void	redir_redin_file(t_msh *msh,t_red *red)
 	}
 	if (close(filefd) < 0)
 	{
-		msh_err(msh, "%s(%d) close, failed.", filefd, red->file);
+		msh_err(msh, "%s(%d) close, failed.", red->file, filefd);
 		exit(1);
 	}
 	return ;
@@ -53,7 +53,7 @@ static void	redir_heredoc(t_msh *msh,t_red *red)
 	}
 	if (dup2(pipefd[0], red->lhsfd) < 0)
 	{
-		msh_err(msh, "here-doc dup2, failed.", red->lhsfd, red->rhsfd);
+		msh_err(msh, "here-doc dup2, failed.");
 		exit(1);
 	}
 	if (close(pipefd[0]) < 0)

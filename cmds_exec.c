@@ -14,13 +14,13 @@
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <minishell.h>
-// #include <fcntl.h>
 
 static void	child(t_msh *msh, t_cmd *cmd)
 {
 	if (cmd->ared != NULL)
 	{
 		msh_inredirections(msh, *cmd->ared);
+		msh_outredirections(msh, *cmd->ared);
 	}
 	execve(cmd->cmdpath, cmd->cmdav, msh->env);
 	msh_err(msh, "%s: execve failed.", cmd->cmdpath);

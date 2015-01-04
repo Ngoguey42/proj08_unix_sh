@@ -219,6 +219,8 @@ void			msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_header(void);
+void			msh_process_line(t_msh *msh, char *line);
 
 /*
 ** Env Manipulation.

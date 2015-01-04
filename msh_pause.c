@@ -72,7 +72,7 @@ static void	process_cmds(t_msh *msh, t_list *alst[1])
 }
 
 
-static void	process_line(t_msh *msh, char *line)
+void		msh_process_line(t_msh *msh, char *line)
 {
 	t_list	*atkn[1];
 	t_list	*acmd[1];
@@ -81,7 +81,7 @@ static void	process_line(t_msh *msh, char *line)
 	msh_tokenize(msh, atkn, line);
 	*acmd = NULL;
 	msh_split_cmd(msh, atkn, acmd);
-/* 	msh_print_cmds(*acmd);	//debug */
+	// msh_print_cmds(*acmd);	//debug 
 	process_cmds(msh, acmd);
 	return ;
 }
@@ -93,8 +93,7 @@ void		msh_pause(t_msh *msh)
 
 	while (msh->continue_)
 	{
-		// ft_putstr(MSH_PS1);
-		ft_putstr("Nicomonloulou:");
+		ft_putstr(MSH_PS1);
 		if ((ret = get_next_line(0, &buf)) <= 0 || buf == NULL)
 		{
 			if (ret == 0)
@@ -104,7 +103,7 @@ void		msh_pause(t_msh *msh)
 			break ;
 		}
 /* 		ft_dprintf(2, "DEBUG %2u: '%$zr' '%0 $lr'\n", ft_strlen(buf), buf, buf); //debug */
-		process_line(msh, buf);
+		msh_process_line(msh, buf);
 		free(buf);
 	}
 	return ;

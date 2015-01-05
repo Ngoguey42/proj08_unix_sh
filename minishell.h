@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 17:34:35 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/05 15:50:02 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,13 @@ typedef struct	s_tkn
 ** *
 **		ared		pointer to the first redirection
 ** *
-**		iofds		in/out fd of command block. Default is {0, 1}.
+**		iotypes		[0] in, [1] out.
+**		iofds		[0] in, [1] out.
 */
 typedef struct	s_cmd
 {
 	int			error;
+	int			pid;
 
 	t_list		*atkn[1];
 
@@ -159,8 +161,9 @@ typedef struct	s_cmd
 
 	t_list		*ared[1];
 
+	int			lhspfd[2];
+	int			rhspfd[2];
 	int			iotypes[2];
-	int			iofds[3];
 }				t_cmd;
 /*
 ** ************************************************************************** **
@@ -206,7 +209,7 @@ void			msh_print_tokens(t_list *tkn);
 void			msh_print_cmds(t_list *lst);
 void			msh_err(const t_msh *msh, const char *format, ...);
 void			msh_errmem(const t_msh *msh);
-int				msh_exec_cmd(t_msh *msh, t_cmd *cmd);
+int				msh_exec_cmd(t_msh *msh, t_list *lst);
 void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_msh *msh, t_cmd *cmd);
@@ -221,6 +224,11 @@ void			msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_header(void);
 void			msh_process_line(t_msh *msh, char *line);
+
+int				msh_exec_cmd_openpipe(t_msh *msh, t_list *lst);
+void			msh_exec_cmd_closepipe(t_msh *msh, t_cmd *cmd);
+void			msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd);
+void			msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd);
 
 /*
 ** Env Manipulation.

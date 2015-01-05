@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 12:39:08 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/05 15:32:18 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ void		msh_print_cmds(t_list *lst)
 			ft_dprintf(2," %Ks: \"%$K zr\"\n", "builtin", bi_n[cmd->bi_index]);
 		else
 			ft_dprintf(2," \"%$K zr\" binerr(%Kd)\n", cmd->cmdpath, cmd->binerr);
+		ft_dprintf(2, "iotypes{%d, %d} lhspfd{%d, %d} rhspfd{%d, %d}\n",
+				cmd->iotypes[0], cmd->iotypes[1], cmd->lhspfd[0],
+				cmd->lhspfd[1], cmd->rhspfd[0], cmd->rhspfd[1]);
 		msh_print_tokens(*cmd->atkn);
 		msh_print_av(cmd->cmdav);
 		msh_print_redirs(*cmd->ared);

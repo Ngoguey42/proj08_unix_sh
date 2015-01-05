@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cmds.c                                      :+:      :+:    :+:   */
+/*   cmds_get.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/30 08:50:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 17:27:26 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/05 14:21:11 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/05 15:22:18 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 	t_cmd	cmd;
 
 	ft_bzero(&cmd, sizeof(t_cmd));
-/* 	cmd.iofds[0] = 0; */
-	cmd.iofds[1] = 1;
 	move_tokens(atknp, &cmd);
 	if (TOKENTYPE == MTK_SEMI || TOKENTYPE == MTK_PIPE)
 	{
@@ -71,10 +69,25 @@ static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 	return (0);
 }
 
+static void		update_iotypes(t_msh *msh, t_list *cmd)
+{
+	t_list	*next;
+
+	while (cmd != NULL)
+	{
+		next = cmd->next;
+		if (next && ((t_cmd*)cmd->content)->iotypes[1] == 1)
+			((t_cmd*)next->content)->iotypes[0] = 1;
+		cmd = next;
+	}
+	(void)msh;
+}
+
 void            msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 {
 	if (atknp == NULL)
 		return ;
 	while (*atknp != NULL && TOKENTYPE != MTK_END)
 		(void)new_cmd(msh, atknp, acmd);
+	update_iotypes(msh, *acmd);
 }

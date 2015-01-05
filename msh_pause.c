@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 10:40:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 17:52:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/05 16:16:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,17 @@ static void	process_cmds(t_msh *msh, t_list *alst[1])
 	{
 		cmd = (t_cmd*)lst->content;
 		if (!msh_cmd_errors(msh, cmd))
-			if (msh_exec_cmd(msh, cmd))
+		{
+			if (msh_exec_cmd(msh, lst))
 			{
 				err_close_allfd(msh, *alst, cmd);
 				return ;
 			}
+		}
 		lst = lst->next;
 	}
 	return ;
 }
-
 
 void		msh_process_line(t_msh *msh, char *line)
 {
@@ -81,8 +82,9 @@ void		msh_process_line(t_msh *msh, char *line)
 	msh_tokenize(msh, atkn, line);
 	*acmd = NULL;
 	msh_split_cmd(msh, atkn, acmd);
-	// msh_print_cmds(*acmd);	//debug 
+/* 	msh_print_cmds(*acmd);	//debug */
 	process_cmds(msh, acmd);
+/* 	msh_print_cmds(*acmd);	//debug */
 	return ;
 }
 
@@ -102,7 +104,6 @@ void		msh_pause(t_msh *msh)
 				ft_dprintf(2, "%s: Error while reading Input.\n", msh->mshex);
 			break ;
 		}
-/* 		ft_dprintf(2, "DEBUG %2u: '%$zr' '%0 $lr'\n", ft_strlen(buf), buf, buf); //debug */
 		msh_process_line(msh, buf);
 		free(buf);
 	}

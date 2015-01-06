@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
+#include <unistd.h>
 #include <minishell.h>
 
-void		msh_print_env(const t_msh *msh)
+void		msh_print_env(const t_msh *msh, int fd)
 {
 	const char	**env = (msh != NULL) ? (const char**)msh->env : NULL;
 
@@ -20,7 +22,7 @@ void		msh_print_env(const t_msh *msh)
 		return ;
 	while (*env != NULL)
 	{
-		ft_printf("%s\n", *env);
+		ft_dprintf(fd, "%s\n", *env);
 		env++;
 	}
 	return ;
@@ -28,8 +30,15 @@ void		msh_print_env(const t_msh *msh)
 
 void	msh_builtin_env(t_msh *msh, t_cmd *cmd)
 {
-	(void)cmd;
-	msh_print_env(msh);
+	int		fd1_save;
+
+	if (cmd->iotypes[1] == 1)
+	{
+		if (msh_bi_init_pipeout(msh, cmd, &fd1_save))
+			return ;
+	}
+	msh_print_env(msh, 1);
+	if (cmd->iotypes[1] == 1)
+		msh_bi_disable_pipeout(msh, cmd, fd1_save);
 	return ;
-	
 }

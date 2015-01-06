@@ -15,13 +15,13 @@
 #include <fcntl.h>
 #include <minishell.h>
 
-int gi = 0;
+int g_i;
 
 static void	redir_append(t_msh *msh,t_red *red)
 {
 	int		filefd;
 
-	msh_err(msh, "Redir(%d): %d>>%! $r.", ++gi, red->lhsfd, red->file);
+	msh_err(msh, "Redir(%d): %d>>%! $r.", ++g_i, red->lhsfd, red->file);
 	if ((filefd = open(red->file, O_APPEND)) < 0)
 	{
 		msh_err(msh, "%d>>%! $r open, failed.", red->lhsfd, red->file);
@@ -34,83 +34,110 @@ static void	redir_append(t_msh *msh,t_red *red)
 		exit(1);
 	}
 	if (close(filefd) < 0)
-	{
 		msh_err(msh, "%!s(%d) close, failed.", red->file, filefd);
-		exit(1);
-	}
 	return ;
 }
 
-static void	redir_write_file(t_msh *msh, t_red *red, int lhsfd)
+static void	redir_write_file(t_msh *msh, t_red *red)
 {
 	int		filefd;
 
-	msh_err(msh, "Redir(%d): %d>%! $r.", ++gi, lhsfd, red->file);
+	msh_err(msh, "Redir(%d): %d>%! $r.", ++g_i, red->lhsfd, red->file);
 	if ((filefd = open(red->file, O_WRONLY)) < 0)
 	{
-		msh_err(msh, "%d>%!r open, failed.", lhsfd, red->file);
+		msh_err(msh, "%d>%!r open, failed.", red->lhsfd, red->file);
 		exit(1);
 	}
 	msh_err(msh, "fd(%d) = open(%! $r)", filefd , red->file);
-	if (dup2(filefd, lhsfd) < 0)
+	if (dup2(filefd, red->lhsfd) < 0)
 	{
 		msh_err(msh, "%d>%!r(%d) dup2(%d, %d), failed.",
-			lhsfd, red->file, filefd, red->rhsfd, lhsfd);
+			red->lhsfd, red->file, filefd, filefd, red->lhsfd);
 		exit(1);
 	}
-	msh_err(msh, "dup2(%d, %d)", filefd , lhsfd);
+	msh_err(msh, "dup2(%d, %d)", filefd , red->lhsfd);
 	if (close(filefd) < 0)
-	{
 		msh_err(msh, "%!r(%d) close, failed.", red->file, filefd);
-		exit(1);
-	}
 	return ;
 }
 
-static void	redir_write_fd(t_msh *msh,t_red *red, int lhsfd)
+static void	redir_write_file_all(t_msh *msh, t_red *red)
 {
-	msh_err(msh, "Redir(%d): %d>&%d.", ++gi, lhsfd, red->rhsfd);
-	msh_err(msh, "dup2(%d, %d)", red->rhsfd , lhsfd);
-	if (dup2(red->rhsfd, lhsfd) < 0)
+	int		filefd;
+
+	msh_err(msh, "Redir(%d): &>%! $r.", ++g_i, red->file);
+	if ((filefd = open(red->file, O_WRONLY)) < 0)
+	{
+		msh_err(msh, "&>%!r open, failed.", red->file);
+		exit(1);
+	}
+	msh_err(msh, "fd(%d) = open(%! $r)", filefd , red->file);
+	if (dup2(filefd, 1) < 0)
+	{
+		msh_err(msh, "%d>%!r(%d) dup2(%d, %d), failed.",
+			1, red->file, filefd, filefd, 1);
+		exit(1);
+	}
+	msh_err(msh, "dup2(%d, %d)", filefd , 1);
+	if (dup2(filefd, 2) < 0)
+	{
+		msh_err(msh, "%d>%!r(%d) dup2(%d, %d), failed.",
+			2, red->file, filefd, filefd, 2);
+		exit(1);
+	}
+	msh_err(msh, "dup2(%d, %d)", filefd , 2);
+	if (close(filefd) < 0)
+		msh_err(msh, "%!r(%d) close, failed.", red->file, filefd);
+	return ;
+}
+
+static void	redir_write_fd(t_msh *msh,t_red *red)
+{
+	msh_err(msh, "Redir(%d): %d>&%d.", ++g_i, red->lhsfd, red->rhsfd);
+	msh_err(msh, "dup2(%d, %d)", red->rhsfd , red->lhsfd);
+	if (dup2(red->rhsfd, red->lhsfd) < 0)
 	{
 		msh_err(msh, "%d>&%d dup2(%d, %d), failed.",
-			lhsfd, red->rhsfd, red->rhsfd, lhsfd);
+			red->lhsfd, red->rhsfd, red->rhsfd, red->lhsfd);
 		exit(1);
 	}
 	return ;
 }
 
-static void	redir_write(t_msh *msh, t_red *red, int lhsfd)
-{
-	if (red->file != NULL)
-		redir_write_file(msh, red, lhsfd);
-	else
-		redir_write_fd(msh, red, lhsfd);
-	return ;
-}
 
 void 		msh_outredirections(t_msh *msh, t_list *lst)
 {
 	t_red	*red;
-	int		i;
+	
+	g_i = 0;
+	// int		i;
+	// int		j;
 
-	i = ft_lstsize(lst);
-	while (i > 0)
+	// i = ft_lstsize(lst);
+	// j = ft_lstsize(lst);
+	// i = 1;
+	// while (i <= j)
+	while (lst != NULL)
 	{
-		red = (t_red*)ft_lstat(lst, i)->content;
+		// red = (t_red*)ft_lstat(lst, i)->content;
+		red = (t_red*)lst->content;
 		if (red->type == MTK_WRIT)
 		{
-			if (red->lhsfd == -2)
+			if (red->file != NULL)
 			{
-				redir_write(msh, red, 1);
-				redir_write(msh, red, 2);
+				if (red->lhsfd == -1)
+					redir_write_file_all(msh, red);
+				else
+					redir_write_file(msh, red);
 			}
 			else
-				redir_write(msh, red, red->lhsfd);
+				redir_write_fd(msh, red);
 		}
 		else if (red->type == MTK_APND)
 			redir_append(msh, red);
-		i--;
+		// i--;
+		// i++;
+		lst = lst->next;
 	}
 	return ;
 }

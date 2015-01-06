@@ -146,6 +146,8 @@ typedef struct	s_tkn
 **		iotypes		[0] in, [1] out.
 **		iofds		[0] in, [1] out.
 */
+#define STRU_S_CMD struct s_cmd
+
 typedef struct	s_cmd
 {
 	int			error;
@@ -161,9 +163,11 @@ typedef struct	s_cmd
 
 	t_list		*ared[1];
 
-	int			lhspfd[2];
-	int			rhspfd[2];
 	int			iotypes[2];
+	int			lhspfd[2];
+	STRU_S_CMD	*lhspcmd;
+	int			rhspfd[2];
+	STRU_S_CMD	*rhspcmd;
 }				t_cmd;
 /*
 ** ************************************************************************** **
@@ -235,7 +239,7 @@ void			msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd);
 */
 char			**msh_get_envvarp(const t_msh *msh, const char *key);
 char			*msh_get_envvar(const t_msh *msh, const char *key);
-void			msh_print_env(const t_msh *msh);
+void			msh_print_env(const t_msh *msh, int fd);
 char			**msh_update_envvar_m(t_msh *msh, char *line);
 char			**msh_new_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar_m(t_msh *msh, char *line);
@@ -245,6 +249,8 @@ char			**msh_get_envvarp(const t_msh *msh, const char *key);
 /*
 ** Built in functions.
 */
+int				msh_bi_init_pipeout(t_msh *msh, t_cmd *cmd, int *fd1_savep);
+void			msh_bi_disable_pipeout(t_msh *msh, t_cmd *cmd, int fd1_save);
 void			msh_builtin_cd(t_msh *msh, t_cmd *cmd);
 void			msh_builtin_env(t_msh *msh, t_cmd *cmd);
 void			msh_builtin_setenv(t_msh *msh, t_cmd *cmd);

@@ -77,7 +77,11 @@ static void		update_iotypes(t_msh *msh, t_list *cmd)
 	{
 		next = cmd->next;
 		if (next && ((t_cmd*)cmd->content)->iotypes[1] == 1)
+		{
+			((t_cmd*)next->content)->lhspcmd = (t_cmd*)cmd->content;
+			((t_cmd*)cmd->content)->rhspcmd = (t_cmd*)next->content;
 			((t_cmd*)next->content)->iotypes[0] = 1;
+		}
 		cmd = next;
 	}
 	(void)msh;

@@ -19,16 +19,29 @@ static void	child(t_msh *msh, t_cmd *cmd)
 {
 	if (cmd->iotypes[0] == 1)
 		msh_exec_cmd_pipein(msh, cmd);
+	if (cmd->iotypes[1] == 1)
+		msh_exec_cmd_pipeout(msh, cmd);
 	if (cmd->ared != NULL)
 	{
 		msh_inredirections(msh, *cmd->ared);
 		msh_outredirections(msh, *cmd->ared);
 	}
-	if (cmd->iotypes[1] == 1)
-		msh_exec_cmd_pipeout(msh, cmd);
 	execve(cmd->cmdpath, cmd->cmdav, msh->env);
 	msh_err(msh, "%s: execve failed.", cmd->cmdpath);
 	exit(1);
+}
+
+static void	waid_all(t_msh *msh, t_cmd *cmd)
+{
+	(void)waitpid(cmd->pid, NULL, 0);
+	cmd = cmd->lhspcmd;
+	while (cmd && cmd->iotypes[1] == 1)
+	{
+		(void)waitpid(cmd->pid, NULL, 0);
+		cmd = cmd->lhspcmd;
+	}
+	(void)msh;
+	return ;
 }
 
 static int	exec_cmd(t_msh *msh, t_cmd *cmd)
@@ -47,7 +60,8 @@ static int	exec_cmd(t_msh *msh, t_cmd *cmd)
 		if (cmd->iotypes[0] == 1)
 			msh_exec_cmd_closepipe(msh, cmd);
 		if (cmd->iotypes[1] == 0)
-			(void)waitpid(cmd->pid, NULL, 0);
+			waid_all(msh, cmd);
+			// (void)waitpid(cmd->pid, NULL, 0);
 	}
 	return (0);
 }

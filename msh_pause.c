@@ -82,9 +82,9 @@ void		msh_process_line(t_msh *msh, char *line)
 	msh_tokenize(msh, atkn, line);
 	*acmd = NULL;
 	msh_split_cmd(msh, atkn, acmd);
-/* 	msh_print_cmds(*acmd);	//debug */
+ 	// msh_print_cmds(*acmd);	//debug 
 	process_cmds(msh, acmd);
-/* 	msh_print_cmds(*acmd);	//debug */
+ 	// msh_print_cmds(*acmd);	//debug */
 	return ;
 }
 

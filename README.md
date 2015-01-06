@@ -37,8 +37,8 @@ My sh2 additions:
 - [X] Arguments for 'out' redirections: '[digits|&]**>**{&digits|file}'
 - [X] Arguments for 'append' redirections: '[digits]**>>**file'
 
+![MiniShell](http://i.imgur.com/FZTcUdg.png)
 <br><br><br><br><br><br>
-
 
 ```
 All my C files strictly observes school's norm, it may often lead to odd or illogical syntaxes.

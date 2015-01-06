@@ -15,27 +15,27 @@ This project is subdivided into 4 parts.
 <br><br>
 
 sh1 Goals:
-- [ ] Display a prompt.
-- [ ] Execute any command from PATH.
-- [ ] Error handling without errno.
+- [X] Display a prompt.
+- [X] Execute any command from PATH.
+- [ ] Full error handling without errno.
 - [ ] Built-ins: cd, setenv, unsetenv, env, exit.
 
 My sh1 additions:
 - [ ] All env's options.
 
 sh2 Goals:
-- [ ] Semicolons ';'.
-- [ ] Pipes '|'.
-- [ ] In redirection '<'.
-- [ ] Here document '<<'.
-- [ ] Append out redirection '>>'.
-- [ ] Out redirection '>'.
+- [X] Semicolons ';'.
+- [X] Pipes '|'.
+- [X] In redirection '<'.
+- [X] Here document '<<'.
+- [X] Append out redirection '>>'.
+- [X] Out redirection '>'.
 
 My sh2 additions:
-- [ ] Arguments for 'in' redirection: '[digits]**<**{&digits|file}'
-- [ ] Arguments for 'here document' redirection: '[digits]**<<**keyword'
-- [ ] Arguments for 'out' redirections: '[digits|&]**>**{&digits|file}'
-- [ ] Arguments for 'append' redirections: '[digits]**>>**file'
+- [X] Arguments for 'in' redirection: '[digits]**<**{&digits|file}'
+- [X] Arguments for 'here document' redirection: '[digits]**<<**keyword'
+- [X] Arguments for 'out' redirections: '[digits|&]**>**{&digits|file}'
+- [X] Arguments for 'append' redirections: '[digits]**>>**file'
 
 <br><br><br><br><br><br>
 

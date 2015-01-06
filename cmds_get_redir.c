@@ -13,6 +13,11 @@
 #include <stdlib.h>
 #include <minishell.h>
 
+/*
+** 'extract_redir_and_file' Exctrats infos, and calls the right function.
+** 'msh_cmd_get_redir' Creates t_red from t_tkn tokens.
+*/
+
 static void	extract_redir_and_file(t_msh *msh, t_red *red, t_list **lstp)
 {
 	t_tkn	*redir;

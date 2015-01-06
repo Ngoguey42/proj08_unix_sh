@@ -20,6 +20,8 @@
 ** *
 ** 'new_cmd' Creates a new t_cmd, fills it, and stores it in 'acmd'
 ** *
+** 'update_iotypes' Creates links between pipe-connected t_cmd.
+** *
 ** 'msh_split_cmd' Fills 'acmd' and empties 'atknp'.
 ** *
 */

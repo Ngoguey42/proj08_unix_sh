@@ -16,7 +16,13 @@
 
 /*
 ** All shells have a 'PWD' and 'SHLVL' on loading default.
-** All shells but csh and tcsh have '_' env variable on loading default.
+*/
+/*
+** 'dup_environ' Duplicates a givent environment.
+** 'update_shlvl' Updates or creates SHLVL variable.
+** 'update_pwd' Overwrite PWD variable.
+** 'update_path' Adds PATH variable, if missing.
+** 'msh_init_msh' Initialized the t_msh instance.
 */
 
 static int	dup_environ(char ***env, char **envp)

@@ -14,6 +14,13 @@
 #include <unistd.h>
 #include <minishell.h>
 
+/*
+** 'msh_exec_cmd_pipeout' Set up out pipe (right handed side), called by child.
+** 'msh_exec_cmd_pipein' Set up in pipe (left handed side), called by child.
+** 'msh_exec_cmd_openpipe' Opens pipe (right handed side), called by msh.
+** 'msh_exec_cmd_closepipe' Closes pipe (left handed side), called by msh.
+*/
+
 void		msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd)
 {
 	if (cmd->rhspfd[1] <= 0)

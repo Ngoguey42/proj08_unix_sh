@@ -12,9 +12,6 @@
 
 #include <minishell.h>
 
-/* #define FOR(a,b)    a; while (b) { (void)0 */
-/* #define ENDFOR(c)    c; } */
-
 void		msh_print_tokens(t_list *tkn)
 {
 	int			i;
@@ -85,8 +82,6 @@ void		msh_print_redirs(t_list *lst)
 	}
 
 }
-
-#define CMDPRINT(KEY, SUB) ft_dprintf(2, #KEY"(%"SUB") ", cmd->KEY)
 
 void		msh_print_cmds(t_list *lst)
 {

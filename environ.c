@@ -13,6 +13,13 @@
 #include <stdlib.h>
 #include <minishell.h>
 
+/*
+** 'msh_get_envvarp' Retreives a pointer to an env variable string.
+** 'msh_get_envvar' Retreives an env variable string.
+** 'msh_new_envvar_m' Allocates a new variable and adds it to the environment.
+** 'msh_update_envvar_m' Updates or allocates a new variable in environment.
+*/
+
 char	**msh_get_envvarp(const t_msh *msh, const char *key)
 {
 	const char	**env = (msh != NULL) ? (const char**)msh->env : NULL;

@@ -12,6 +12,10 @@
 
 #include <minishell.h>
 
+/*
+** 'msh_cmd_get_cmd' Retreives binary path from MTK_CMD token.
+*/
+
 void		msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd)
 {
 	t_list	*lst;

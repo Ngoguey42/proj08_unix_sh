@@ -15,6 +15,13 @@
 #include <fcntl.h>
 #include <minishell.h>
 
+/*
+** 'redir_redin_file' Sets up '<FILE' redirection.
+** 'redir_redin_fd' Sets up '<&FD' redirection.
+** 'redir_heredoc' Sets up '<<KEYWORD' redirection, inputrecorded in red->hdoc.
+** 'msh_inredirections' Parses t_red's list for the above in redirections.
+*/
+
 static void	redir_redin_file(t_msh *msh,t_red *red)
 {
 	int		filefd;
@@ -95,4 +102,3 @@ void 		msh_inredirections(t_msh *msh, t_list *lst)
 	}
 	return ;
 }
-

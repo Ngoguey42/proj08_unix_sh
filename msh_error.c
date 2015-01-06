@@ -15,6 +15,11 @@
 
 #define MSH_ERR_FD 5
 
+/*
+** 'msh_err' Prints a given error string with ft_printf.
+** 'msh_errmem' Handles malloc's fails.
+*/
+
 void		msh_err(const t_msh *msh, const char *format, ...)
 {
 	va_list	ap;

@@ -13,6 +13,10 @@
 #include <minishell.h>
 #include <stdlib.h>
 
+/*
+** 'msh_cmd_get_av' Allocates the table for binaries' argv.
+*/
+
 void		msh_cmd_get_av(t_msh *msh, t_cmd *cmd)
 {
 	void	**avargs[1];

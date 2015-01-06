@@ -15,7 +15,15 @@
 #include <fcntl.h>
 #include <minishell.h>
 
-int g_i;
+/*
+** 'redir_append' Sets up '>>FILE' redirection.
+** 'redir_write_file' Sets up '>&FILE' redirection.
+** 'redir_write_file_all' Sets up '&>FILE' redirection.
+** 'redir_write_fd' Sets up '>&fd' redirection.
+** 'msh_outredirections' Parses t_red's list for the above in redirections.
+*/
+
+int g_i; //debug
 
 static void	redir_append(t_msh *msh,t_red *red)
 {
@@ -103,7 +111,6 @@ static void	redir_write_fd(t_msh *msh,t_red *red)
 	}
 	return ;
 }
-
 
 void 		msh_outredirections(t_msh *msh, t_list *lst)
 {

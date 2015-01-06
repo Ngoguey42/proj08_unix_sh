@@ -13,6 +13,12 @@
 #include <stdlib.h>
 #include <minishell.h>
 
+/*
+** 'concat' Concatenates user's inputs.
+** 'request_heredoc' Requests user input for here document
+** 'msh_cmd_get_heredoc' Parses t_red's list for here-documents. ('<<')
+*/
+
 static char	*concat(char *rhs, char *lhs)
 {
 	char	*ret;

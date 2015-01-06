@@ -1,18 +1,21 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   built_in_cc.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/31 09:57:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 10:21:16 by ngoguey          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include <minishell.h>
+
+/*
+** Builtins Command Center.
+*/
+/*
+** 'msh_is_builtin' searches for a builtin from a givent string.
+** *
+** 'msh_get_builtin_index' retrieves a builtin index from string.
+** *
+** 'msh_bi_init_pipeout' initiates stdout before a pipe-out.
+** *
+** 'msh_bi_disable_pipeout' restores stdout after a pipe-out.
+** *
+*/
 
 t_bool		msh_is_builtin(const t_msh *msh, const char *cmd, size_t len)
 {
@@ -39,16 +42,6 @@ int			msh_get_builtin_index(const t_msh *msh, const char *cmd, size_t len)
 	return (0);
 }
 
-void		msh_bi_disable_pipeout(t_msh *msh, t_cmd *cmd, int fd1_save)
-{
-	if (dup2(fd1_save, 1) < 0)
-	{
-		msh_err(msh, "Could not resume stdout.");
-		exit(1);
-	}
-	(void)cmd;
-}
-
 int			msh_bi_init_pipeout(t_msh *msh, t_cmd *cmd, int *fd1_savep)
 {
 	if ((*fd1_savep = dup(1)) < 0)
@@ -64,3 +57,14 @@ int			msh_bi_init_pipeout(t_msh *msh, t_cmd *cmd, int *fd1_savep)
 	}
 	return (0);
 }
+
+void		msh_bi_disable_pipeout(t_msh *msh, t_cmd *cmd, int fd1_save)
+{
+	if (dup2(fd1_save, 1) < 0)
+	{
+		msh_err(msh, "Could not restore stdout.");
+		exit(1);
+	}
+	(void)cmd;
+}
+

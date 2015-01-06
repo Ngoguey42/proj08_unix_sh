@@ -14,6 +14,12 @@
 #include <unistd.h>
 #include <minishell.h>
 
+/*
+** 'msh_print_env' prints env, for debug or 'env' builtin call.
+** *
+** 'msh_builtin_env' 'env' builtin. Handles pipes, redirections and options.
+*/
+
 void		msh_print_env(const t_msh *msh, int fd)
 {
 	const char	**env = (msh != NULL) ? (const char**)msh->env : NULL;
@@ -33,10 +39,8 @@ void	msh_builtin_env(t_msh *msh, t_cmd *cmd)
 	int		fd1_save;
 
 	if (cmd->iotypes[1] == 1)
-	{
 		if (msh_bi_init_pipeout(msh, cmd, &fd1_save))
 			return ;
-	}
 	msh_print_env(msh, 1);
 	if (cmd->iotypes[1] == 1)
 		msh_bi_disable_pipeout(msh, cmd, fd1_save);

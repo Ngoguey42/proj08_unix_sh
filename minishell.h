@@ -97,7 +97,7 @@
 **				0x10	rhsfd over limit
 **				0x20	rhs is invalid
 **		ptr		pointers of the two tokens into the user input
-		len		characters inside the two tokens.
+**		len		characters inside the two tokens.
 */
 typedef struct	s_red
 {
@@ -133,18 +133,23 @@ typedef struct	s_tkn
 **					0x1, error in command.
 **					0x2, error(s) in redirection(s).
 **					*
+** 		pid			child pid after fork.
 ** *
 **		atkn		pointer to the first token of the command block.
 ** *
 **		is_builtin	boolean, whether cmd is a built-in or not.
+**		bi_index	builtin function's index.
 **		cmdpath		full path to the binary, NULL if not found.
 **		binerr		error regarding cmdpath's NULL value.
 ** 		cmdav		cmd1's argv to be sent.
 ** *
 **		ared		pointer to the first redirection
 ** *
-**		iotypes		[0] in, [1] out.
-**		iofds		[0] in, [1] out.
+**		iotypes		[0] in(left), [1] out(right) ; 0 == default, 1 == pipe.
+**		lhspfd		Left Handed Side Pipe File Descriptors
+** 		lhspcmd		Left Handed Side Pipe t_CMD instance pointer.
+**		rhspfd		Right Handed Side Pipe File Descriptors
+** 		rhspcmd		Right Handed Side Pipe t_CMD instance pointer.
 */
 #define STRU_S_CMD struct s_cmd
 
@@ -177,7 +182,7 @@ typedef struct	s_cmd
 **		mshex		msh's binary name, from main's av[0].
 ** 		mshenv		pointer to sh's environ variable.
 **		env			allocated msh's env.
-** *	
+** 		continue_	condition in input reading's loop.	
 **		bi_f		builtin_functions's array.
 **		bi_n		buitin_name's array.
 **		op			operators' list handled by msh.

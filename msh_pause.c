@@ -15,6 +15,11 @@
 #include <minishell.h>
 
 /*
+** 'err_close_allfd'	
+** *
+** 'process_cmds'		For each t_cmd, prints error message or calls it.
+*/
+/*
 ** 'process_line' Processes a given 'char *line'.
 **		Steps:
 **		---Split 'char's into 't_list's of 't_tkn'.
@@ -32,12 +37,10 @@
 **		---(if error == 0)
 **		------Allocate command's 'char **argv'.
 ** *
-**		---Open pipes and redirections.
-** *
 **		---For each 't_cmd'
 **		------Print error message.
 **		----OR-
-**		------Execute commands.
+**		------Execute commands with pipes and redirections.
 */
 /*
 ** 'msh_pause' Receives user input and calls 'process_line' on line at a time.

@@ -15,6 +15,23 @@
 #include <sys/wait.h>
 #include <minishell.h>
 
+/*
+** 'child'		Sets pipes, sets redirections, calls binary. Never returns.
+** *
+** 'waid_all'	Waits for all processes comunicating with pipe.
+** *
+** 'exec_cmd'	Calls a builtin or 'fork' for a binary.
+** 				----If binary
+** 				------'fork'
+** 				--------Child: Calls 'child' a non-returning function.
+** 				-------OR--
+** 				--------MSH: If (left handed pipe): closes it for MSH.
+** 				-------------If (';' or 'end' following): Waits for all cpid
+** 				----------------							(right to left).
+** 'msh_exec_cmd' Opens a following pipe and calls 'exec_cmd'.
+** *
+*/
+
 static void	child(t_msh *msh, t_cmd *cmd)
 {
 	if (cmd->iotypes[0] == 1)

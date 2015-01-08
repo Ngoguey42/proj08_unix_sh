@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:05:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/05 15:05:53 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 07:10:38 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,13 @@
 
 /*
 ** 'redir_redin_file' Sets up '<FILE' redirection.
+**			'open' => closed here OR exit OR failed
+**			'dup2' => closed by child.
 ** 'redir_redin_fd' Sets up '<&FD' redirection.
+**			'dup2' => closed by child.
 ** 'redir_heredoc' Sets up '<<KEYWORD' redirection, inputrecorded in red->hdoc.
+**			'pipe' => both closed here OR exit OR failed
+**			'dup2' => closed by child.
 ** 'msh_inredirections' Parses t_red's list for the above in redirections.
 */
 
@@ -37,10 +42,7 @@ static void	redir_redin_file(t_msh *msh,t_red *red)
 		exit(1);
 	}
 	if (close(filefd) < 0)
-	{
 		msh_err(msh, "%s(%d) close, failed.", red->file, filefd);
-		exit(1);
-	}
 	return ;
 }
 
@@ -65,20 +67,14 @@ static void	redir_heredoc(t_msh *msh,t_red *red)
 	}
 	ft_putstr_fd(red->hdoc, pipefd[1]);
 	if (close(pipefd[1]) < 0)
-	{
 		msh_err(msh, "here-doc pipe_in(%d) close, failed.", pipefd[1]);
-		exit(1);
-	}
 	if (dup2(pipefd[0], red->lhsfd) < 0)
 	{
 		msh_err(msh, "here-doc dup2, failed.");
 		exit(1);
 	}
 	if (close(pipefd[0]) < 0)
-	{
 		msh_err(msh, "here-doc pipe_out(%d) close, failed.", pipefd[0]);
-		exit(1);
-	}
 	return ;
 }
 

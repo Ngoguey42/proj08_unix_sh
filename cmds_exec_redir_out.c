@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 12:58:50 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/05 13:42:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 07:13:10 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,21 @@
 
 /*
 ** 'redir_append' Sets up '>>FILE' redirection.
+**			'open' => closed here OR exit OR failed.
+**			'dup2' => closed by child.
+** *
 ** 'redir_write_file' Sets up '>&FILE' redirection.
+**			'open' => closed here OR exit OR failed.
+**			'dup2' => closed by child.
+** *
 ** 'redir_write_file_all' Sets up '&>FILE' redirection.
+**			'open' => closed here OR exit OR failed.
+**			'dup2' => closed by child.
+**			'dup2' => closed by child.
+** *
 ** 'redir_write_fd' Sets up '>&fd' redirection.
+**			'dup2' => closed by child.
+** *
 ** 'msh_outredirections' Parses t_red's list for the above in redirections.
 */
 

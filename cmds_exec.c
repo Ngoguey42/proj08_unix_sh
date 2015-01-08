@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/05 15:51:40 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 07:29:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static int	exec_cmd(t_msh *msh, t_cmd *cmd)
 		if (cmd->pid == 0)
 			child(msh, cmd);
 		if (cmd->iotypes[0] == 1)
-			msh_exec_cmd_closepipe(msh, cmd);
+			msh_exec_cmd_closepipel(msh, cmd);
 		if (cmd->iotypes[1] == 0)
 			waid_all(msh, cmd);
 			// (void)waitpid(cmd->pid, NULL, 0);
@@ -91,7 +91,5 @@ int			msh_exec_cmd(t_msh *msh, t_list *lst)
 	if (cmd->iotypes[1] == 1)
 		if (msh_exec_cmd_openpipe(msh, lst))
 			return (1);
-	if (exec_cmd(msh, cmd))
-		return (1);
-	return (0);
+	return (exec_cmd(msh, cmd));
 }

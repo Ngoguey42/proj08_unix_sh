@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/05 15:50:02 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 06:38:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ typedef struct	s_tkn
 **		ared		pointer to the first redirection
 ** *
 **		iotypes		[0] in(left), [1] out(right) ; 0 == default, 1 == pipe.
-**		lhspfd		Left Handed Side Pipe File Descriptors
+**		lhspfd		Left Handed Side Pipe File Descriptors. (-2 == closed)
 ** 		lhspcmd		Left Handed Side Pipe t_CMD instance pointer.
 **		rhspfd		Right Handed Side Pipe File Descriptors
 ** 		rhspcmd		Right Handed Side Pipe t_CMD instance pointer.
@@ -235,7 +235,8 @@ void			msh_header(void);
 void			msh_process_line(t_msh *msh, char *line);
 
 int				msh_exec_cmd_openpipe(t_msh *msh, t_list *lst);
-void			msh_exec_cmd_closepipe(t_msh *msh, t_cmd *cmd);
+void			msh_exec_cmd_closepipel(t_msh *msh, t_cmd *cmd);
+void			msh_exec_cmd_closepiper(t_msh *msh, t_cmd *cmd);
 void			msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd);
 void			msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd);
 

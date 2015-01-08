@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 10:40:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/05 16:16:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 07:29:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,17 @@
 #include <minishell.h>
 
 /*
-** 'err_close_allfd'	
-** *
+** 'err_close_allfd' Called if 'fork' or 'pipe' failed in 'msh_exec_cmd'.
+**		Only pipes-fd are left to be closed at this point.
+**			(rhspfd / lhspfd).
+**		'dup' used in builtins, are closed by builtins, even if error.
+**		'dup2' to fd1 in builtins, are closed by builtins, even if error.
+**	*
+**		'open' called by childs are closed in situ.
+**		'dup2' called by childs (pipes/redirections) are close by child.
+** ***
 ** 'process_cmds'		For each t_cmd, prints error message or calls it.
-*/
-/*
+** ***
 ** 'process_line' Processes a given 'char *line'.
 **		Steps:
 **		---Split 'char's into 't_list's of 't_tkn'.
@@ -41,16 +47,26 @@
 **		------Print error message.
 **		----OR-
 **		------Execute commands with pipes and redirections.
-*/
-/*
+** ***
 ** 'msh_pause' Receives user input and calls 'process_line' on line at a time.
 */
 
 static void err_close_allfd(t_msh *msh, t_list *lst, t_cmd *cmd)
 {
+	t_cmd	*tmp_cmd;
+
+	while (lst != NULL)
+	{
+		tmp_cmd = (t_cmd*)lst->content;
+		if (tmp_cmd->lhspfd[0] > 0 || tmp_cmd->lhspfd[1] > 0)
+			msh_exec_cmd_closepipel(msh, tmp_cmd);
+		if (tmp_cmd->rhspfd[0] > 0 || tmp_cmd->rhspfd[1] > 0)
+			msh_exec_cmd_closepiper(msh, tmp_cmd);		
+		if ((void*)cmd == lst->content)
+			break ;
+		lst = lst->next;
+	}
 	(void)msh;
-	(void)lst;
-	(void)cmd;
 	return ;
 }
 

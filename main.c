@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 14:38:31 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 15:18:20 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@
 /*
 ** TODO:
 **	expand ~ ~+ from $home.
-**	dynamic prompts
-**	*
-**	*
+**	print errors.
+**	builtins
 **	*
 */
 

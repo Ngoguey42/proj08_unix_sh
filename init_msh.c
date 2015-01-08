@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 14:33:13 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 15:09:40 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,25 @@ static void	update_shlvl(t_msh *msh)
 	return ;
 }
 
-static void	update_pwd(t_msh *msh)
+void		msh_update_pwd(t_msh *msh)
 {
-	char	str[4 + 1 + PATH_MAX + 1];
+	char	str[6 + 1 + PATH_MAX + 1];
+	char	*cur;
 
-	ft_strcpy(str, "PWD=");
-	if (getcwd(str + 4, PATH_MAX + 1) == NULL)
+	cur = msh_get_envvar(msh, "PWD");
+	ft_strcpy(str, "OLDPWD=");
+	if (getcwd(str + 7, PATH_MAX + 1) == NULL)
 	{
-		msh_err(msh, "Could not collect cwd from getcwd.");
+		msh_err(msh, "Could not collect cwd.");
 		exit(1);
 	}
-	(void)msh_update_envvar_m(msh, str);
+	if (cur == NULL)
+		(void)msh_update_envvar_m(msh, str + 3);
+	else if (!ft_strequ(cur, str + 3))
+	{
+		(void)msh_update_envvar_m(msh, str + 3);
+		(void)msh_update_envvar_m(msh, str);
+	}
 	return ;
 }
 
@@ -98,7 +106,7 @@ int			msh_init_msh(t_msh *msh, char *ex)
 	if (dup_environ(&msh->env, environ))
 		return (1);
 	update_shlvl(msh);
-	update_pwd(msh);
+	msh_update_pwd(msh);
 	update_path(msh);
 	ft_memcpy(msh->bi_f, (void (*[])())MSHBIN_F, sizeof(msh->bi_f));
 	ft_memcpy(msh->bi_n, (char[][MSHBIN_MAXN])MSHBIN_N, sizeof(msh->bi_n));

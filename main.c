@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 10:36:53 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 14:38:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@
 /*
 ** TODO:
 **	expand ~ ~+ from $home.
-**	redirections in builtins.
 **	dynamic prompts
 **	*
 **	*
@@ -60,12 +59,13 @@ int			main(int ac, char *av[])
 	t_msh	msh;
 
 	if (msh_init_msh(&msh, av[0]))
-		return (1);
+		return (1);	
 	if (from_string(ac, av))
 		msh_process_line(&msh, av[2]);
 	else
 	{
-		msh_header();
+		if (msh.stdin_isatty)
+			msh_header();
 		msh_pause(&msh);
 	}
 	return (0);

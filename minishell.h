@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 12:21:08 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 14:38:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 ** Misc
 */
 # define MSH_PS1 "msh> "
+# define MSH_PS2 "> "
 # define MSH_PSHERE "h-doc> "
 
 # define DEFAULT_PATH "PATH=/usr/bin:/bin"
@@ -194,6 +195,7 @@ typedef struct	s_cmd
 **		bi_n		buitin_name's array.
 **		op			operators' list handled by msh.
 **		red_f		redirections storing functions.
+**		stdin_isatty	hide prompt and header if stdin in not a tty.
 */
 typedef struct	s_msh
 {
@@ -205,6 +207,7 @@ typedef struct	s_msh
 	char		bi_n[NUMBUILTINS + 1][MSHBIN_MAXN];
 	char		op[NUMOPERATORS + 1][3];
 	void		(*red_f[4])(struct s_msh *ms, t_red *re, t_tkn *r, t_tkn *n);
+	int			stdin_isatty;
 }				t_msh;
 /*
 ** ************************************************************************** **
@@ -221,6 +224,8 @@ int				msh_init_msh(t_msh *msh, char *ex);
 void			msh_pause(t_msh *msh);
 void			msh_header(void);
 void			msh_process_line(t_msh *msh, char *line);
+void			msh_ps1(const t_msh *msh);
+void			msh_ps2(const t_msh *msh);
 
 /*
 ** Tokenizations. (t_tkn / t_cmd / t_red)

@@ -19,6 +19,7 @@ sh1 Goals:
 - [X] Execute any command from PATH.
 - [ ] Full error handling without errno.
 - [ ] Built-ins: cd, setenv, unsetenv, env, exit.
+- [X] Read commands through argv's -c option or stdin reading.
 
 My sh1 additions:
 - [ ] All env's options.

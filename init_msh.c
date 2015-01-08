@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 12:21:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 14:33:13 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int			msh_init_msh(t_msh *msh, char *ex)
 	msh->continue_ = 1;
 	msh->mshex = ex;
 	msh->mshenv = environ;
+	msh->stdin_isatty = isatty(0);
 	if (dup_environ(&msh->env, environ))
 		return (1);
 	update_shlvl(msh);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pause.c                                            :+:      :+:    :+:   */
+/*   msh_pause.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/28 10:40:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:29:12 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/08 07:41:37 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/08 07:48:01 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 **		------One 't_list' per 't_cmd'.
 **		------Multiple 't_tkn's per 't_cmd'.
 ** *
-**		---Extract informations from 't_tkn' into 't_cmd'. 
+**		---Extract informations from 't_tkn' into 't_cmd'.
 **		------Command type and path. (Builtin/PATH's binary/Full path to binary)
 **		------Redirections informations. (Stored into 't_list's of 't_red')
 **		------Request user-input for here-documents.
@@ -61,7 +61,7 @@ static void err_close_allfd(t_msh *msh, t_list *lst, t_cmd *cmd)
 		if (tmp_cmd->lhspfd[0] > 0 || tmp_cmd->lhspfd[1] > 0)
 			msh_exec_cmd_closepipel(msh, tmp_cmd);
 		if (tmp_cmd->rhspfd[0] > 0 || tmp_cmd->rhspfd[1] > 0)
-			msh_exec_cmd_closepiper(msh, tmp_cmd);		
+			msh_exec_cmd_closepiper(msh, tmp_cmd);
 		if ((void*)cmd == lst->content)
 			break ;
 		lst = lst->next;
@@ -103,7 +103,7 @@ void		msh_process_line(t_msh *msh, char *line)
 	msh_split_cmd(msh, atkn, acmd);
  	// msh_print_cmds(*acmd);	//debug 
 	process_cmds(msh, acmd);
- 	// msh_print_cmds(*acmd);	//debug */
+ 	// msh_print_cmds(*acmd);	//debug
 	return ;
 }
 

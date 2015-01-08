@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cmds_get_redir.c                            :+:      :+:    :+:   */
+/*   cmds_get_redir.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/31 15:37:01 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 11:14:40 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/08 07:45:40 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/08 07:56:25 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void		msh_cmd_get_redir(t_msh *msh, t_cmd *cmd)
 								sizeof(t_red)) == NULL)
 				exit(1);
 		}
-		else if (tkn-> type == MTK_FILE)
+		else if (tkn->type == MTK_FILE)
 			msh_err(msh, "Encountered an MTK_FILE without a redirection.");
 		lst = lst->next;
 	}

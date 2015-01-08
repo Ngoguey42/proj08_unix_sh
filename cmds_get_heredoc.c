@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cmds_get_heredoc.c                          :+:      :+:    :+:   */
+/*   cmds_get_heredoc.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/02 12:01:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 12:51:58 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/08 07:45:30 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/08 07:52:10 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static void	request_heredoc(t_msh *msh, t_red *red)
 
 void		msh_cmd_get_heredoc(t_msh *msh, t_cmd *cmd)
 {
-	
 	t_list	*lst;
 	t_red	*red;
 

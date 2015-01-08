@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:29:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 07:54:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ static int	exec_cmd(t_msh *msh, t_cmd *cmd)
 			msh_exec_cmd_closepipel(msh, cmd);
 		if (cmd->iotypes[1] == 0)
 			waid_all(msh, cmd);
-			// (void)waitpid(cmd->pid, NULL, 0);
 	}
 	return (0);
 }

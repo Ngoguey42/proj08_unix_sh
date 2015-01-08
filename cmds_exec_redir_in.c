@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:05:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:10:38 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 08:02:16 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 ** 'msh_inredirections' Parses t_red's list for the above in redirections.
 */
 
-static void	redir_redin_file(t_msh *msh,t_red *red)
+static void	redir_redin_file(t_msh *msh, t_red *red)
 {
 	int		filefd;
 
@@ -46,7 +46,7 @@ static void	redir_redin_file(t_msh *msh,t_red *red)
 	return ;
 }
 
-static void	redir_redin_fd(t_msh *msh,t_red *red)
+static void	redir_redin_fd(t_msh *msh, t_red *red)
 {
 	if (dup2(red->rhsfd, red->lhsfd) < 0)
 	{
@@ -56,7 +56,7 @@ static void	redir_redin_fd(t_msh *msh,t_red *red)
 	return ;
 }
 
-static void	redir_heredoc(t_msh *msh,t_red *red)
+static void	redir_heredoc(t_msh *msh, t_red *red)
 {
 	int		pipefd[2];
 
@@ -78,7 +78,7 @@ static void	redir_heredoc(t_msh *msh,t_red *red)
 	return ;
 }
 
-void 		msh_inredirections(t_msh *msh, t_list *lst)
+void		msh_inredirections(t_msh *msh, t_list *lst)
 {
 	t_red	*red;
 

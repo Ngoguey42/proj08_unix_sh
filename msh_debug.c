@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   msh_debug.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/12/28 16:09:27 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/05 15:32:18 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/08 07:45:58 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/08 07:50:44 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ void		msh_print_redirs(t_list *lst)
 		{
 			ft_dprintf(2, "delim:%!N $zr ", red->file);
 			ft_dprintf(2, "result:%!N $zr ", red->hdoc);
-			
-			
 		}
 		else if (red->file != NULL)
 			ft_dprintf(2, "rfl:%!N $zr ", red->file);
@@ -80,30 +78,29 @@ void		msh_print_redirs(t_list *lst)
 		ft_putchar_fd('\n', 2);
 		lst = lst->next;
 	}
-
 }
 
 void		msh_print_cmds(t_list *lst)
 {
-	t_cmd		*cmd;
+	t_cmd		*c;
 	int			i;
 	const char	bi_n[][MSHBIN_MAXN] = MSHBIN_N;
 
 	i = 0;
 	while (lst != NULL)
-    {
-		cmd = (t_cmd*)lst->content;
-		ft_dprintf(2, "':RED:struct s_cmd:eof:#%d", ++i);
-		if (cmd->is_builtin == true)
-			ft_dprintf(2," %Ks: \"%$K zr\"\n", "builtin", bi_n[cmd->bi_index]);
+	{
+		c = (t_cmd*)lst->content;
+		ft_dprintf(2, "':RED:struct s_c:eof:#%d", ++i);
+		if (c->is_builtin == true)
+			ft_dprintf(2, " %Ks: \"%$K zr\"\n", "builtin", bi_n[c->bi_index]);
 		else
-			ft_dprintf(2," \"%$K zr\" binerr(%Kd)\n", cmd->cmdpath, cmd->binerr);
+			ft_dprintf(2, " \"%$K zr\" binerr(%Kd)\n", c->cmdpath, c->binerr);
 		ft_dprintf(2, "iotypes{%d, %d} lhspfd{%d, %d} rhspfd{%d, %d}\n",
-				cmd->iotypes[0], cmd->iotypes[1], cmd->lhspfd[0],
-				cmd->lhspfd[1], cmd->rhspfd[0], cmd->rhspfd[1]);
-		msh_print_tokens(*cmd->atkn);
-		msh_print_av(cmd->cmdav);
-		msh_print_redirs(*cmd->ared);
+				c->iotypes[0], c->iotypes[1], c->lhspfd[0],
+				c->lhspfd[1], c->rhspfd[0], c->rhspfd[1]);
+		msh_print_tokens(*c->atkn);
+		msh_print_av(c->cmdav);
+		msh_print_redirs(*c->ared);
 		lst = lst->next;
 		ft_putchar_fd('\n', 2);
 	}

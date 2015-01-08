@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 06:38:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 07:47:08 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 
 # define DEFAULT_PATH "PATH=/usr/bin:/bin"
 # define FD_PATH "/dev/fd/"
+
 /*
 ** ************************************************************************** **
 ** *
@@ -151,7 +152,7 @@ typedef struct	s_tkn
 **		rhspfd		Right Handed Side Pipe File Descriptors
 ** 		rhspcmd		Right Handed Side Pipe t_CMD instance pointer.
 */
-#define STRU_S_CMD struct s_cmd
+# define STRU_S_CMD struct s_cmd
 
 typedef struct	s_cmd
 {
@@ -182,7 +183,7 @@ typedef struct	s_cmd
 **		mshex		msh's binary name, from main's av[0].
 ** 		mshenv		pointer to sh's environ variable.
 **		env			allocated msh's env.
-** 		continue_	condition in input reading's loop.	
+** 		continue_	condition in input reading's loop.
 **		bi_f		builtin_functions's array.
 **		bi_n		buitin_name's array.
 **		op			operators' list handled by msh.
@@ -202,8 +203,6 @@ typedef struct	s_msh
 /*
 ** ************************************************************************** **
 */
-/* typedef void	(*t_mshbi)(t_msh*, t_cmd*); */
-/* typedef void	(*t_mshsred)(t_msh*, t_red*, t_list*); */
 
 # define CMSH	const t_msh
 
@@ -224,8 +223,8 @@ void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_msh *msh, t_cmd *cmd);
 int				msh_cmd_errors(t_msh *msh, t_cmd *cmd);
-void 			msh_inredirections(t_msh *msh, t_list *lst);
-void 			msh_outredirections(t_msh *msh, t_list *lst);
+void			msh_inredirections(t_msh *msh, t_list *lst);
+void			msh_outredirections(t_msh *msh, t_list *lst);
 
 void			msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);

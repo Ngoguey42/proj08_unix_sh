@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_cmds_get_redir_pertype.c                    :+:      :+:    :+:   */
+/*   cmds_get_redir_pertype.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/01 13:55:57 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 14:35:00 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/08 07:45:47 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/08 07:53:17 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,77 +60,77 @@ static int	extract_nbr(const char *ptr, int *fdp, int def)
 	return (error);
 }
 
-void	msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
+void		msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
 {
 	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 0);
-	if (next->type != MTK_FILE)
+	if (n->type != MTK_FILE)
 		red->error |= MSH_RINVALID;
 	else
 	{
 		red->rhsfd = -2;
-		red->file = ft_memdup((void*)next->ptr, next->len + 1);
+		red->file = ft_memdup((void*)n->ptr, n->len + 1);
 		if (red->file == NULL)
 			msh_errmem(msh);
-		red->file[next->len] = '\0';
+		red->file[n->len] = '\0';
 	}
 	return ;
 }
 
-void	msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
+void		msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
 {
 	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 1);
-	if (next->type != MTK_FILE || next->len == 0)
+	if (n->type != MTK_FILE || n->len == 0)
 		red->error |= MSH_RINVALID;
 	else
 	{
 		red->rhsfd = -2;
-		red->file = ft_memdup((void*)next->ptr, next->len + 1);
+		red->file = ft_memdup((void*)n->ptr, n->len + 1);
 		if (red->file == NULL)
 			msh_errmem(msh);
-		red->file[next->len] = '\0';
+		red->file[n->len] = '\0';
 		if ((red->file_err = ft_access(red->file, W_OK)) != 0)
 			red->error |= MSH_RINVALID;
 	}
 	return ;
 }
 
-void	msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
+void		msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
 {
 	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 0);
-	if (next->type != MTK_FILE)
+	if (n->type != MTK_FILE)
 		red->error |= MSH_RINVALID;
-	else if (*next->ptr == '&')
-		red->error |= extract_nbr(next->ptr + 1, &red->rhsfd, -1) << 3;
+	else if (*n->ptr == '&')
+		red->error |= extract_nbr(n->ptr + 1, &red->rhsfd, -1) << 3;
 	else
 	{
 		red->rhsfd = -2;
-		red->file = ft_memdup((void*)next->ptr, next->len + 1);
+		red->file = ft_memdup((void*)n->ptr, n->len + 1);
 		if (red->file == NULL)
 			msh_errmem(msh);
-		red->file[next->len] = '\0';
+		red->file[n->len] = '\0';
 		if ((red->file_err = ft_access(red->file, R_OK)) != 0)
 			red->error |= MSH_RINVALID;
 	}
 	return ;
 }
 
-void	msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *next)
+void		msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
 {
 	if (*redir->ptr == '&')
 		red->lhsfd = -1;
 	else
 		red->error |= extract_nbr(redir->ptr, &red->lhsfd, 1);
-	if (next->type != MTK_FILE)
+	if (n->type != MTK_FILE)
 		red->error |= MSH_RINVALID;
-	else if (*next->ptr == '&')
-		red->error |= extract_nbr(next->ptr + 1, &red->rhsfd, -1) << 3;
+	else if (*n->ptr == '&')
+		red->error |= extract_nbr(n->ptr + 1, &red->rhsfd, -1) << 3;
 	else
 	{
 		red->rhsfd = -2;
-		red->file = ft_memdup((void*)next->ptr, next->len + 1);
+		red->file = ft_memdup((void*)n->ptr, n->len + 1);
 		if (red->file == NULL)
 			msh_errmem(msh);
-		red->file[next->len] = '\0';
+		red->file[n->len] = '\0';
 		if ((red->file_err = ft_access(red->file, W_OK)) != 0)
 			red->error |= MSH_RINVALID;
 	}

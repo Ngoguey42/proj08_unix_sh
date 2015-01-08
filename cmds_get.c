@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:21:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/05 15:22:18 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 08:00:56 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 	if (cmd.error == 0)
 		msh_cmd_get_av(msh, &cmd);
 	if (ft_lstnewback((t_list**)acmd, (void*)&cmd, sizeof(t_cmd)) == NULL)
-        exit(1);
+		exit(1);
 	return (0);
 }
 
@@ -89,7 +89,7 @@ static void		update_iotypes(t_msh *msh, t_list *cmd)
 	(void)msh;
 }
 
-void            msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
+void			msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 {
 	if (atknp == NULL)
 		return ;

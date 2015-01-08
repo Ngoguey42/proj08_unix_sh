@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:22:44 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:26:43 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 08:03:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,6 @@ void		msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd)
 		exit(1);
 	}
 	msh_exec_cmd_closepiper(msh, cmd);
-/* 	if (close(cmd->rhspfd[0]) < 0) */
-/* 		msh_err(msh, "could not close rhs pipe read."); */
-/* 	if (close(cmd->rhspfd[1]) < 0) */
-/* 		msh_err(msh, "could not close rhs pipe write."); */
 	return ;
 }
 
@@ -57,10 +53,6 @@ void		msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd)
 		exit(1);
 	}
 	msh_exec_cmd_closepipel(msh, cmd);
-/* 	if (close(cmd->lhspfd[0])) */
-/* 		msh_err(msh, "could not close lhs pipe read."); */
-/* 	if (close(cmd->lhspfd[1])) */
-/* 		msh_err(msh, "could not close lhs pipe write."); */
 	return ;
 }
 
@@ -113,7 +105,6 @@ void		msh_exec_cmd_closepipel(t_msh *msh, t_cmd *cmd)
 	}
 	return ;
 }
-
 
 void		msh_exec_cmd_closepiper(t_msh *msh, t_cmd *cmd)
 {

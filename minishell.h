@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:47:08 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 08:23:59 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,34 +204,40 @@ typedef struct	s_msh
 ** ************************************************************************** **
 */
 
-# define CMSH	const t_msh
+# define CMSH const t_msh
 
 typedef CMSH	*t_cmshp;
 
+/*
+** Main functions.
+*/
 int				msh_init_msh(t_msh *msh, char *ex);
 void			msh_pause(t_msh *msh);
+void			msh_header(void);
+void			msh_process_line(t_msh *msh, char *line);
+
+/*
+** Tokenizations. (t_tkn / t_cmd / t_red)
+*/
 void			msh_tokenize(t_msh *msh, t_list *atknp[1], char *line);
 void			msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1]);
 t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn);
-void			msh_print_tokens(t_list *tkn);
-void			msh_print_cmds(t_list *lst);
-void			msh_err(const t_msh *msh, const char *format, ...);
-void			msh_errmem(const t_msh *msh);
-int				msh_exec_cmd(t_msh *msh, t_list *lst);
+
 void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_msh *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_msh *msh, t_cmd *cmd);
-int				msh_cmd_errors(t_msh *msh, t_cmd *cmd);
-void			msh_inredirections(t_msh *msh, t_list *lst);
-void			msh_outredirections(t_msh *msh, t_list *lst);
 
 void			msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
-void			msh_header(void);
-void			msh_process_line(t_msh *msh, char *line);
+
+/*
+** Commands executions.
+*/
+int				msh_cmd_errors(t_msh *msh, t_cmd *cmd);
+int				msh_exec_cmd(t_msh *msh, t_list *lst);
 
 int				msh_exec_cmd_openpipe(t_msh *msh, t_list *lst);
 void			msh_exec_cmd_closepipel(t_msh *msh, t_cmd *cmd);
@@ -239,30 +245,44 @@ void			msh_exec_cmd_closepiper(t_msh *msh, t_cmd *cmd);
 void			msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd);
 void			msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd);
 
+void			msh_inredirections(t_msh *msh, t_list *lst);
+void			msh_outredirections(t_msh *msh, t_list *lst);
+
 /*
-** Env Manipulation.
+** Environment.
 */
-char			**msh_get_envvarp(const t_msh *msh, const char *key);
-char			*msh_get_envvar(const t_msh *msh, const char *key);
-void			msh_print_env(const t_msh *msh, int fd);
 char			**msh_update_envvar_m(t_msh *msh, char *line);
 char			**msh_new_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar_m(t_msh *msh, char *line);
 char			*msh_get_envvar(const t_msh *msh, const char *key);
 char			**msh_get_envvarp(const t_msh *msh, const char *key);
+void			msh_print_env(const t_msh *msh, int fd);
 
 /*
-** Built in functions.
+** Builtins.
 */
+t_bool			msh_is_builtin(const t_msh *msh, const char *cmd, size_t len);
+int				msh_get_builtin_index(const t_msh *msh, const char *cmd,
+						size_t len);
 int				msh_bi_init_pipeout(t_msh *msh, t_cmd *cmd, int *fd1_savep);
 void			msh_bi_disable_pipeout(t_msh *msh, t_cmd *cmd, int fd1_save);
+
 void			msh_builtin_cd(t_msh *msh, t_cmd *cmd);
 void			msh_builtin_env(t_msh *msh, t_cmd *cmd);
 void			msh_builtin_setenv(t_msh *msh, t_cmd *cmd);
 void			msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd);
 void			msh_builtin_exit(t_msh *msh, t_cmd *cmd);
-t_bool			msh_is_builtin(const t_msh *msh, const char *cmd, size_t len);
-int				msh_get_builtin_index(const t_msh *msh, const char *cmd,
-						size_t len);
+
+/*
+** Errors:
+*/
+void			msh_err(const t_msh *msh, const char *format, ...);
+void			msh_errmem(const t_msh *msh);
+
+/*
+** Debug:
+*/
+void			msh_print_tokens(t_list *tkn);
+void			msh_print_cmds(t_list *lst);
 
 #endif

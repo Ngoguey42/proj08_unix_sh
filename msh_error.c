@@ -6,14 +6,14 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:46:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:46:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 10:15:57 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <stdlib.h>
 
-#define MSH_ERR_FD 5
+#define MSH_ERR_FD 2
 
 /*
 ** 'msh_err' Prints a given error string with ft_printf.

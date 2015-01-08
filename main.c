@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 16:23:28 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 10:36:53 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@
 **	------------msh_cmd_openfds() ()
 **	------------msh_cmd_errors() (cmds_errprint.c)
 **	------------msh_exec_cmds() (cmds_exec.c)
+*/
+
+/*
+** TODO:
+**	expand ~ ~+ from $home.
+**	redirections in builtins.
+**	dynamic prompts
+**	*
+**	*
+**	*
 */
 
 void	msh_builtin_setenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}

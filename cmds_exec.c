@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:54:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 10:37:39 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ static void	child(t_msh *msh, t_cmd *cmd)
 		msh_exec_cmd_pipeout(msh, cmd);
 	if (cmd->ared != NULL)
 	{
-		msh_inredirections(msh, *cmd->ared);
-		msh_outredirections(msh, *cmd->ared);
+		if (msh_inredirections(msh, *cmd->ared))
+			exit(1);
+		if (msh_outredirections(msh, *cmd->ared))
+			exit(1);
 	}
 	execve(cmd->cmdpath, cmd->cmdav, msh->env);
 	msh_err(msh, "%s: execve failed.", cmd->cmdpath);

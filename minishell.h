@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 08:23:59 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/08 12:21:08 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 ** *
 ** Redirections
 */
-# define MSH_OP (char[][3]){"<<", ">>", "<", ">", ";", "|", ""}
+# define MSH_OP {"<<", ">>", "<", ">", ";", "|", ""}
 # define NUMOPERATORS 6
 
 # define MSH_LFDTOOLONG 0x01
@@ -99,6 +99,11 @@
 **				0x20	rhs is invalid
 **		ptr		pointers of the two tokens into the user input
 **		len		characters inside the two tokens.
+**		prev_cp	for builtins, 'dup' of the previous destination fd.
+**				>0 fd
+**				0 unused
+**				-1 error
+**				-2 closed
 */
 typedef struct	s_red
 {
@@ -108,9 +113,10 @@ typedef struct	s_red
 	char		*file;
 	int			file_err;
 	char		*hdoc;
-	int			error;
+	int			error;	
 	char		*ptr[2];
 	size_t		len[2];
+	int			prev_cp;
 }				t_red;
 /*
 ** ************************************************************************** **
@@ -245,8 +251,8 @@ void			msh_exec_cmd_closepiper(t_msh *msh, t_cmd *cmd);
 void			msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd);
 void			msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd);
 
-void			msh_inredirections(t_msh *msh, t_list *lst);
-void			msh_outredirections(t_msh *msh, t_list *lst);
+int				msh_inredirections(t_msh *msh, t_list *lst);
+int				msh_outredirections(t_msh *msh, t_list *lst);
 
 /*
 ** Environment.
@@ -266,6 +272,9 @@ int				msh_get_builtin_index(const t_msh *msh, const char *cmd,
 						size_t len);
 int				msh_bi_init_pipeout(t_msh *msh, t_cmd *cmd, int *fd1_savep);
 void			msh_bi_disable_pipeout(t_msh *msh, t_cmd *cmd, int fd1_save);
+int				msh_bi_init_redirs(t_msh *msh, t_list *lst);
+void			msh_bi_disable_redirs(t_msh *msh, t_list *lst);
+
 
 void			msh_builtin_cd(t_msh *msh, t_cmd *cmd);
 void			msh_builtin_env(t_msh *msh, t_cmd *cmd);
@@ -284,5 +293,6 @@ void			msh_errmem(const t_msh *msh);
 */
 void			msh_print_tokens(t_list *tkn);
 void			msh_print_cmds(t_list *lst);
+void			msh_print_redirs(t_list *lst);
 
 #endif

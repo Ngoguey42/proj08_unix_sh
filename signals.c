@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/09 10:11:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/09 12:56:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/09 14:26:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static void	set_msg_index(char buf[MSG_BUF_SIZE], int i)
 	"Virtual timer expired", "Profiling timer expired",
 	"User defined signal 1", "User defined signal 2"};
 	ft_strcpy(buf, str[i]);
+	D(int, i);
+	D(char*, buf);
 	return ;
 }
 

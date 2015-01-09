@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:15:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 11:05:26 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/09 14:29:50 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,3 @@ void		msh_bi_disable_pipeout(t_msh *msh, t_cmd *cmd, int fd1_save)
 		msh_err(msh, "Could not close stdout dup.");
 	return ;
 }
-

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:15:49 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 11:47:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/09 14:30:03 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		msh_bi_disable_redirs(t_msh *msh, t_list *lst)
 	{
 		red = (t_red*)lst->content;
 		if (red->prev_cp > 0)
-		{			
+		{
 			if (dup2(red->prev_cp, red->lhsfd) < 0)
 			{
 				msh_err(msh, "Could not restore fd %d.", red->lhsfd);

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/09 10:11:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/09 11:44:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/09 12:56:39 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <sys/wait.h>
 #include <minishell.h>
 
-#define MSG_BUF_SIZE 26
+#define MSG_BUF_SIZE 25
 
 static void	set_msg_index(char buf[MSG_BUF_SIZE], int i)
 {

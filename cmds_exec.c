@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/09 11:48:24 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/09 12:26:51 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	waid_all(t_msh *msh, t_cmd *cmd)
 	(void)waitpid(cmd->pid, &cmd->wstatus, 0);
 	printed = msh_handle_signal(msh, cmd);
 	cmd = cmd->lhspcmd;
-	return ;
 	while (cmd && cmd->iotypes[1] == 1)
 	{
 		(void)waitpid(cmd->pid, &cmd->wstatus, 0);

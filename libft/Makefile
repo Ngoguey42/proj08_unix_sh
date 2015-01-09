@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2014/12/31 07:28:08 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/09 12:52:24 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -85,7 +85,7 @@ ft_log10.c ft_powi.c      ft_ceil.c    ft_abs.c         \
 ft_log16.c ft_sqrtfloor.c ft_floor.c   operations.c     \
 ft_log2.c                 ft_dbltype.c ft_getbitarray.c ft_idiv.c\
 \
-ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c\
+ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c ft_printvar.c\
 \
 ft_tabadd.c ft_tabcc.c ft_tabdel.c ft_tabsize.c ft_tabsort.c ft_tabadddebug.c\
 ft_metacc.c ft_metaget.c ft_metaset.c ft_metagetdebug.c\

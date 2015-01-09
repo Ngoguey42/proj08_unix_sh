@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 14:49:13 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/09 10:53:50 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,9 @@ typedef struct	s_tkn
 **		cmdpath		full path to the binary, NULL if not found.
 **		binerr		error regarding cmdpath's NULL value.
 ** 		cmdav		cmd1's argv to be sent.
+**		wstatus		wait's return status.
 ** *
-**		ared		pointer to the first redirection
+**		ARED		pointer to the first redirection
 ** *
 **		iotypes		[0] in(left), [1] out(right) ; 0 == default, 1 == pipe.
 **		lhspfd		Left Handed Side Pipe File Descriptors. (-2 == closed)
@@ -173,6 +174,7 @@ typedef struct	s_cmd
 	char		*cmdpath;
 	int			binerr;
 	char		**cmdav;
+	int			wstatus;
 
 	t_list		*ared[1];
 
@@ -249,6 +251,7 @@ void			msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
 */
 int				msh_cmd_errors(t_msh *msh, t_cmd *cmd);
 int				msh_exec_cmd(t_msh *msh, t_list *lst);
+int				msh_handle_signal(const t_msh *msh, const t_cmd *cmd);
 
 int				msh_exec_cmd_openpipe(t_msh *msh, t_list *lst);
 void			msh_exec_cmd_closepipel(t_msh *msh, t_cmd *cmd);

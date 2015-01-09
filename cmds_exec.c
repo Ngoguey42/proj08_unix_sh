@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 10:37:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/09 11:48:24 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,18 @@ static void	child(t_msh *msh, t_cmd *cmd)
 
 static void	waid_all(t_msh *msh, t_cmd *cmd)
 {
-	(void)waitpid(cmd->pid, NULL, 0);
+	int		printed;
+
+	printed = 0;
+	(void)waitpid(cmd->pid, &cmd->wstatus, 0);
+	printed = msh_handle_signal(msh, cmd);
 	cmd = cmd->lhspcmd;
+	return ;
 	while (cmd && cmd->iotypes[1] == 1)
 	{
-		(void)waitpid(cmd->pid, NULL, 0);
+		(void)waitpid(cmd->pid, &cmd->wstatus, 0);
+		if (!printed)
+			printed = msh_handle_signal(msh, cmd);
 		cmd = cmd->lhspcmd;
 	}
 	(void)msh;
@@ -79,7 +86,9 @@ static int	exec_cmd(t_msh *msh, t_cmd *cmd)
 		if (cmd->iotypes[0] == 1)
 			msh_exec_cmd_closepipel(msh, cmd);
 		if (cmd->iotypes[1] == 0)
+		{
 			waid_all(msh, cmd);
+		}
 	}
 	return (0);
 }

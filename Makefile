@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/08 14:38:21 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/09 10:44:29 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -42,6 +42,7 @@ cmds_get_redir.c cmds_get_redir_pertype.c cmds_get_heredoc.c\
 \
 cmds_errprint.c\
 cmds_exec.c cmds_exec_redir_in.c cmds_exec_redir_out.c cmds_exec_pipes.c\
+signals.c\
 \
 builtins_cc.c builtins_cc_pipes.c builtins_cc_redirs.c\
 builtin_env.c builtin_cd.c\

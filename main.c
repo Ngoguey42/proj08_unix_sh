@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 15:18:20 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/09 09:18:30 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,22 @@
 **	*
 */
 
+#include <signal.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+#include <stdlib.h>
+
 void	msh_builtin_setenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 void	msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 void	msh_builtin_exit(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
+
+static void	handler(int s)
+{
+/* 	ft_putchar_fd('\n', 1); */
+	(void)s;
+	return ;
+}
 
 static int	from_string(int ac, char *av[])
 {
@@ -57,8 +70,9 @@ int			main(int ac, char *av[])
 {
 	t_msh	msh;
 
+	signal(SIGINT, &handler);
 	if (msh_init_msh(&msh, av[0]))
-		return (1);	
+		return (1);
 	if (from_string(ac, av))
 		msh_process_line(&msh, av[2]);
 	else

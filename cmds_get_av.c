@@ -17,7 +17,7 @@
 ** 'msh_cmd_get_av' Allocates the table for binaries' argv.
 */
 
-void		msh_cmd_get_av(t_msh *msh, t_cmd *cmd)
+void		msh_cmd_get_av(t_mshc *msh, t_cmd *cmd)
 {
 	void	**avargs[1];
 	t_tkn	*tkn;

@@ -20,7 +20,7 @@
 ** 'msh_builtin_env' 'env' builtin. Handles pipes, redirections and options.
 */
 
-void		msh_print_env(const t_msh *msh, int fd)
+void		msh_print_env(t_mshc *msh, int fd)
 {
 	const char	**env = (msh != NULL) ? (const char**)msh->env : NULL;
 

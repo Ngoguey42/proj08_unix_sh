@@ -25,7 +25,7 @@
 ** 'msh_bi_disable_redirs' Disables redirections for builtins.
 */
 
-static int	save_prev_fd(t_msh *msh, t_list *lst)
+static int	save_prev_fd(t_mshc *msh, t_list *lst)
 {
 	t_red	*red;
 
@@ -42,7 +42,7 @@ static int	save_prev_fd(t_msh *msh, t_list *lst)
 	return (0);
 }
 
-int			msh_bi_init_redirs(t_msh *msh, t_list *lst)
+int			msh_bi_init_redirs(t_mshc *msh, t_list *lst)
 {
 	if (lst == NULL)
 		return (0);
@@ -53,7 +53,7 @@ int			msh_bi_init_redirs(t_msh *msh, t_list *lst)
 	return (0);
 }
 
-void		msh_bi_disable_redirs(t_msh *msh, t_list *lst)
+void		msh_bi_disable_redirs(t_mshc *msh, t_list *lst)
 {
 	t_red	*red;
 

@@ -18,7 +18,7 @@
 ** 'msh_cmd_get_redir' Creates t_red from t_tkn tokens.
 */
 
-static void	extract_redir_and_file(t_msh *msh, t_red *red, t_list **lstp)
+static void	extract_redir_and_file(t_mshc *msh, t_red *red, t_list **lstp)
 {
 	t_tkn	*redir;
 	t_tkn	*next;
@@ -39,7 +39,7 @@ static void	extract_redir_and_file(t_msh *msh, t_red *red, t_list **lstp)
 	return ;
 }
 
-void		msh_cmd_get_redir(t_msh *msh, t_cmd *cmd)
+void		msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd)
 {
 	t_list	*lst;
 	t_tkn	*tkn;

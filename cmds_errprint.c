@@ -16,7 +16,7 @@
 **
 */
 
-int			msh_cmd_errors(t_msh *msh, t_cmd *cmd)
+int			msh_cmd_errors(t_mshc *msh, t_cmd *cmd)
 {
 	
 	(void)msh;

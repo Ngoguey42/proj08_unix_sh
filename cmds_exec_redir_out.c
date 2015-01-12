@@ -35,7 +35,7 @@
 ** 'msh_outredirections' Parses t_red's list for the above in redirections.
 */
 
-static int	redir_append(t_msh *msh, t_red *red)
+static int	redir_append(t_mshc *msh, t_red *red)
 {
 	int		filefd;
 
@@ -55,7 +55,7 @@ static int	redir_append(t_msh *msh, t_red *red)
 	return (0);
 }
 
-static int	redir_write_file(t_msh *msh, t_red *red)
+static int	redir_write_file(t_mshc *msh, t_red *red)
 {
 	int		filefd;
 
@@ -75,7 +75,7 @@ static int	redir_write_file(t_msh *msh, t_red *red)
 	return (0);
 }
 
-static int	redir_write_file_all(t_msh *msh, t_red *red)
+static int	redir_write_file_all(t_mshc *msh, t_red *red)
 {
 	int		filefd;
 
@@ -101,7 +101,7 @@ static int	redir_write_file_all(t_msh *msh, t_red *red)
 	return (0);
 }
 
-static int	redir_write_fd(t_msh *msh, t_red *red)
+static int	redir_write_fd(t_mshc *msh, t_red *red)
 {
 	if (dup2(red->rhsfd, red->lhsfd) < 0)
 	{
@@ -112,7 +112,7 @@ static int	redir_write_fd(t_msh *msh, t_red *red)
 	return (0);
 }
 
-int			msh_outredirections(t_msh *msh, t_list *lst)
+int			msh_outredirections(t_mshc *msh, t_list *lst)
 {
 	t_red	*red;
 	int		ret;

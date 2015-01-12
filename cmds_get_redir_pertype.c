@@ -60,9 +60,9 @@ static int	extract_nbr(const char *ptr, int *fdp, int def)
 	return (error);
 }
 
-void		msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
+void		msh_saveredir_here(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 {
-	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 0);
+	red->error |= extract_nbr(tkn->ptr, &red->lhsfd, 0);
 	if (n->type != MTK_FILE)
 		red->error |= MSH_RINVALID;
 	else
@@ -76,9 +76,9 @@ void		msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
 	return ;
 }
 
-void		msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
+void		msh_saveredir_apnd(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 {
-	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 1);
+	red->error |= extract_nbr(tkn->ptr, &red->lhsfd, 1);
 	if (n->type != MTK_FILE || n->len == 0)
 		red->error |= MSH_RINVALID;
 	else
@@ -94,9 +94,9 @@ void		msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
 	return ;
 }
 
-void		msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
+void		msh_saveredir_read(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 {
-	red->error |= extract_nbr(redir->ptr, &red->lhsfd, 0);
+	red->error |= extract_nbr(tkn->ptr, &red->lhsfd, 0);
 	if (n->type != MTK_FILE)
 		red->error |= MSH_RINVALID;
 	else if (*n->ptr == '&')
@@ -114,12 +114,12 @@ void		msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
 	return ;
 }
 
-void		msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *redir, t_tkn *n)
+void		msh_saveredir_write(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 {
-	if (*redir->ptr == '&')
+	if (*tkn->ptr == '&')
 		red->lhsfd = -1;
 	else
-		red->error |= extract_nbr(redir->ptr, &red->lhsfd, 1);
+		red->error |= extract_nbr(tkn->ptr, &red->lhsfd, 1);
 	if (n->type != MTK_FILE)
 		red->error |= MSH_RINVALID;
 	else if (*n->ptr == '&')

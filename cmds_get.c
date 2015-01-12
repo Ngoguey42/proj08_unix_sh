@@ -45,7 +45,7 @@ static void		move_tokens(t_list *atknp[1], t_cmd *cmd)
 	}
 }
 
-static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
+static int		new_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1])
 {
 	t_list	*tmp_tkn;
 	t_cmd	cmd;
@@ -71,7 +71,7 @@ static int		new_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
 	return (0);
 }
 
-static void		update_iotypes(t_msh *msh, t_list *cmd)
+static void		update_iotypes(t_mshc *msh, t_list *cmd)
 {
 	t_list	*next;
 
@@ -89,7 +89,7 @@ static void		update_iotypes(t_msh *msh, t_list *cmd)
 	(void)msh;
 }
 
-void			msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1])
+void			msh_split_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1])
 {
 	if (atknp == NULL)
 		return ;

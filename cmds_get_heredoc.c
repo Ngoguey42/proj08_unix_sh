@@ -40,13 +40,13 @@ static char	*concat(char *rhs, char *lhs)
 	return (ret);
 }
 
-static void	request_heredoc(t_msh *msh, t_red *red)
+static void	request_heredoc(t_mshc *msh, t_red *red)
 {
 	char	*line;
 	int		ret;
 	char	*cat;
 
-	ft_putstr(MSH_PSHERE);
+	msh_ps2(msh, MSH_PSHERE);
 	cat = NULL;
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
@@ -56,11 +56,10 @@ static void	request_heredoc(t_msh *msh, t_red *red)
 		ft_putstr(MSH_PSHERE);
 	}
 	red->hdoc = cat;
-	(void)msh;
 	return ;
 }
 
-void		msh_cmd_get_heredoc(t_msh *msh, t_cmd *cmd)
+void		msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd)
 {
 	t_list	*lst;
 	t_red	*red;

@@ -20,7 +20,7 @@
 ** 'msh_errmem' Handles malloc's fails.
 */
 
-void		msh_err(const t_msh *msh, const char *format, ...)
+void		msh_err(t_mshc *msh, const char *format, ...)
 {
 	va_list	ap;
 
@@ -35,7 +35,7 @@ void		msh_err(const t_msh *msh, const char *format, ...)
 	return ;
 }
 
-void		msh_errmem(const t_msh *msh)
+void		msh_errmem(t_mshc *msh)
 {
 	msh_err(msh, "Malloc failed.");
 	exit(1);

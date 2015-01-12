@@ -16,7 +16,7 @@ int main(void)
 /* 	printf("{{2}}"); fflush(stdout); */
 	kill(getpid(), SIGUSR1);
 /* 	signal(SIGPIPE, siglol); */
-	while (1);
+	// while (1);
 /* 	{ */
 /* 		printf("w"); */
 /* 		fflush(stdout); */

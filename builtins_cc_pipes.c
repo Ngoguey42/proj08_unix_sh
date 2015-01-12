@@ -27,7 +27,7 @@
 ** *
 */
 
-int			msh_bi_init_pipeout(t_msh *msh, t_cmd *cmd, int *fd1_savep)
+int			msh_bi_init_pipeout(t_mshc *msh, t_cmd *cmd, int *fd1_savep)
 {
 	if (cmd->iotypes[1] != 1)
 		return (0);
@@ -44,7 +44,7 @@ int			msh_bi_init_pipeout(t_msh *msh, t_cmd *cmd, int *fd1_savep)
 	return (0);
 }
 
-void		msh_bi_disable_pipeout(t_msh *msh, t_cmd *cmd, int fd1_save)
+void		msh_bi_disable_pipeout(t_mshc *msh, t_cmd *cmd, int fd1_save)
 {
 	if (cmd->iotypes[1] != 1 || fd1_save < 0)
 		return ;

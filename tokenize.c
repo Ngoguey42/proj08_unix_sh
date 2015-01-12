@@ -64,7 +64,7 @@
 **		p[1]		Last MTK_ in line.
 */
 
-static int		get_op(t_msh *msh, char *line)
+static int		get_op(t_mshc *msh, char *line)
 {
 	int		i;
 
@@ -115,7 +115,7 @@ static int		new_token_type(t_list *atkn[1], char **line, int type)
 	return (1);
 }
 
-void			msh_tokenize(t_msh *msh, t_list *atkn[1], char *line)
+void			msh_tokenize(t_mshc *msh, t_list *atkn[1], char *line)
 {
 	int		p[2];
 

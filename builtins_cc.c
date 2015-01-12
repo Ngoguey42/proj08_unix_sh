@@ -22,7 +22,7 @@
 ** *
 */
 
-t_bool		msh_is_builtin(const t_msh *msh, const char *cmd, size_t len)
+t_bool		msh_is_builtin(t_mshc *msh, const char *cmd, size_t len)
 {
 	int		i;
 
@@ -35,7 +35,7 @@ t_bool		msh_is_builtin(const t_msh *msh, const char *cmd, size_t len)
 	return (false);
 }
 
-int			msh_get_builtin_index(const t_msh *msh, const char *cmd, size_t len)
+int			msh_get_builtin_index(t_mshc *msh, const char *cmd, size_t len)
 {
 	int		i;
 

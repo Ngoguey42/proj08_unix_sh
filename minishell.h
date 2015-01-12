@@ -200,6 +200,9 @@ typedef struct	s_cmd
 **		red_f		redirections storing functions.
 **		stdin_isatty	hide prompt and header if stdin in not a tty.
 */
+# define CMSHS const struct s_msh
+# define CMSH const t_msh
+
 typedef struct	s_msh
 {
 	char		*mshex;
@@ -209,16 +212,16 @@ typedef struct	s_msh
 	void		(*bi_f[NUMBUILTINS + 1])(struct s_msh *msh, t_cmd *cmd);
 	char		bi_n[NUMBUILTINS + 1][MSHBIN_MAXN];
 	char		op[NUMOPERATORS + 1][3];
-	void		(*red_f[4])(struct s_msh *ms, t_red *re, t_tkn *r, t_tkn *n);
+	void		(*red_f[4])(CMSHS *msh, t_red *re, t_tkn *r, t_tkn *n);
 	int			stdin_isatty;
 }				t_msh;
+typedef CMSH	t_mshc;
 /*
 ** ************************************************************************** **
 */
 
-# define CMSH const t_msh
 
-typedef CMSH	*t_cmshp;
+
 
 /*
 ** Main functions.
@@ -227,41 +230,41 @@ int				msh_init_msh(t_msh *msh, char *ex);
 void			msh_pause(t_msh *msh);
 void			msh_header(void);
 void			msh_process_line(t_msh *msh, char *line);
-void			msh_ps1(const t_msh *msh);
-void			msh_ps2(const t_msh *msh);
+void			msh_ps1(t_mshc *msh);
+void			msh_ps2(t_mshc *msh, const char *d);
 
 /*
 ** Tokenizations. (t_tkn / t_cmd / t_red)
 */
-void			msh_tokenize(t_msh *msh, t_list *atknp[1], char *line);
-void			msh_split_cmd(t_msh *msh, t_list *atknp[1], t_list *acmd[1]);
+void			msh_tokenize(t_mshc *msh, t_list *atknp[1], char *line);
+void			msh_split_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1]);
 t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn);
 
-void			msh_cmd_get_av(t_msh *msh, t_cmd *cmd);
-void			msh_cmd_get_cmd(t_msh *msh, t_cmd *cmd);
-void			msh_cmd_get_redir(t_msh *msh, t_cmd *cmd);
-void			msh_cmd_get_heredoc(t_msh *msh, t_cmd *cmd);
+void			msh_cmd_get_av(t_mshc *msh, t_cmd *cmd);
+void			msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd);
+void			msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd);
+void			msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd);
 
-void			msh_saveredir_here(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
-void			msh_saveredir_apnd(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
-void			msh_saveredir_read(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
-void			msh_saveredir_write(t_msh *msh, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_saveredir_here(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_saveredir_apnd(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_saveredir_read(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_saveredir_write(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
 
 /*
 ** Commands executions.
 */
-int				msh_cmd_errors(t_msh *msh, t_cmd *cmd);
+int				msh_cmd_errors(t_mshc *msh, t_cmd *cmd);
 int				msh_exec_cmd(t_msh *msh, t_list *lst);
-int				msh_handle_signal(const t_msh *msh, const t_cmd *cmd);
+int				msh_handle_signal(t_mshc *msh, const t_cmd *cmd);
 
-int				msh_exec_cmd_openpipe(t_msh *msh, t_list *lst);
-void			msh_exec_cmd_closepipel(t_msh *msh, t_cmd *cmd);
-void			msh_exec_cmd_closepiper(t_msh *msh, t_cmd *cmd);
-void			msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd);
-void			msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd);
+int				msh_exec_cmd_openpipe(t_mshc *msh, t_list *lst);
+void			msh_exec_cmd_closepipel(t_mshc *msh, t_cmd *cmd);
+void			msh_exec_cmd_closepiper(t_mshc *msh, t_cmd *cmd);
+void			msh_exec_cmd_pipeout(t_mshc *msh, t_cmd *cmd);
+void			msh_exec_cmd_pipein(t_mshc *msh, t_cmd *cmd);
 
-int				msh_inredirections(t_msh *msh, t_list *lst);
-int				msh_outredirections(t_msh *msh, t_list *lst);
+int				msh_inredirections(t_mshc *msh, t_list *lst);
+int				msh_outredirections(t_mshc *msh, t_list *lst);
 
 /*
 ** Environment.
@@ -269,21 +272,21 @@ int				msh_outredirections(t_msh *msh, t_list *lst);
 char			**msh_update_envvar_m(t_msh *msh, char *line);
 char			**msh_new_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar_m(t_msh *msh, char *line);
-char			*msh_get_envvar(const t_msh *msh, const char *key);
-char			**msh_get_envvarp(const t_msh *msh, const char *key);
-void			msh_print_env(const t_msh *msh, int fd);
+char			*msh_get_envvar(t_mshc *msh, const char *key);
+char			**msh_get_envvarp(t_mshc *msh, const char *key);
+void			msh_print_env(t_mshc *msh, int fd);
 void			msh_update_pwd(t_msh *msh);
 
 /*
 ** Builtins.
 */
-t_bool			msh_is_builtin(const t_msh *msh, const char *cmd, size_t len);
-int				msh_get_builtin_index(const t_msh *msh, const char *cmd,
+t_bool			msh_is_builtin(t_mshc *msh, const char *cmd, size_t len);
+int				msh_get_builtin_index(t_mshc *msh, const char *cmd,
 						size_t len);
-int				msh_bi_init_pipeout(t_msh *msh, t_cmd *cmd, int *fd1_savep);
-void			msh_bi_disable_pipeout(t_msh *msh, t_cmd *cmd, int fd1_save);
-int				msh_bi_init_redirs(t_msh *msh, t_list *lst);
-void			msh_bi_disable_redirs(t_msh *msh, t_list *lst);
+int				msh_bi_init_pipeout(t_mshc *msh, t_cmd *cmd, int *fd1_savep);
+void			msh_bi_disable_pipeout(t_mshc *msh, t_cmd *cmd, int fd1_save);
+int				msh_bi_init_redirs(t_mshc *msh, t_list *lst);
+void			msh_bi_disable_redirs(t_mshc *msh, t_list *lst);
 
 
 void			msh_builtin_cd(t_msh *msh, t_cmd *cmd);
@@ -295,8 +298,8 @@ void			msh_builtin_exit(t_msh *msh, t_cmd *cmd);
 /*
 ** Errors:
 */
-void			msh_err(const t_msh *msh, const char *format, ...);
-void			msh_errmem(const t_msh *msh);
+void			msh_err(t_mshc *msh, const char *format, ...);
+void			msh_errmem(t_mshc *msh);
 
 /*
 ** Debug:

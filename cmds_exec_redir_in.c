@@ -27,7 +27,7 @@
 ** 'msh_inredirections' Parses t_red's list for the above in redirections.
 */
 
-static int	redir_redin_file(t_msh *msh, t_red *red)
+static int	redir_redin_file(t_mshc *msh, t_red *red)
 {
 	int		filefd;
 
@@ -46,7 +46,7 @@ static int	redir_redin_file(t_msh *msh, t_red *red)
 	return (0);
 }
 
-static int	redir_redin_fd(t_msh *msh, t_red *red)
+static int	redir_redin_fd(t_mshc *msh, t_red *red)
 {
 	if (dup2(red->rhsfd, red->lhsfd) < 0)
 	{
@@ -56,7 +56,7 @@ static int	redir_redin_fd(t_msh *msh, t_red *red)
 	return (0);
 }
 
-static int	redir_heredoc(t_msh *msh, t_red *red)
+static int	redir_heredoc(t_mshc *msh, t_red *red)
 {
 	int		pipefd[2];
 
@@ -78,7 +78,7 @@ static int	redir_heredoc(t_msh *msh, t_red *red)
 	return (0);
 }
 
-int			msh_inredirections(t_msh *msh, t_list *lst)
+int			msh_inredirections(t_mshc *msh, t_list *lst)
 {
 	t_red	*red;
 	int		ret;

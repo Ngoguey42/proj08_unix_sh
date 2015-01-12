@@ -20,7 +20,7 @@
 ** 'msh_update_envvar_m' Updates or allocates a new variable in environment.
 */
 
-char	**msh_get_envvarp(const t_msh *msh, const char *key)
+char	**msh_get_envvarp(t_mshc *msh, const char *key)
 {
 	const char	**env = (msh != NULL) ? (const char**)msh->env : NULL;
 	size_t		klen;
@@ -40,7 +40,7 @@ char	**msh_get_envvarp(const t_msh *msh, const char *key)
 	return (NULL);
 }
 
-char	*msh_get_envvar(const t_msh *msh, const char *key)
+char	*msh_get_envvar(t_mshc *msh, const char *key)
 {
 	char **ret;
 

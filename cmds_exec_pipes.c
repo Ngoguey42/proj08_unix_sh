@@ -24,7 +24,7 @@
 ** 'msh_exec_cmd_closepipe' Closes pipe (left handed side), called by msh.
 */
 
-void		msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd)
+void		msh_exec_cmd_pipeout(t_mshc *msh, t_cmd *cmd)
 {
 	if (cmd->rhspfd[1] <= 0)
 	{
@@ -40,7 +40,7 @@ void		msh_exec_cmd_pipeout(t_msh *msh, t_cmd *cmd)
 	return ;
 }
 
-void		msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd)
+void		msh_exec_cmd_pipein(t_mshc *msh, t_cmd *cmd)
 {
 	if (cmd->lhspfd[0] <= 0)
 	{
@@ -56,7 +56,7 @@ void		msh_exec_cmd_pipein(t_msh *msh, t_cmd *cmd)
 	return ;
 }
 
-int			msh_exec_cmd_openpipe(t_msh *msh, t_list *lst)
+int			msh_exec_cmd_openpipe(t_mshc *msh, t_list *lst)
 {
 	t_cmd	*lhscmd;
 	t_cmd	*rhscmd;
@@ -78,7 +78,7 @@ int			msh_exec_cmd_openpipe(t_msh *msh, t_list *lst)
 	return (0);
 }
 
-void		msh_exec_cmd_closepipel(t_msh *msh, t_cmd *cmd)
+void		msh_exec_cmd_closepipel(t_mshc *msh, t_cmd *cmd)
 {
 	t_cmd	*lcmd;
 
@@ -106,7 +106,7 @@ void		msh_exec_cmd_closepipel(t_msh *msh, t_cmd *cmd)
 	return ;
 }
 
-void		msh_exec_cmd_closepiper(t_msh *msh, t_cmd *cmd)
+void		msh_exec_cmd_closepiper(t_mshc *msh, t_cmd *cmd)
 {
 	t_cmd	*rcmd;
 

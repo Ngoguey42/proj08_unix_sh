@@ -51,7 +51,7 @@
 ** 'msh_pause' Receives user input and calls 'process_line' on line at a time.
 */
 
-static void err_close_allfd(t_msh *msh, t_list *lst, t_cmd *cmd)
+static void err_close_allfd(t_mshc *msh, t_list *lst, t_cmd *cmd)
 {
 	t_cmd	*tmp_cmd;
 
@@ -66,7 +66,6 @@ static void err_close_allfd(t_msh *msh, t_list *lst, t_cmd *cmd)
 			break ;
 		lst = lst->next;
 	}
-	(void)msh;
 	return ;
 }
 

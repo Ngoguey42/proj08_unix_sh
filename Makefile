@@ -58,7 +58,10 @@ R = \033[0;31m
 G = \033[0;32m
 E = \033[39m
 
-all: l $(NAME)
+W = 0
+
+all: l
+	@$(MAKE) $(NAME) --no-print-directory
 
 $(NAME): $(OBJECTS)
 	@echo -e "$(Y)[COMPILING SH] $(G) $(CC) -o $@ $(CFLAGS) objs.o $(LIBS) $(E)"
@@ -66,8 +69,20 @@ $(NAME): $(OBJECTS)
 	@echo -e "$(Y)[COMPILING SH]$(E)"
 
 $(OBJECTS): $(OBJPATH)/%.o : $(SRCPATH)/%.c
+	@if [ $(W) -eq 0 ] ; then printf "$(R)%-10s$(E): %s\n$(R)%-10s$(E): %s\n$(R)%-10s$(E): %s\n$(R)%-10s$(E): %s\n"\
+		"=>COMPILER"\
+		"$(CC)"\
+		"=>CFLAGS"\
+		"$(CFLAGS)"\
+		"=>INCLUDES"\
+		"$(INCLUDES)"\
+		"=>LIBS"\
+		"$(LIBS)" ;\
+	fi
+	$(eval W = 1)
 	@mkdir -p $(dir $@)
-	$(CC) -o $@ $(CFLAGS) $(INCLUDES) $(LIBS) -c $<
+	@echo -e "$(R)COMPILER$(E) -o $@ $(R)CFLAGS INCLUDES LIBS$(E) -c $<"
+	@$(CC) -o $@ $(CFLAGS) $(INCLUDES) $(LIBS) -c $<
 
 clean:
 	$(RM) $(OBJPATH)
@@ -77,20 +92,26 @@ fclean: clean
 
 l:
 	@echo -e "$(Y)[COMPILING LIBFT] $(G) make -C $(LFTPATH) $(LFTCALL) $(E)"
-	make -C $(LFTPATH) $(LFTCALL)
+	@$(MAKE) -C $(LFTPATH) $(LFTCALL)
 	@echo -e "$(Y)[COMPILING LIBFT DONE]$(E)"
 
 g: _g _gft all
 
 # re rules
-re: fclean all
-rel: _relft l
-rea: _relft re
+re: fclean
+	$(MAKE) all --no-print-directory
+rel: _relft
+	$(MAKE) l --no-print-directory
+rea: _relft
+	$(MAKE) re --no-print-directory
 
 # gre rules
-gre: _g re
-grel: _greft l
-grea: _g _greft re
+gre: _g
+	$(MAKE) re --no-print-directory
+grel: _greft
+	$(MAKE) l --no-print-directory
+grea: _g _greft
+	$(MAKE) re --no-print-directory
 
 # eval rules
 _g:

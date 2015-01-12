@@ -51,7 +51,7 @@ static void	set_msg(char buf[MSG_BUF_SIZE], int sig)
 	return ;
 }
 
-int			msh_handle_signal(const t_msh *msh, const t_cmd *cmd)
+int			msh_handle_signal(t_mshc *msh, const t_cmd *cmd)
 {
 	char	buf[MSG_BUF_SIZE];
 

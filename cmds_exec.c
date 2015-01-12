@@ -32,7 +32,7 @@
 ** *
 */
 
-static void	child(t_msh *msh, t_cmd *cmd)
+static void	child(t_mshc *msh, t_cmd *cmd)
 {
 	if (cmd->iotypes[0] == 1)
 		msh_exec_cmd_pipein(msh, cmd);
@@ -50,7 +50,7 @@ static void	child(t_msh *msh, t_cmd *cmd)
 	exit(1);
 }
 
-static void	waid_all(t_msh *msh, t_cmd *cmd)
+static void	waid_all(t_mshc *msh, t_cmd *cmd)
 {
 	int		printed;
 
@@ -65,7 +65,6 @@ static void	waid_all(t_msh *msh, t_cmd *cmd)
 			printed = msh_handle_signal(msh, cmd);
 		cmd = cmd->lhspcmd;
 	}
-	(void)msh;
 	return ;
 }
 

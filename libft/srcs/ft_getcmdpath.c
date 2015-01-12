@@ -55,6 +55,24 @@ static int	test_path(const char *dirpath, const char *cmdname)
 	return (ft_access(fullpath, X_OK));
 }
 
+static int	cmd_as_path(char **cmdname, char *refs[4])
+{
+	int		ret;
+	char	*expansion;
+
+	ret = ft_expand_tilde(*cmdname, (char**)(refs + 1), &expansion);
+	if (ret > 0)
+		return (ret);
+	if (ret == 0)
+	{
+		free(*cmdname);
+		*cmdname = expansion;
+	}
+	if (ret >= 0)
+		return (ret);
+	return (test_path("", *cmdname));
+}
+
 static int	alloc_new_string(size_t n, char *dirpath, char **cmdname, int prev)
 {
 	char	*new;
@@ -97,7 +115,8 @@ static int	cmd_as_cmd(const char *path, char **cmdname)
 	return (-2);
 }
 
-int			ft_getcmdpath(const char *cmd, const char *envpath, char **ptr)
+// int			ft_getcmdpath(const char *cmd, const char *envpath, char **ptr)
+int			ft_getcmdpath(const char *cmd, char *refs[4], char **ptr)
 {
 	size_t	n;
 	char	*cmdname;
@@ -110,18 +129,38 @@ int			ft_getcmdpath(const char *cmd, const char *envpath, char **ptr)
 		return (ENOMEM);
 	ft_strlcpy(cmdname, cmd, n + 1);
 	if (ft_strchr(cmdname, (int)'/') != NULL)
-		ret = test_path("", cmdname);
-	else if (envpath == NULL)
+		// ret = test_path("", cmdname);
+		ret = cmd_as_path(&cmdname, refs);
+	else if (refs[0] == NULL)
 		ret = ENOENT;
 	else
 	{
-		if (ft_strnequ(envpath, "PATH=", 5))
-			envpath += 5;
-		ret = cmd_as_cmd(envpath, &cmdname);
+		// if (ft_strnequ(refs[0], "PATH=", 5))
+			// refs[0] += 5;
+		ret = cmd_as_cmd(refs[0], &cmdname);
 	}
 	if (ret != 0)
 		free(cmdname);
 	else
 		*ptr = cmdname;
 	return (ret);
+}
+
+int			ft_getcmdpath_env(const char *cmd, const char **env, char **ptr)
+{
+	char	*ref[4];
+
+	ref[0] = ft_envget(env, "PATH=");
+	ref[1] = ft_envget(env, "HOME=");
+	ref[2] = ft_envget(env, "PWD=");
+	ref[3] = ft_envget(env, "OLDPWD=");
+	if (ref[0] != NULL)
+		ref[0] += 5;
+	if (ref[1] != NULL)
+		ref[1] += 5;
+	if (ref[2] != NULL)
+		ref[2] += 4;
+	if (ref[3] != NULL)
+		ref[3] += 7;
+	return (ft_getcmdpath(cmd, ref, ptr));
 }

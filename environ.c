@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <minishell.h>
 
 /*
@@ -22,74 +21,40 @@
 
 char	**msh_get_envvarp(t_mshc *msh, const char *key)
 {
-	const char	**env = (msh != NULL) ? (const char**)msh->env : NULL;
-	size_t		klen;
-
-	if (env == NULL)
-		return (NULL);
-	if (ft_strchr(key, (int)'='))
-		klen = ft_strcharlen(key, '=') + 1;
-	else
-		klen = ft_strlen(key);
-	while (*env != NULL)
-	{
-		if (ft_strnequ(*env, key, klen))
-			return ((char**)env);
-		env++;
-	}
-	return (NULL);
+	return (ft_envgetp((const char**)msh->env, key));
 }
 
 char	*msh_get_envvar(t_mshc *msh, const char *key)
 {
-	char **ret;
-
-	ret = msh_get_envvarp(msh, key);
-	return (ret == NULL ? NULL : (char*)*ret);
+	return (ft_envget((const char**)msh->env, key));
 }
 
 char	**msh_new_envvar(t_msh *msh, char *line)
 {
-	size_t	count;
-	char	**newenv;
+	char	**ret;
 
-	count = 0;
-	while (msh->env[count] != NULL)
-		count++;
-	if ((newenv = (char**)malloc(sizeof(char*) * (count + 2))) == NULL)
-		exit(1);
-	newenv[count + 1] = NULL;
-	newenv[count] = line;
-	count = 0;
-	while (msh->env[count] != NULL)
-	{
-		newenv[count] = msh->env[count];
-		count++;
-	}
-	free(msh->env);
-	msh->env = newenv;
-	return (msh->env + count);
+	ret = ft_envnew(&msh->env, line);
+	if (ret == NULL)
+		msh_errmem(msh);
+	return (ret);
 }
 
 char	**msh_new_envvar_m(t_msh *msh, char *line)
 {
-	char	*str;
+	char	**ret;
 
-	if ((str = ft_strdup(line)) == NULL)
-		exit(1);
-	return (msh_new_envvar(msh, str));
+	ret = ft_envnew_m(&msh->env, line);
+	if (ret == NULL)
+		msh_errmem(msh);
+	return (ret);
 }
 
 char	**msh_update_envvar_m(t_msh *msh, char *line)
 {
-	char	**ptr;
+	char	**ret;
 
-	ptr = msh_get_envvarp(msh, line);
-	if (ptr == NULL)
-		return (msh_new_envvar_m(msh, line));
-	free(*ptr);
-	*ptr = ft_strdup(line);
-	if (*ptr == NULL)
-		exit(1);
-	return (ptr);
+	ret = ft_envupdate_m(&msh->env, line);
+	if (ret == NULL)
+		msh_errmem(msh);
+	return (ret);
 }

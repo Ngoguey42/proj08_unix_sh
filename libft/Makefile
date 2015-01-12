@@ -90,8 +90,9 @@ ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c ft_printvar.c
 ft_tabadd.c ft_tabcc.c ft_tabdel.c ft_tabsize.c ft_tabsort.c ft_tabadddebug.c\
 ft_metacc.c ft_metaget.c ft_metaset.c ft_metagetdebug.c\
 \
-ft_clock_cc.c ft_clock_update.c
-
+ft_clock_cc.c ft_clock_update.c\
+\
+ft_envget.c ft_envnew.c ft_expand_tilde_env.c ft_expand_tilde.c
 
 #PRINTF_SOURCES
 PTFSRCSFILES = \

@@ -159,7 +159,8 @@ char	*ft_strccpy(char *dst, const char *src);
 char	*ft_catpath(const char *path, const char *file, char *dst);
 char	*ft_filename(const char *path, char *dst);
 int		ft_resolve_path(char *buf);
-int		ft_getcmdpath(const char *cmd, const char *envpath, char **ptr);
+int		ft_getcmdpath(const char *cmd, char *refs[4], char **ptr);
+int		ft_getcmdpath_env(const char *cmd, const char **env, char **ptr);
 int		ft_access(const char *pathname, int mode);
 void	*ft_memccpy2(void *dst, const void *src, size_t n);
 /*
@@ -347,6 +348,15 @@ int		ft_metaset(char *tabname, void *(*f)(const void *k),
 ** Others
 */
 size_t	ft_tblsize(void **tbl);
+
+char	**ft_envgetp(const char **env, const char *key);
+char	*ft_envget(const char **env, const char *key);
+char	**ft_envupdate_m(char ***env, char *line);
+char	**ft_envnew_m(char ***env, char *line);
+char	**ft_envnew(char ***env, char *line);
+int		ft_expand_tilde(const char *src, char *ref[3], char **ptr);
+int		ft_expand_tilde_env(const char *src, const char **env, char **ptr);
+
 
 /*
 ** -

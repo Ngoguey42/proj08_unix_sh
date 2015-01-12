@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <minishell.h>
 
 /*
@@ -29,8 +30,12 @@ void		msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd)
 		{
 			cmd->is_builtin = msh_is_builtin(msh, tkn->ptr, tkn->len);
 			if (cmd->is_builtin == false)
+			{
 				cmd->binerr = ft_getcmdpath_env(tkn->ptr,
 					(const char**)msh->env, &cmd->cmdpath);
+				if (cmd->binerr == ENOMEM)
+					msh_errmem(msh);
+			}
 			else
 				cmd->bi_index = msh_get_builtin_index(msh, tkn->ptr, tkn->len);
 		}

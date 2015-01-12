@@ -23,6 +23,7 @@ sh1 Goals:
 
 My sh1 additions:
 - [ ] All env's options.
+- [X] Some tilde '~' options ('~+', '~-').
 
 sh2 Goals:
 - [X] Semicolons ';'.

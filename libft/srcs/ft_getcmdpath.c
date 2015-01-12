@@ -21,6 +21,8 @@
 ** *
 ** 'test_path' Concats a given 'dirpath' from env, and a 'cmdname' an tests it.
 ** *
+** 'cmd_as_path' Tries to expand a tilde or treats cmdname as a full path.
+** *
 ** 'cmd_as_cmd' Parses env's 'path' for a bin path.
 ** *
 ** 'ft_getcmdpath' looks for a binary path.
@@ -115,7 +117,6 @@ static int	cmd_as_cmd(const char *path, char **cmdname)
 	return (-2);
 }
 
-// int			ft_getcmdpath(const char *cmd, const char *envpath, char **ptr)
 int			ft_getcmdpath(const char *cmd, char *refs[4], char **ptr)
 {
 	size_t	n;
@@ -129,38 +130,14 @@ int			ft_getcmdpath(const char *cmd, char *refs[4], char **ptr)
 		return (ENOMEM);
 	ft_strlcpy(cmdname, cmd, n + 1);
 	if (ft_strchr(cmdname, (int)'/') != NULL)
-		// ret = test_path("", cmdname);
 		ret = cmd_as_path(&cmdname, refs);
 	else if (refs[0] == NULL)
 		ret = ENOENT;
 	else
-	{
-		// if (ft_strnequ(refs[0], "PATH=", 5))
-			// refs[0] += 5;
 		ret = cmd_as_cmd(refs[0], &cmdname);
-	}
 	if (ret != 0)
 		free(cmdname);
 	else
 		*ptr = cmdname;
 	return (ret);
-}
-
-int			ft_getcmdpath_env(const char *cmd, const char **env, char **ptr)
-{
-	char	*ref[4];
-
-	ref[0] = ft_envget(env, "PATH=");
-	ref[1] = ft_envget(env, "HOME=");
-	ref[2] = ft_envget(env, "PWD=");
-	ref[3] = ft_envget(env, "OLDPWD=");
-	if (ref[0] != NULL)
-		ref[0] += 5;
-	if (ref[1] != NULL)
-		ref[1] += 5;
-	if (ref[2] != NULL)
-		ref[2] += 4;
-	if (ref[3] != NULL)
-		ref[3] += 7;
-	return (ft_getcmdpath(cmd, ref, ptr));
 }

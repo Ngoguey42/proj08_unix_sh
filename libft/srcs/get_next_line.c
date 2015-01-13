@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/04 19:52:41 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 15:03:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 08:24:05 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "libft.h"
 
 #define SEARCHLF ft_memchr(cur->s + cur->start, '\n', cur->read - cur->start)
-
 
 t_file_d	*get_fd_struct(t_file_d *current, int const fd)
 {

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/09 12:53:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 08:21:19 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ typedef struct	s_red
 	char		*file;
 	int			file_err;
 	char		*hdoc;
-	int			error;	
+	int			error;
 	char		*ptr[2];
 	size_t		len[2];
 	int			prev_cp;
@@ -220,9 +220,6 @@ typedef CMSH	t_mshc;
 ** ************************************************************************** **
 */
 
-
-
-
 /*
 ** Main functions.
 */
@@ -287,7 +284,6 @@ int				msh_bi_init_pipeout(t_mshc *msh, t_cmd *cmd, int *fd1_savep);
 void			msh_bi_disable_pipeout(t_mshc *msh, t_cmd *cmd, int fd1_save);
 int				msh_bi_init_redirs(t_mshc *msh, t_list *lst);
 void			msh_bi_disable_redirs(t_mshc *msh, t_list *lst);
-
 
 void			msh_builtin_cd(t_msh *msh, t_cmd *cmd);
 void			msh_builtin_env(t_msh *msh, t_cmd *cmd);

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/02 15:38:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/02 17:10:44 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 08:53:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 
 int			msh_cmd_errors(t_mshc *msh, t_cmd *cmd)
 {
-	
 	(void)msh;
-
 	return (cmd->error);	
 }

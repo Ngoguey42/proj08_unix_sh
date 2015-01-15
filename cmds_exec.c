@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/15 14:08:27 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/15 14:15:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static int	exec_cmd(t_msh *msh, t_cmd *cmd)
 	if (cmd->is_builtin == true)
 		msh->bi_f[cmd->bi_index](msh, cmd);
 	else
-/* 	else if (cmd->cmdpath != NULL) */
 	{
 		if ((cmd->pid = fork()) < 0)
 		{
@@ -85,9 +84,7 @@ static int	exec_cmd(t_msh *msh, t_cmd *cmd)
 		if (cmd->iotypes[0] == 1)
 			msh_exec_cmd_closepipel(msh, cmd);
 		if (cmd->iotypes[1] == 0)
-		{
 			waid_all(msh, cmd);
-		}
 	}
 	return (0);
 }

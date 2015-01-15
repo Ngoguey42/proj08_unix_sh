@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/09 10:44:29 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/15 14:12:23 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -81,7 +81,7 @@ $(OBJECTS): $(OBJPATH)/%.o : $(SRCPATH)/%.c
 	fi
 	$(eval W = 1)
 	@mkdir -p $(dir $@)
-	@echo -e "$(R)COMPILER$(E) -o $@ $(R)CFLAGS INCLUDES LIBS$(E) -c $<"
+	@echo -e "$(R)COMPILER$(E) -o $@ $(R)CFLAGS INCLUDES LIBS$(E) -c [...].c"
 	@$(CC) -o $@ $(CFLAGS) $(INCLUDES) $(LIBS) -c $<
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/09 12:26:51 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/15 14:08:27 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ static int	exec_cmd(t_msh *msh, t_cmd *cmd)
 {
 	if (cmd->is_builtin == true)
 		msh->bi_f[cmd->bi_index](msh, cmd);
-	else if (cmd->cmdpath != NULL)
+	else
+/* 	else if (cmd->cmdpath != NULL) */
 	{
 		if ((cmd->pid = fork()) < 0)
 		{

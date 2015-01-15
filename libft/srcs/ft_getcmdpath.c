@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 10:04:04 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 09:11:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/15 14:05:58 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 **		-2 Command not found.
 ** *
 */
+
+#include <ft_debug.h>
 
 static int	test_path(const char *dirpath, const char *cmdname)
 {

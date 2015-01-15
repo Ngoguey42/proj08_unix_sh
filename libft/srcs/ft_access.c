@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 13:41:31 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/15 13:31:52 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/15 14:08:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@
 ** EACCESS(bis)	X_OK requested on a non regular file.
 */
 
+#include <ft_debug.h>
+
 static int	analyse_fullpath(const char *path, int mode)
 {
 	struct stat		s;
 
 	if (access(path, mode) == 0)
 	{
-		if (access(path, 0) == 0)
-			return (EACCES);
-		if (mode & X_OK)
+		if ((mode & X_OK) != 0)
 		{
 			if (lstat(path, &s) < 0)
 				return (EIO);
@@ -63,6 +63,8 @@ static int	analyse_fullpath(const char *path, int mode)
 		}
 		return (0);
 	}
+	if (access(path, 0) == 0)
+		return (EACCES);
 	return (ENOENT);
 }
 

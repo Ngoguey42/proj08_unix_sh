@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/31 11:10:56 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/13 10:45:50 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stddef.h>
 # include <stdarg.h>
-# include <stdio.h> //debug
 # include "ft_typedefs.h"
 
 /*
@@ -356,7 +355,6 @@ char	**ft_envnew_m(char ***env, char *line);
 char	**ft_envnew(char ***env, char *line);
 int		ft_expand_tilde(const char *src, char *ref[3], char **ptr);
 int		ft_expand_tilde_env(const char *src, const char **env, char **ptr);
-
 
 /*
 ** -

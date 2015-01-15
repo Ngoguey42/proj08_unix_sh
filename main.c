@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/13 10:03:32 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/15 13:26:23 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ static int	from_string(int ac, char *av[])
 int			main(int ac, char *av[])
 {
 	t_msh	msh;
-
 	signal(SIGINT, &handler);
 	if (msh_init_msh(&msh, av[0]))
 		return (1);

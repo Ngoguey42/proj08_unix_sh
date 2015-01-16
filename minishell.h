@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 07:29:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 11:26:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@
 # define MTK_FILE 0x9
 
 # define MTK_END 0xa
+
+# define MTK_ISRED(A) ((A) <= MTK_WRIT && (A) >= MTK_HERE)
+# define MTK_ISBRK(A) ((A) == MTK_SEMI || (A) == MTK_PIPE || (A) == MTK_END)
 
 # define MTKNAMES1 "HERE", "APND", "READ", "WRIT", "SEMI", "PIPE"
 # define MTKNAMES {"", MTKNAMES1, "WORD", "CMD", "FILE", "END"}
@@ -166,8 +169,6 @@ typedef struct	s_tkn
 typedef struct	s_cmd
 {
 	int			error;
-	int			pid;
-
 	t_list		*atkn[1];
 
 	t_bool		is_builtin;
@@ -176,6 +177,7 @@ typedef struct	s_cmd
 	int			binerr;
 	char		**cmdav;
 	int			wstatus;
+	int			pid;
 
 	t_list		*ared[1];
 
@@ -241,6 +243,8 @@ void			msh_cmd_get_av(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd);
+
+int				msh_catch_syntax_errors(t_mshc *msh, const t_list *lst);
 
 void			msh_expand_redir_tilde(t_mshc *msh, t_red *red);
 void			msh_saveredir_here(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);

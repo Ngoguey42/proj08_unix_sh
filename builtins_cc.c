@@ -6,10 +6,11 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:05:01 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 08:15:58 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 12:26:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ft_math.h>
 #include <minishell.h>
 
 /*
@@ -25,11 +26,13 @@
 t_bool		msh_is_builtin(t_mshc *msh, const char *cmd, size_t len)
 {
 	int		i;
+	size_t	len2;
 
 	i = -1;
 	while (msh->bi_n[++i][0] != '\0')
 	{
-		if (ft_strnequ(msh->bi_n[i], cmd, len))
+		len2 = MAX(ft_strlen(msh->bi_n[i]), len);		
+		if (ft_strnequ(msh->bi_n[i], cmd, len2))
 			return (true);
 	}
 	return (false);
@@ -38,11 +41,15 @@ t_bool		msh_is_builtin(t_mshc *msh, const char *cmd, size_t len)
 int			msh_get_builtin_index(t_mshc *msh, const char *cmd, size_t len)
 {
 	int		i;
+	size_t	len2;
 
 	i = -1;
 	while (msh->bi_n[++i][0] != '\0')
-		if (ft_strnequ(msh->bi_n[i], cmd, len))
+	{
+		len2 = MAX(ft_strlen(msh->bi_n[i]), len);		
+		if (ft_strnequ(msh->bi_n[i], cmd, len2))
 			return (i);
-	msh_err(msh, "Could not retreive %.*r builtin.", len, cmd);
+	}
+	msh_err(msh, "Could not retreive %r builtin.", cmd);
 	return (0);
 }

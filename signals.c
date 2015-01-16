@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/09 10:11:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 08:28:31 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 13:20:35 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static void	set_msg(char buf[MSG_BUF_SIZE], int sig)
 		set_msg_index(buf, 0);
 	return ;
 }
+
+#include <stdlib.h>
 
 int			msh_handle_signal(t_mshc *msh, const t_cmd *cmd)
 {

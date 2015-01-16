@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:41:37 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 15:06:44 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 09:29:33 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,14 @@ static void	process_cmds(t_msh *msh, t_list *alst[1])
 	while (lst != NULL)
 	{
 		cmd = (t_cmd*)lst->content;
-		if (!msh_cmd_errors(msh, cmd))
-		{
+/* 		if (!msh_cmd_errors(msh, cmd)) */
+/* 		{ */
 			if (msh_exec_cmd(msh, lst))
 			{
 				err_close_allfd(msh, *alst, cmd);
 				return ;
 			}
-		}
+/* 		} */
 		lst = lst->next;
 	}
 	return ;
@@ -98,6 +98,7 @@ void		msh_process_line(t_msh *msh, char *line)
 
 	*atkn = NULL;
 	msh_tokenize(msh, atkn, line);
+	msh_print_tokens(*atkn);
 	*acmd = NULL;
 	msh_split_cmd(msh, atkn, acmd);
 /*  	msh_print_cmds(*acmd);	//debug */

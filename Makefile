@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/15 14:12:23 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/16 08:02:51 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -60,8 +60,7 @@ E = \033[39m
 
 W = 0
 
-all: l
-	@$(MAKE) $(NAME) --no-print-directory
+all: l $(NAME)
 
 $(NAME): $(OBJECTS)
 	@echo -e "$(Y)[COMPILING SH] $(G) $(CC) -o $@ $(CFLAGS) objs.o $(LIBS) $(E)"
@@ -98,20 +97,14 @@ l:
 g: _g _gft all
 
 # re rules
-re: fclean
-	$(MAKE) all --no-print-directory
-rel: _relft
-	$(MAKE) l --no-print-directory
-rea: _relft
-	$(MAKE) re --no-print-directory
+re: fclean all
+rel: _relft l
+rea: _relft re
 
 # gre rules
-gre: _g
-	$(MAKE) re --no-print-directory
-grel: _greft
-	$(MAKE) l --no-print-directory
-grea: _g _greft
-	$(MAKE) re --no-print-directory
+gre: _g re
+grel: _greft l
+grea: _g _greft re
 
 # eval rules
 _g:

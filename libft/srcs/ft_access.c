@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 13:41:31 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/15 14:08:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 07:53:30 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@
 ** EISDIR		X_OK requested on a directory.
 ** EACCESS(bis)	X_OK requested on a non regular file.
 */
-
-#include <ft_debug.h>
 
 static int	analyse_fullpath(const char *path, int mode)
 {

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:30 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:52:10 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 08:12:26 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd)
 	while (lst != NULL)
 	{
 		red = (t_red*)lst->content;
-		if (red->type == MTK_HERE && (red->error & MSH_RINVALID) == 0)
+		if (red->type == MTK_HERE && (red->error & MSH_RINVALID) == 0 && 0) //debug
 			request_heredoc(msh, red);
 		lst = lst->next;
 	}

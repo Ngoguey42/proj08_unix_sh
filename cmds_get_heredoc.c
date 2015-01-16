@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:30 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 13:18:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 14:51:51 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ static void	request_heredoc(t_mshc *msh, t_red *red)
 	int		ret;
 	char	*cat;
 
-/* 	red->hdoc = ft_strdup(""); */
-/* 	return ;//debug */
-	
 	msh_ps2(msh, MSH_PSHERE);
 	cat = NULL;
 	while ((ret = get_next_line(0, &line)) > 0)

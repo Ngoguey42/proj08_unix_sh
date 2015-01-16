@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/16 10:02:09 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/16 14:54:27 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -37,12 +37,12 @@ LFTGRE = gre
 
 SRCSFILES = main.c prompts.c init_msh.c environ.c msh_pause.c\
 tokenize.c token_new.c\
-token_checkerr.c\
+syntax_error.c\
 \
 cmds_get.c cmds_get_av.c cmds_get_cmd.c\
 cmds_get_redir.c cmds_get_redir_pertype.c cmds_get_heredoc.c\
 \
-cmds_errprint.c\
+cmds_errprint.c free_structs.c\
 cmds_exec.c cmds_exec_redir_in.c cmds_exec_redir_out.c cmds_exec_pipes.c\
 signals.c\
 \

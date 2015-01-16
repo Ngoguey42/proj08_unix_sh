@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:21:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 12:04:49 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 14:51:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,8 @@ static void		update_iotypes(t_mshc *msh, t_list *cmd)
 {
 	t_list	*next;
 
-	int i = 0;
 	while (cmd != NULL)
 	{
-		i++;
-/* 		D(int, i); */
 		next = cmd->next;
 		if (next && ((t_cmd*)cmd->content)->iotypes[1] == 1)
 		{

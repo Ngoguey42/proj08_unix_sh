@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 12:21:48 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 14:51:40 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,6 +258,7 @@ void			msh_saveredir_write(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
 int				msh_cmd_errors(t_mshc *msh, t_cmd *cmd);
 int				msh_exec_cmd(t_msh *msh, t_list *lst);
 int				msh_handle_signal(t_mshc *msh, const t_cmd *cmd);
+void			msh_free_structs(t_mshc *msh, t_list *atkn[1], t_list *acmd[1]);
 
 int				msh_exec_cmd_openpipe(t_mshc *msh, t_list *lst);
 void			msh_exec_cmd_closepipel(t_mshc *msh, t_cmd *cmd);
@@ -285,8 +286,13 @@ void			msh_update_pwd(t_msh *msh);
 t_bool			msh_is_builtin(t_mshc *msh, const char *cmd, size_t len);
 int				msh_get_builtin_index(t_mshc *msh, const char *cmd,
 						size_t len);
+int				msh_builtin_init_fds(t_mshc *msh, t_cmd *cmd, int saves[2]);
+void			msh_builtin_disable_fds(t_mshc *msh, t_cmd *cmd, int saves[2]);
+
 int				msh_bi_init_pipeout(t_mshc *msh, t_cmd *cmd, int *fd1_savep);
 void			msh_bi_disable_pipeout(t_mshc *msh, t_cmd *cmd, int fd1_save);
+int				msh_bi_init_pipein(t_mshc *msh, t_cmd *cmd, int *fd0_savep);
+void			msh_bi_disable_pipein(t_mshc *msh, t_cmd *cmd, int fd0_save);
 int				msh_bi_init_redirs(t_mshc *msh, t_list *lst);
 void			msh_bi_disable_redirs(t_mshc *msh, t_list *lst);
 

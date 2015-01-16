@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:15:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/09 14:29:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 14:02:50 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,36 @@ void		msh_bi_disable_pipeout(t_mshc *msh, t_cmd *cmd, int fd1_save)
 	}
 	if (close(fd1_save) < 0)
 		msh_err(msh, "Could not close stdout dup.");
+	return ;
+}
+
+int			msh_bi_init_pipein(t_mshc *msh, t_cmd *cmd, int *fd0_savep)
+{
+	if (cmd->iotypes[0] != 1)
+		return (0);
+	if ((*fd0_savep = dup(0)) < 0)
+	{
+		msh_err(msh, "Could not save stdin.");
+		return (1);
+	}
+	if (dup2(cmd->lhspfd[0], 0) < 0)
+	{
+		msh_err(msh, "Could not set pipe out to stdin.");
+		return (1);
+	}
+	return (0);
+}
+
+void		msh_bi_disable_pipein(t_mshc *msh, t_cmd *cmd, int fd0_save)
+{
+	if (cmd->iotypes[0] != 1 || fd0_save < 0)
+		return ;
+	if (dup2(fd0_save, 0) < 0)
+	{
+		msh_err(msh, "Could not restore stdin.");
+		exit(1);
+	}
+	if (close(fd0_save) < 0)
+		msh_err(msh, "Could not close stdin dup.");
 	return ;
 }

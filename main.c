@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 07:51:53 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 14:52:39 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 /*
 ** TODO:
 **	print errors.
+**	free mem
 **	builtins
 **	*
 */
@@ -53,7 +54,6 @@ void	msh_builtin_exit(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 
 static void	handler(int s)
 {
-/* 	ft_putchar_fd('\n', 1); */
 	(void)s;
 	return ;
 }

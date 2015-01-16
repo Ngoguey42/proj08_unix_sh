@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 14:25:00 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 11:06:21 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 13:52:51 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,11 @@ void		msh_print_env(t_mshc *msh, int fd)
 
 void		msh_builtin_env(t_msh *msh, t_cmd *cmd)
 {
-	int		fd1_save;
+	int		fd_saves[2];
 
-	fd1_save = -1;
-	if (msh_bi_init_pipeout(msh, cmd, &fd1_save))
-	{
-		msh_bi_disable_pipeout(msh, cmd, fd1_save);
+	if (msh_builtin_init_fds(msh, cmd, fd_saves))
 		return ;
-	}
-	if (msh_bi_init_redirs(msh, *cmd->ared))
-	{
-		msh_bi_disable_redirs(msh, *cmd->ared);
-		msh_bi_disable_pipeout(msh, cmd, fd1_save);
-		return ;
-	}
 	msh_print_env(msh, 1);
-	msh_bi_disable_redirs(msh, *cmd->ared);
-	msh_bi_disable_pipeout(msh, cmd, fd1_save);
+	msh_builtin_disable_fds(msh, cmd, fd_saves);
 	return ;
 }

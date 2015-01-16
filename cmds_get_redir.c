@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:40 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 08:08:29 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 14:52:23 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void		msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd)
 		if (tkn->type >= MTK_HERE && tkn->type <= MTK_WRIT)
 		{
 			extract_redir_and_file(msh, &red, &lst);
-			
 			if (ft_lstnewback((t_list**)cmd->ared, (void*)&red,
 								sizeof(t_red)) == NULL)
 				msh_errmem(msh);

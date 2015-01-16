@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:53:17 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 07:29:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void		msh_saveredir_here(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 		red->file = ft_memdup((void*)n->ptr, n->len + 1);
 		if (red->file == NULL)
 			msh_errmem(msh);
+		msh_expand_redir_tilde(msh, red);
 		red->file[n->len] = '\0';
 	}
 	return ;
@@ -88,7 +89,8 @@ void		msh_saveredir_apnd(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 		if (red->file == NULL)
 			msh_errmem(msh);
 		red->file[n->len] = '\0';
-		if ((red->file_err = ft_access(red->file, W_OK)) != 0)
+		msh_expand_redir_tilde(msh, red);
+		if (red->file_err || (red->file_err = ft_access(red->file, W_OK)) != 0)
 			red->error |= MSH_RINVALID;
 	}
 	return ;
@@ -108,7 +110,8 @@ void		msh_saveredir_read(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 		if (red->file == NULL)
 			msh_errmem(msh);
 		red->file[n->len] = '\0';
-		if ((red->file_err = ft_access(red->file, R_OK)) != 0)
+		msh_expand_redir_tilde(msh, red);
+		if (red->file_err || (red->file_err = ft_access(red->file, R_OK)) != 0)
 			red->error |= MSH_RINVALID;
 	}
 	return ;
@@ -131,7 +134,8 @@ void		msh_saveredir_write(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 		if (red->file == NULL)
 			msh_errmem(msh);
 		red->file[n->len] = '\0';
-		if ((red->file_err = ft_access(red->file, W_OK)) != 0)
+		msh_expand_redir_tilde(msh, red);
+		if (red->file_err || (red->file_err = ft_access(red->file, W_OK)) != 0)
 			red->error |= MSH_RINVALID;
 	}
 	return ;

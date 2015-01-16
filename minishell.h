@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/13 08:21:19 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 07:29:14 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,7 @@ void			msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd);
 
+void			msh_expand_redir_tilde(t_mshc *msh, t_red *red);
 void			msh_saveredir_here(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_apnd(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
 void			msh_saveredir_read(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);

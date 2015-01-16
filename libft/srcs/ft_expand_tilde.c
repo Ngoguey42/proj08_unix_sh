@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 08:22:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/13 08:22:38 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 07:16:56 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,32 @@
 #include <stdlib.h>
 #include <limits.h>
 #include "libft.h"
+
+/*
+** 'pwd' Concatenates 'src' to 'pwd' in '*ptr'. ('~-', '~+')
+**			returns		0 if success.
+**						ENOMEM if malloc error.
+** *
+** 'home_cat' Concatenates '$HOME' to 'homeroot's directory name.
+**			returns		0 if success.
+**						ENAMETOOLONG if result too long error.
+** *
+** 'homeroot' Tries to expand tilde with a given directory. ('~LOGIN')
+**			returns		0 if success
+**						-1 if tidle expansion impossible, or dir. not found.
+**						ENOMEM if malloc error.
+** *
+** 'home' Expands tilde if no directory given ('~', '~/[...]')
+**			returns		0 if success
+**						ENOMEM if malloc error.
+**						ENAMETOOLONG if result too long error.
+** *
+** *
+** 'ft_expand_tilde' Tries to expand tildes.
+**			returns		0 if success, and allocates a copy in '*ptr'
+**						-1 if expansion impossible.
+**						>0 if an error occured.
+*/
 
 static int	pwd(const char *src, const char *pwd, char **ptr)
 {
@@ -62,8 +88,8 @@ static int	homeroot(const char *src, const char *home, char **ptr)
 		return (-1);
 	if ((ret = home_cat(src, home, buf)))
 		return (ret);
-	if ((ret = ft_access(buf, 0)) != 0)
-		return (ret);
+	if (ft_access(buf, 0) != 0)
+		return (-1);
 	*ptr = malloc(sizeof(char) * (ft_strlen(buf) +
 		ft_strlen(src + ft_strcharlen(src + 1, '/')) + 1));
 	if (*ptr == NULL)
@@ -105,6 +131,6 @@ int			ft_expand_tilde(const char *src, char *refs[3], char **ptr)
 	else if (src[1] != '/' && src[1] != '\0')
 		return (homeroot(src, refs[0], ptr));
 	if (refs[0] == NULL)
-		return (-2);
+		return (-1);
 	return (home(src, refs[0], ptr));
 }

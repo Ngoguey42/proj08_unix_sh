@@ -6,17 +6,36 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:40 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:56:25 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/16 07:31:14 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <stdlib.h>
 #include <minishell.h>
 
 /*
+** 'msh_expand_redir_tilde' Tries to expand tilde.
 ** 'extract_redir_and_file' Exctrats infos, and calls the right function.
 ** 'msh_cmd_get_redir' Creates t_red from t_tkn tokens.
 */
+
+void		msh_expand_redir_tilde(t_mshc *msh, t_red *red)
+{
+	char	*expansion;
+	int		ret;
+
+	ret = ft_expand_tilde_env(red->file, (const char**)msh->env, &expansion);
+	if (ret == ENOMEM)
+		msh_errmem(msh);
+	else if (ret >= 0)
+	{
+		free(red->file);
+		red->file = expansion;
+		red->file_err = ret;
+	}
+	return ;
+}
 
 static void	extract_redir_and_file(t_mshc *msh, t_red *red, t_list **lstp)
 {
@@ -52,9 +71,10 @@ void		msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd)
 		if (tkn->type >= MTK_HERE && tkn->type <= MTK_WRIT)
 		{
 			extract_redir_and_file(msh, &red, &lst);
+			
 			if (ft_lstnewback((t_list**)cmd->ared, (void*)&red,
 								sizeof(t_red)) == NULL)
-				exit(1);
+				msh_errmem(msh);
 		}
 		else if (tkn->type == MTK_FILE)
 			msh_err(msh, "Encountered an MTK_FILE without a redirection.");

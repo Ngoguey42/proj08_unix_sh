@@ -29,16 +29,11 @@ static void	free_redlst(void *content, size_t size)
 
 static void	free_av(char **av)
 {
-	char	**prev;
 	char	**start;
 
 	start = av;
 	while (*av != NULL)
-	{
-		prev = av;
-		av++;
-		free(*prev);
-	}
+		free(*av++);
 	free(start);
 	return ;
 }

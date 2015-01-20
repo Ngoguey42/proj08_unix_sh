@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 08:22:04 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 09:44:36 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,8 @@ int				msh_outredirections(t_mshc *msh, t_list *lst);
 /*
 ** Environment.
 */
+char			**msh_new_envkv_m(t_msh *msh, char *k, char *v);
+char			**msh_update_envkv_m(t_msh *msh, char *k, char *v);
 char			**msh_update_envvar_m(t_msh *msh, char *line);
 char			**msh_new_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar_m(t_msh *msh, char *line);

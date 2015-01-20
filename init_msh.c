@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:36:54 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 15:09:40 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 10:07:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,21 @@ static void	update_shlvl(t_msh *msh)
 
 void		msh_update_pwd(t_msh *msh)
 {
-	char	str[6 + 1 + PATH_MAX + 1];
-	char	*cur;
+	char	cwd[PATH_MAX + 1];
+	char	*prev;
 
-	cur = msh_get_envvar(msh, "PWD");
-	ft_strcpy(str, "OLDPWD=");
-	if (getcwd(str + 7, PATH_MAX + 1) == NULL)
+	prev = msh_get_envvar(msh, "PWD");
+	if (getcwd(cwd, PATH_MAX + 1) == NULL)
 	{
 		msh_err(msh, "Could not collect cwd.");
 		exit(1);
 	}
-	if (cur == NULL)
-		(void)msh_update_envvar_m(msh, str + 3);
-	else if (!ft_strequ(cur, str + 3))
+	if (prev == NULL)
+		(void)msh_update_envkv_m(msh, "PWD", cwd);
+	else if (!ft_strequ(prev + 4, cwd))
 	{
-		(void)msh_update_envvar_m(msh, str + 3);
-		(void)msh_update_envvar_m(msh, str);
+		(void)msh_update_envkv_m(msh, "OLDPWD", prev + 4);
+		(void)msh_update_envkv_m(msh, "PWD", cwd);
 	}
 	return ;
 }

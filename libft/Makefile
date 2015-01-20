@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/09 12:52:24 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/20 09:41:21 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -72,7 +72,7 @@ ft_strccpy.c                  ft_voidcmp.c ft_strnstr.c ft_striteri.c\
 ft_catpath.c                                            ft_strmap.c\
 ft_filename.c get_next_line.c                           ft_strmapi.c\
 ft_resolve_path.c ft_getcmdpath.c ft_getcmdpath_env.c ft_access.c\
-ft_envget.c ft_envnew.c ft_expand_tilde_env.c ft_expand_tilde.c\
+ft_envget.c ft_envnew.c ft_envnewkv.c ft_expand_tilde_env.c ft_expand_tilde.c\
 \
 ft_lstnew.c       ft_lstdel.c       ft_lstiter.c   ft_lstdupone.c ft_lstlast.c\
 ft_lstpushwhere.c ft_lstdelone.c    ft_lstiterif.c ft_lstdup.c    ft_lstat.c\

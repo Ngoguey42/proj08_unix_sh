@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/16 14:54:27 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/20 09:43:44 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,7 +35,7 @@ LFTRE = re
 LFTG = g
 LFTGRE = gre
 
-SRCSFILES = main.c prompts.c init_msh.c environ.c msh_pause.c\
+SRCSFILES = main.c prompts.c init_msh.c environ.c environ_kv.c msh_pause.c\
 tokenize.c token_new.c\
 syntax_error.c\
 \

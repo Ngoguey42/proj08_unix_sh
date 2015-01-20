@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:41:37 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 14:49:57 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 10:00:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void		msh_pause(t_msh *msh)
 
 	while (msh->continue_)
 	{
-		msh_update_pwd(msh);
+/* 		msh_update_pwd(msh);//WHY IS IT HERE AREADY??? */
 		msh_ps1(msh);
 		if ((ret = get_next_line(0, &buf)) <= 0 || buf == NULL)
 		{

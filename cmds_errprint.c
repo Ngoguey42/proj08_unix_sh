@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/02 15:38:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 07:35:12 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 10:07:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <minishell.h>
 
 /*
-**
+** -
 */
 
 static void	print_red_error(t_mshc *msh, const t_red *red)

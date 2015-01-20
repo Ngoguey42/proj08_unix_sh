@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 12:58:50 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 08:31:35 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 10:07:03 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static int	redir_write_file(t_mshc *msh, t_red *red)
 	{
 		msh_err(msh, "%d>%!r open, failed.", red->lhsfd, red->file);
 		return (1);
-	}
-	
+	}	
 	if (dup2(filefd, red->lhsfd) < 0)
 	{
 		msh_err(msh, "%d>%!r(%d) dup2(%d, %d), failed.",

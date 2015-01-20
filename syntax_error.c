@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 14:55:13 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 08:02:37 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 10:08:35 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static int	red_no_file(t_mshc *msh, const t_tkn *tkn, const t_tkn *next)
 
 static int	red_bad_allwrite(t_mshc *msh, const t_tkn *tkn, const t_tkn *next)
 {
-	if (MTK_ISRED(tkn->type) && *tkn->ptr == '&' &&  *next->ptr == '&')
+	if (MTK_ISRED(tkn->type) && *tkn->ptr == '&' && *next->ptr == '&')
 	{
-		msh_err(msh, "%s `%!$ .1r'", STX_ERR_MSH, (char*)next->ptr);		
+		msh_err(msh, "%s `%!$ .1r'", STX_ERR_MSH, (char*)next->ptr);
 		return (1);
 	}
 	return (0);

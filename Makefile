@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/20 09:43:44 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/20 11:07:15 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -47,7 +47,9 @@ cmds_exec.c cmds_exec_redir_in.c cmds_exec_redir_out.c cmds_exec_pipes.c\
 signals.c\
 \
 builtins_cc.c builtins_cc_pipes.c builtins_cc_redirs.c\
-builtin_env.c builtin_cd.c\
+builtin_env.c builtin_setenv.c builtin_unsetenv.c\
+builtin_exit.c builtin_cd.c\
+\
 msh_debug.c msh_error.c msh_header.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))

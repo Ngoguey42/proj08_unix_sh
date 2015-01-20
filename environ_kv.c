@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/20 09:42:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 09:43:20 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 10:59:16 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,9 @@ char	**msh_update_envkv_m(t_msh *msh, char *k, char *v)
 	if (ret == NULL)
 		msh_errmem(msh);
 	return (ret);
+}
+
+int		msh_del_envk(t_msh *msh, char *k)
+{
+	return (ft_envdel(msh->env, k));
 }

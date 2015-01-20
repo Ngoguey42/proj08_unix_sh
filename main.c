@@ -6,10 +6,12 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 08:51:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 11:32:45 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
+#include <stdlib.h>
 #include <minishell.h>
 
 /*
@@ -38,18 +40,7 @@
 ** TODO:
 ** *debug
 **	builtins
-**	*
 */
-
-#include <signal.h>
-#include <unistd.h>
-#include <fcntl.h>
-
-#include <stdlib.h>
-
-void	msh_builtin_setenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
-void	msh_builtin_unsetenv(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
-void	msh_builtin_exit(t_msh *msh, t_cmd *cmd){(void)msh; (void)cmd;}
 
 static void	handler(int s)
 {

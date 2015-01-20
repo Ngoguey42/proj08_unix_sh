@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 12:58:50 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 12:27:57 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 08:31:35 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ static int	redir_append(t_mshc *msh, t_red *red)
 {
 	int		filefd;
 
-	if ((filefd = open(red->file, O_APPEND)) < 0)
+	if ((filefd = open(red->file, O_WRONLY | O_APPEND | O_CREAT,
+		OCREAT_FLAGS)) < 0)
 	{
 		msh_err(msh, "%d>>%! $r open, failed.", red->lhsfd, red->file);
 		return (1);
@@ -59,11 +60,12 @@ static int	redir_write_file(t_mshc *msh, t_red *red)
 {
 	int		filefd;
 
-	if ((filefd = open(red->file, O_WRONLY)) < 0)
+	if ((filefd = open(red->file, O_WRONLY | O_CREAT, OCREAT_FLAGS)) < 0)
 	{
 		msh_err(msh, "%d>%!r open, failed.", red->lhsfd, red->file);
 		return (1);
 	}
+	
 	if (dup2(filefd, red->lhsfd) < 0)
 	{
 		msh_err(msh, "%d>%!r(%d) dup2(%d, %d), failed.",

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:21:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 14:51:31 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 07:29:59 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static int		new_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1])
 	msh_cmd_get_cmd(msh, &cmd);
 	msh_cmd_get_redir(msh, &cmd);
 	msh_cmd_get_heredoc(msh, &cmd);
-	if (cmd.error == 0)
-		msh_cmd_get_av(msh, &cmd);
+	msh_cmd_get_av(msh, &cmd);
 	if (ft_lstnewback((t_list**)acmd, (void*)&cmd, sizeof(t_cmd)) == NULL)
 		exit(1);
 	return (0);

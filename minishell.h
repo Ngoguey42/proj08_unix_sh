@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 14:51:40 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 08:22:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 ** *
 ** Redirections
 */
+# define OCREAT_FLAGS (S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)
+
 # define MSH_OP {"<<", ">>", "<", ">", ";", "|", ""}
 # define NUMOPERATORS 6
 
@@ -168,7 +170,6 @@ typedef struct	s_tkn
 
 typedef struct	s_cmd
 {
-	int			error;
 	t_list		*atkn[1];
 
 	t_bool		is_builtin;
@@ -255,10 +256,10 @@ void			msh_saveredir_write(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
 /*
 ** Commands executions.
 */
-int				msh_cmd_errors(t_mshc *msh, t_cmd *cmd);
 int				msh_exec_cmd(t_msh *msh, t_list *lst);
 int				msh_handle_signal(t_mshc *msh, const t_cmd *cmd);
 void			msh_free_structs(t_mshc *msh, t_list *atkn[1], t_list *acmd[1]);
+int				msh_cmd_error(t_mshc *msh, const t_cmd *cmd);
 
 int				msh_exec_cmd_openpipe(t_mshc *msh, t_list *lst);
 void			msh_exec_cmd_closepipel(t_mshc *msh, t_cmd *cmd);

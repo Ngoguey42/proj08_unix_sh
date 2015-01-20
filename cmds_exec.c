@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 14:51:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/20 07:29:34 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,24 +64,19 @@ static void	waid_all(t_mshc *msh, t_cmd *cmd)
 	return ;
 }
 
-static int	exec_cmd(t_msh *msh, t_cmd *cmd)
+static int	exec_binary(t_msh *msh, t_cmd *cmd)
 {
-	if (cmd->is_builtin == true)
-		msh->bi_f[cmd->bi_index](msh, cmd);
-	else
+	if ((cmd->pid = fork()) < 0)
 	{
-		if ((cmd->pid = fork()) < 0)
-		{
-			msh_err(msh, "Fork failed.");
-			return (1);
-		}
-		if (cmd->pid == 0)
-			child(msh, cmd);
-		if (cmd->iotypes[0] == 1)
-			msh_exec_cmd_closepipel(msh, cmd);
-		if (cmd->iotypes[1] == 0)
-			waid_all(msh, cmd);
+		msh_err(msh, "Fork failed.");
+		return (1);
 	}
+	if (cmd->pid == 0)
+		child(msh, cmd);
+	if (cmd->iotypes[0] == 1)
+		msh_exec_cmd_closepipel(msh, cmd);
+	if (cmd->iotypes[1] == 0)
+		waid_all(msh, cmd);
 	return (0);
 }
 
@@ -93,5 +88,13 @@ int			msh_exec_cmd(t_msh *msh, t_list *lst)
 	if (cmd->iotypes[1] == 1)
 		if (msh_exec_cmd_openpipe(msh, lst))
 			return (1);
-	return (exec_cmd(msh, cmd));
+	if (msh_cmd_error(msh, cmd))
+	{
+		if (cmd->iotypes[0] == 1)
+			msh_exec_cmd_closepipel(msh, cmd);
+		return (1);
+	}
+	if (cmd->is_builtin == true)
+		return (msh->bi_f[cmd->bi_index](msh, cmd), 0);
+	return (exec_binary(msh, cmd));
 }

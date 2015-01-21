@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 10:59:07 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 08:35:49 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 
 # include <limits.h>
 # include <libft.h>
+/* #include <stdio.h> //debug */
 #include <ft_debug.h> //debug
 
+/* #define msh_err(env, format, args...) do {ft_putstr(format); } while (0) */
+
+/* # define msh_err(...) ft_putstr("salut\n") */
 /*
 ** ************************************************************************** **
 ** *
@@ -64,6 +68,14 @@
 ** ************************************************************************** **
 ** *
 ** Tokens types
+** *
+** MTK_IS2COP			is 2 char operator
+** MTK_ISRDIN			is redirection in
+** MTK_ISRDOUT			is redirection out
+** MTK_ISRED			is redirection
+** MTK_ISBRKO			is break operator
+** MTK_ISBRK			is break
+** MTK_ISWRDB			is word based
 */
 # define MTK_HERE 0x1
 # define MTK_APND 0x2
@@ -75,14 +87,20 @@
 # define MTK_WORD 0x7
 # define MTK_CMD 0x8
 # define MTK_FILE 0x9
+# define MTK_LVAR 0x10
 
 # define MTK_END 0xa
 
+# define MTK_IS2COP(A) ((A) == MTK_HERE || (A) == MTK_APND)
+# define MTK_ISRDIN(A) ((A) == MTK_HERE || (A) == MTK_READ)
+# define MTK_ISRDOUT(A) ((A) == MTK_APND || (A) == MTK_WRIT)
 # define MTK_ISRED(A) ((A) <= MTK_WRIT && (A) >= MTK_HERE)
+# define MTK_ISBRKO(A) ((A) == MTK_SEMI || (A) == MTK_PIPE)
 # define MTK_ISBRK(A) ((A) == MTK_SEMI || (A) == MTK_PIPE || (A) == MTK_END)
+# define MTK_ISWRDB(A) ((A) == MTK_FILE || (A) == MTK_CMD || (A) == MTK_WORD)
 
 # define MTKNAMES1 "HERE", "APND", "READ", "WRIT", "SEMI", "PIPE"
-# define MTKNAMES {"", MTKNAMES1, "WORD", "CMD", "FILE", "END"}
+# define MTKNAMES {"", MTKNAMES1, "WORD", "CMD", "FILE", "END", "LVAR"}
 
 # define RPFX(ARG) &msh_saveredir_ ## ARG
 # define REDSAVEFUNCS {RPFX(here), RPFX(apnd), RPFX(read), RPFX(write)}
@@ -171,6 +189,9 @@ typedef struct	s_tkn
 typedef struct	s_cmd
 {
 	t_list		*atkn[1];
+
+	t_bool		ignore_env;
+	t_list		*alvar[1];
 
 	t_bool		is_builtin;
 	int			bi_index;

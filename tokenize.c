@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 12:50:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/01 12:32:42 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 07:55:58 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <minishell.h>
 
 #define IS_OP *line == ';' || *line == '|' || *line == '<' || *line == '>'
-#define IS_FILE p[1] >= MTK_HERE && p[1] <= MTK_WRIT
+#define IS_FILE MTK_ISRED(p[1])
 #define IS_CMD p[0] == 0
 
 /*
@@ -126,7 +126,7 @@ void			msh_tokenize(t_mshc *msh, t_list *atkn[1], char *line)
 			line += ft_strspn(line, " \t");
 		else if (is_op(line) && (p[1] = get_op(msh, line)) &&
 				new_token_type(atkn, &line, p[1]))
-			p[0] = p[1] >= MTK_SEMI && p[1] <= MTK_PIPE ? 0 : p[0];
+			p[0] = MTK_ISBRKO(p[1]) ? 0 : p[0];
 		else if ((IS_FILE) && new_token_type(atkn, &line, MTK_FILE))
 			p[1] = MTK_FILE;
 		else if ((IS_CMD) && new_token_type(atkn, &line, MTK_CMD) &&

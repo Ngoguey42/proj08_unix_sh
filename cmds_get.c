@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:21:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 07:29:59 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 08:00:42 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@
 static void		move_tokens(t_list *atknp[1], t_cmd *cmd)
 {
 	t_list	*tmp_tkn;
-	int		t;
 
-	while (*atknp != NULL && (t = TOKENTYPE) !=
-		MTK_END && t != MTK_SEMI && t != MTK_PIPE)
+	while (*atknp != NULL && !MTK_ISBRK(TOKENTYPE))
 	{
 		tmp_tkn = ft_lstpullfirst(atknp);
 		if (tmp_tkn != NULL)
@@ -52,7 +50,7 @@ static int		new_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1])
 
 	ft_bzero(&cmd, sizeof(t_cmd));
 	move_tokens(atknp, &cmd);
-	if (TOKENTYPE == MTK_SEMI || TOKENTYPE == MTK_PIPE)
+	if (MTK_ISBRKO(TOKENTYPE))
 	{
 		if (TOKENTYPE == MTK_PIPE)
 			cmd.iotypes[1] = 1;

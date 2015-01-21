@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:46:15 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/08 07:46:16 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 07:52:45 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static size_t	redir_len(int type, char *line)
 	else if (ft_isdigit(*line))
 		while (ft_isdigit(*line) && (++tot))
 			line++;
-	if (type >= MTK_HERE && type <= MTK_APND && (tot += 2))
+	if (MTK_IS2COP(type) && (tot += 2))
 		line += 2;
 	else if ((++tot))
 		line++;
@@ -39,11 +39,11 @@ t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn)
 {
 	tkn->type = type;
 	tkn->ptr = line;
-	if (type == MTK_FILE || type == MTK_CMD || type == MTK_WORD)
+	if (MTK_ISWRDB(type))
 		tkn->len = ft_strcspn(line, "<>;| \t");
-	else if (type >= MTK_HERE && type <= MTK_WRIT)
+	else if (MTK_ISRED(type))
 		tkn->len = redir_len(type, line);
-	else if (type == MTK_SEMI || type == MTK_PIPE)
+	else if (MTK_ISBRKO(type))
 		tkn->len = 1;
 	else
 		tkn->len = 0;

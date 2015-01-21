@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 07:29:55 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 09:05:54 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	extract_nbr(const char *ptr, int *fdp, int def)
 		if (*fdp > 255)
 			error = MSH_LFDOVERLIM;
 	}
-	else if (def > 0 && (*ptr == '<' || *ptr == '>'))
+	else if (*ptr == '<' || *ptr == '>')
 		*fdp = def;
 	else
 		error = MSH_LINVALID;

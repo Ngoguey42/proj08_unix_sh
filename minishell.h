@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 08:35:49 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 09:41:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 # define MSHBIN_N {"cd", "setenv", "unsetenv", "env", "exit", ""}
 # define MSHBIN_F {PR(cd), PR(setenv), PR(unsetenv), PR(env), PR(exit), NULL}
+
+# define MSHENVINDEX 0x3
 
 /*
 ** ************************************************************************** **
@@ -195,11 +197,12 @@ typedef struct	s_cmd
 
 	t_bool		is_builtin;
 	int			bi_index;
-	char		*cmdpath;
 	int			binerr;
-	char		**cmdav;
+	char		*cmdpath;
 	int			wstatus;
 	int			pid;
+	char		**cmdav;
+	size_t		avpad;
 
 	t_list		*ared[1];
 
@@ -265,6 +268,7 @@ void			msh_cmd_get_av(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd);
+void            msh_cmd_get_env_interpretation(t_mshc *msh, t_cmd *cmd);
 
 int				msh_catch_syntax_errors(t_mshc *msh, const t_list *lst);
 

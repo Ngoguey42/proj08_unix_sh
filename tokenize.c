@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 12:50:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 07:55:58 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 09:49:37 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static int		new_token_type(t_list *atkn[1], char **line, int type)
 	ft_bzero(&tkn, sizeof(t_tkn));
 	(void)msh_new_token(type, *line, &tkn);
 	if (ft_lstnewback((t_list**)atkn, (void*)&tkn, sizeof(t_tkn)) == NULL)
-		exit(1);
+		msh_errmem(NULL);
 	*line += tkn.len;
 	return (1);
 }

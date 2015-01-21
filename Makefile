@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/20 11:07:15 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/21 09:19:04 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -39,7 +39,7 @@ SRCSFILES = main.c prompts.c init_msh.c environ.c environ_kv.c msh_pause.c\
 tokenize.c token_new.c\
 syntax_error.c\
 \
-cmds_get.c cmds_get_av.c cmds_get_cmd.c\
+cmds_get.c cmds_get_av.c cmds_get_cmd.c cmds_get_env_interpretation.c\
 cmds_get_redir.c cmds_get_redir_pertype.c cmds_get_heredoc.c\
 \
 cmds_errprint.c free_structs.c\

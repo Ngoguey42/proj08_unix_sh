@@ -6,11 +6,10 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:21:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 08:00:42 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 09:56:24 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <minishell.h>
 
 #define TOKENTYPE ((t_tkn*)(*atknp)->content)->type
@@ -63,8 +62,10 @@ static int		new_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1])
 	msh_cmd_get_redir(msh, &cmd);
 	msh_cmd_get_heredoc(msh, &cmd);
 	msh_cmd_get_av(msh, &cmd);
+	if (cmd.is_builtin == true && cmd.bi_index == MSHENVINDEX)
+		msh_cmd_get_env_interpretation(msh, &cmd);
 	if (ft_lstnewback((t_list**)acmd, (void*)&cmd, sizeof(t_cmd)) == NULL)
-		exit(1);
+		msh_errmem(msh);
 	return (0);
 }
 
@@ -93,4 +94,5 @@ void			msh_split_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1])
 	while (*atknp != NULL && TOKENTYPE != MTK_END)
 		(void)new_cmd(msh, atknp, acmd);
 	update_iotypes(msh, *acmd);
+	return ;
 }

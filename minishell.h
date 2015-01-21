@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 09:41:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 10:05:26 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,22 +163,22 @@ typedef struct	s_tkn
 ** ************************************************************************** **
 ** *
 **		'struct s_cmd'	One per command block. (See tokenize.c)
-**		error		==0, no error.
-**					0x1, error in command.
-**					0x2, error(s) in redirection(s).
-**					*
-** 		pid			child pid after fork.
 ** *
-**		atkn		pointer to the first token of the command block.
+**		atkn		tokens associated with the command block.
+** *
+**		ignore_env	for env -i
+**		alvar		local variables
 ** *
 **		is_builtin	boolean, whether cmd is a built-in or not.
 **		bi_index	builtin function's index.
-**		cmdpath		full path to the binary, NULL if not found.
 **		binerr		error regarding cmdpath's NULL value.
-** 		cmdav		cmd1's argv to be sent.
+**		cmdpath		full path to the binary, NULL if not found.
 **		wstatus		wait's return status.
+** 		pid			child pid after fork.
+** 		cmdav		argv to be sent.
+**		avpad		padding in argv to apply
 ** *
-**		ARED		pointer to the first redirection
+**		ared		redirections
 ** *
 **		iotypes		[0] in(left), [1] out(right) ; 0 == default, 1 == pipe.
 **		lhspfd		Left Handed Side Pipe File Descriptors. (-2 == closed)

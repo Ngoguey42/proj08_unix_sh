@@ -18,12 +18,12 @@ sh1 Goals:
 - [X] Display a prompt.
 - [X] Execute any command from PATH.
 - [ ] Full error handling without errno.
-- [ ] Built-ins: cd, setenv, unsetenv, env, exit.
+- [X] Built-ins: cd, setenv, unsetenv, env, exit.
 - [X] Read commands through argv's -c option or stdin reading.
 
 My sh1 additions:
 - [ ] All env's options.
-- [X] Some tilde '~' options ('~+', '~-').
+- [X] Tilde '~' + options ('~+', '~-').
 
 sh2 Goals:
 - [X] Semicolons ';'.
@@ -43,7 +43,7 @@ My sh2 additions:
 <br><br><br><br><br><br>
 
 ```
-All my C files strictly observes school's norm, it may often lead to odd or illogical syntaxes.
+All my C files blindly observes school's norm, it may often lead to odd or illogical syntaxes.
 - [ ] Forbiden keywords: for, do, switch, goto.
 - [ ] No more than 25 lines inside a function block.
 - [ ] No more than 80 characters per lines.

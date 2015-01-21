@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/21 09:17:16 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 09:58:16 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/21 10:01:04 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void		interpret_binary(t_mshc *msh, t_cmd *cmd)
 {
 	cmd->is_builtin = false;
 	cmd->bi_index = 0;
-/* 	D(char*, *(cmd->cmdav + cmd->avpad)); */
 	cmd->binerr = ft_getcmdpath_env(*(cmd->cmdav + cmd->avpad),
 					(const char**)msh->env, &cmd->cmdpath);
 	if (cmd->binerr == ENOMEM)

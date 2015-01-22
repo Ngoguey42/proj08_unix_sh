@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 09:58:37 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 08:54:03 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 ** *
 */
 
-static void	child(t_mshc *msh, t_cmd *cmd)
+static void	child(t_msh *msh, t_cmd *cmd)
 {
+	msh_exec_cmd_update_env(msh, cmd);
 	if (cmd->iotypes[0] == 1)
 		msh_exec_cmd_pipein(msh, cmd);
 	if (cmd->iotypes[1] == 1)

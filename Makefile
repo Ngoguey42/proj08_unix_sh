@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/21 09:19:04 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/22 08:54:32 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,7 +35,8 @@ LFTRE = re
 LFTG = g
 LFTGRE = gre
 
-SRCSFILES = main.c prompts.c init_msh.c environ.c environ_kv.c msh_pause.c\
+SRCSFILES = main.c prompts.c init_msh.c msh_pause.c\
+environ_get.c environ_new.c environ_newkv.c\
 tokenize.c token_new.c\
 syntax_error.c\
 \
@@ -43,7 +44,8 @@ cmds_get.c cmds_get_av.c cmds_get_cmd.c cmds_get_env_interpretation.c\
 cmds_get_redir.c cmds_get_redir_pertype.c cmds_get_heredoc.c\
 \
 cmds_errprint.c free_structs.c\
-cmds_exec.c cmds_exec_redir_in.c cmds_exec_redir_out.c cmds_exec_pipes.c\
+cmds_exec.c cmds_exec_update_env.c\
+cmds_exec_redir_in.c cmds_exec_redir_out.c cmds_exec_pipes.c\
 signals.c\
 \
 builtins_cc.c builtins_cc_pipes.c builtins_cc_redirs.c\

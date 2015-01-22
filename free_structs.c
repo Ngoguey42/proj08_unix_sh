@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 14:26:37 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 14:52:32 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 08:58:38 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,23 @@ static void	free_cmdlst(void *content, size_t size)
 		free_av(cmd->cmdav);
 	free(content);
 	(void)size;
+	return ;
+}
+
+void		msh_free_env(t_msh *msh)
+{
+	char	**ptr;
+
+	ptr = msh->env;
+	if (ptr == NULL)
+		return ;
+	while (*ptr != NULL)
+	{
+		free(*ptr);
+		ptr++;
+	}
+	free(msh->env);
+	msh->env = NULL;
 	return ;
 }
 

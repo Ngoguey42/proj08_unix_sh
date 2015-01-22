@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 11:32:45 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 07:32:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 ** TODO:
 ** *debug
 **	builtins
+** free mem before execve
 */
 
 static void	handler(int s)

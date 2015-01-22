@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 08:23:04 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/13 08:23:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 08:49:18 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,18 @@ char	**ft_envnew(char ***env, char *line)
 	free(*env);
 	*env = newenv;
 	return (*env + count);
+}
+
+char	**ft_envupdate(char ***env, char *line)
+{
+	char	**ptr;
+
+	ptr = ft_envgetp((const char**)*env, line);
+	if (ptr == NULL)
+		return (ft_envnew(env, line));
+	free(*ptr);
+	*ptr = line;
+	return (ptr);
 }
 
 char	**ft_envnew_m(char ***env, char *line)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environ_kv.c                                       :+:      :+:    :+:   */
+/*   environ_new.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/20 09:42:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 10:59:16 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/22 08:47:49 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/22 08:50:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,42 @@
 ** 'msh_update_envvar_m' Updates or allocates a new variable in environment.
 */
 
-char	**msh_new_envkv_m(t_msh *msh, char *k, char *v)
+char	**msh_new_envvar(t_msh *msh, char *line)
 {
 	char	**ret;
 
-	ret = ft_envnewkv_m(&msh->env, k, v);
+	ret = ft_envnew(&msh->env, line);
 	if (ret == NULL)
 		msh_errmem(msh);
 	return (ret);
 }
 
-char	**msh_update_envkv_m(t_msh *msh, char *k, char *v)
+char	**msh_update_envvar(t_msh *msh, char *line)
 {
 	char	**ret;
 
-	ret = ft_envupdatekv_m(&msh->env, k, v);
+	ret = ft_envupdate(&msh->env, line);
 	if (ret == NULL)
 		msh_errmem(msh);
 	return (ret);
 }
 
-int		msh_del_envk(t_msh *msh, char *k)
+char	**msh_new_envvar_m(t_msh *msh, char *line)
 {
-	return (ft_envdel(msh->env, k));
+	char	**ret;
+
+	ret = ft_envnew_m(&msh->env, line);
+	if (ret == NULL)
+		msh_errmem(msh);
+	return (ret);
+}
+
+char	**msh_update_envvar_m(t_msh *msh, char *line)
+{
+	char	**ret;
+
+	ret = ft_envupdate_m(&msh->env, line);
+	if (ret == NULL)
+		msh_errmem(msh);
+	return (ret);
 }

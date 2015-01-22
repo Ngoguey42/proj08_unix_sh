@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 10:56:51 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 08:49:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,6 +352,7 @@ char	**ft_envgetp(const char **env, const char *key);
 char	*ft_envget(const char **env, const char *key);
 char	**ft_envupdate_m(char ***env, char *line);
 char	**ft_envnew_m(char ***env, char *line);
+char	**ft_envupdate(char ***env, char *line);
 char	**ft_envnew(char ***env, char *line);
 char	**ft_envupdatekv_m(char ***env, char *k, char *v);
 char	**ft_envnewkv_m(char ***env, char *k, char *v);

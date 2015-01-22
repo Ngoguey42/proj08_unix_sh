@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 10:05:26 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 08:50:24 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,11 +289,16 @@ int				msh_cmd_error(t_mshc *msh, const t_cmd *cmd);
 int				msh_exec_cmd_openpipe(t_mshc *msh, t_list *lst);
 void			msh_exec_cmd_closepipel(t_mshc *msh, t_cmd *cmd);
 void			msh_exec_cmd_closepiper(t_mshc *msh, t_cmd *cmd);
+
+/*
+** Child process commands.
+*/
 void			msh_exec_cmd_pipeout(t_mshc *msh, t_cmd *cmd);
 void			msh_exec_cmd_pipein(t_mshc *msh, t_cmd *cmd);
-
 int				msh_inredirections(t_mshc *msh, t_list *lst);
 int				msh_outredirections(t_mshc *msh, t_list *lst);
+void			msh_exec_cmd_update_env(t_msh *msh, const t_cmd *cmd);
+void			msh_free_env(t_msh *msh);
 
 /*
 ** Environment.
@@ -302,6 +307,7 @@ int				msh_del_envk(t_msh *msh, char *k);
 char			**msh_new_envkv_m(t_msh *msh, char *k, char *v);
 char			**msh_update_envkv_m(t_msh *msh, char *k, char *v);
 char			**msh_update_envvar_m(t_msh *msh, char *line);
+char			**msh_update_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar_m(t_msh *msh, char *line);
 char			*msh_get_envvar(t_mshc *msh, const char *key);

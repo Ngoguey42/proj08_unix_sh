@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/22 08:54:32 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/22 10:32:52 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -41,7 +41,7 @@ tokenize.c token_new.c\
 syntax_error.c\
 \
 cmds_get.c cmds_get_av.c cmds_get_cmd.c cmds_get_env_interpretation.c\
-cmds_get_redir.c cmds_get_redir_pertype.c cmds_get_heredoc.c\
+cmds_get_redir.c cmds_get_redir_pertype.c cmds_get_heredoc.c cmds_get_locvar.c\
 \
 cmds_errprint.c free_structs.c\
 cmds_exec.c cmds_exec_update_env.c\
@@ -52,7 +52,7 @@ builtins_cc.c builtins_cc_pipes.c builtins_cc_redirs.c\
 builtin_env.c builtin_setenv.c builtin_unsetenv.c\
 builtin_exit.c builtin_cd.c\
 \
-msh_debug.c msh_error.c msh_header.c
+msh_debug.c msh_debug_cmd.c msh_error.c msh_header.c
 
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))
 OBJECTS = $(SRC:$(SRCPATH)/%.c=$(OBJPATH)/%.o)

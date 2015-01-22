@@ -6,16 +6,17 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 12:50:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 09:49:37 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 09:35:23 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <minishell.h>
 
-#define IS_OP *line == ';' || *line == '|' || *line == '<' || *line == '>'
+#define IS_OP (*line == ';' || *line == '|' || *line == '<' || *line == '>')
 #define IS_FILE MTK_ISRED(p[1])
-#define IS_CMD p[0] == 0
+#define IS_LVAR (p[0] == 0 && ft_memchr(line, '=', ft_strcspn(line, "<>;| \t")))
+#define IS_CMD (p[0] == 0)
 
 /*
 **	Tokenization:	MTK_ = Minishell ToKen_
@@ -127,9 +128,11 @@ void			msh_tokenize(t_mshc *msh, t_list *atkn[1], char *line)
 		else if (is_op(line) && (p[1] = get_op(msh, line)) &&
 				new_token_type(atkn, &line, p[1]))
 			p[0] = MTK_ISBRKO(p[1]) ? 0 : p[0];
-		else if ((IS_FILE) && new_token_type(atkn, &line, MTK_FILE))
+		else if (IS_FILE && new_token_type(atkn, &line, MTK_FILE))
 			p[1] = MTK_FILE;
-		else if ((IS_CMD) && new_token_type(atkn, &line, MTK_CMD) &&
+		else if (IS_LVAR && new_token_type(atkn, &line, MTK_LVAR))
+			p[1] = MTK_LVAR;
+		else if (IS_CMD && new_token_type(atkn, &line, MTK_CMD) &&
 				(p[0] = 1))
 			p[1] = MTK_CMD;
 		else if (new_token_type(atkn, &line, MTK_WORD))

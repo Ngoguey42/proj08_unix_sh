@@ -1,43 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmds_exec_update_env.c                             :+:      :+:    :+:   */
+/*   cmds_get_locvar.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/22 07:31:19 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/22 09:46:48 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/22 10:18:33 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/22 10:38:16 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include <minishell.h>
 
-static void		add_locvars(t_msh *msh, t_cmd *cmd)
+void		msh_cmd_get_locvar(t_mshc *msh, t_cmd *cmd)
 {
+	t_tkn	*tkn;
 	t_list	*lst;
+	t_list	*new;
 
-	lst = *cmd->alvar;
+	lst = *cmd->atkn;
 	while (lst != NULL)
 	{
-		msh_update_envvar(msh, (char*)lst->content);
+		tkn = (t_tkn*)lst->content;
+		if (tkn->type == MTK_LVAR)
+		{
+			new = ft_lstnew(tkn->ptr, tkn->len + 1);
+			if (new == NULL)
+				msh_errmem(msh);
+			((char*)new->content)[tkn->len] = '\0';
+			ft_lstpushback(cmd->alvar, new);
+		}
 		lst = lst->next;
 	}
-	*cmd->alvar = NULL;
-	return ;
-}
-
-void			msh_exec_cmd_update_env(t_msh *msh, t_cmd *cmd)
-{
-	if (cmd->ignore_env == true)
-	{
-		if (msh->env != NULL)
-			msh_free_env(msh);
-		msh->env = (char**)malloc(sizeof(char*));
-		if (msh->env == NULL)
-			msh_errmem(msh);
-		*msh->env = NULL;
-	}
-	add_locvars(msh, cmd);
 	return ;
 }

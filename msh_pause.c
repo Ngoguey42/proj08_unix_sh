@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:41:37 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 09:07:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 10:39:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void		msh_process_line(t_msh *msh, char *line)
 	}
 	*acmd = NULL;
 	msh_split_cmd(msh, atkn, acmd);
+/* 	msh_print_cmds(*acmd); */
 	process_cmds(msh, acmd);
 	msh_free_structs(msh, atkn, acmd);
 	return ;

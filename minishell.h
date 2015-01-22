@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/22 08:50:24 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/22 10:33:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@
 # define MTK_WORD 0x7
 # define MTK_CMD 0x8
 # define MTK_FILE 0x9
-# define MTK_LVAR 0x10
+# define MTK_LVAR 0xa
 
-# define MTK_END 0xa
+# define MTK_END 0x10
 
 # define MTK_IS2COP(A) ((A) == MTK_HERE || (A) == MTK_APND)
 # define MTK_ISRDIN(A) ((A) == MTK_HERE || (A) == MTK_READ)
@@ -99,10 +99,10 @@
 # define MTK_ISRED(A) ((A) <= MTK_WRIT && (A) >= MTK_HERE)
 # define MTK_ISBRKO(A) ((A) == MTK_SEMI || (A) == MTK_PIPE)
 # define MTK_ISBRK(A) ((A) == MTK_SEMI || (A) == MTK_PIPE || (A) == MTK_END)
-# define MTK_ISWRDB(A) ((A) == MTK_FILE || (A) == MTK_CMD || (A) == MTK_WORD)
+# define MTK_ISWRDB(A) ((A) >= MTK_WORD && (A) <= MTK_LVAR)
 
 # define MTKNAMES1 "HERE", "APND", "READ", "WRIT", "SEMI", "PIPE"
-# define MTKNAMES {"", MTKNAMES1, "WORD", "CMD", "FILE", "END", "LVAR"}
+# define MTKNAMES {"", MTKNAMES1, "WORD", "CMD", "FILE", "LVAR", "END"}
 
 # define RPFX(ARG) &msh_saveredir_ ## ARG
 # define REDSAVEFUNCS {RPFX(here), RPFX(apnd), RPFX(read), RPFX(write)}
@@ -268,7 +268,9 @@ void			msh_cmd_get_av(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd);
+void			msh_cmd_get_locvar(t_mshc *msh, t_cmd *cmd);
 void            msh_cmd_get_env_interpretation(t_mshc *msh, t_cmd *cmd);
+
 
 int				msh_catch_syntax_errors(t_mshc *msh, const t_list *lst);
 
@@ -297,7 +299,7 @@ void			msh_exec_cmd_pipeout(t_mshc *msh, t_cmd *cmd);
 void			msh_exec_cmd_pipein(t_mshc *msh, t_cmd *cmd);
 int				msh_inredirections(t_mshc *msh, t_list *lst);
 int				msh_outredirections(t_mshc *msh, t_list *lst);
-void			msh_exec_cmd_update_env(t_msh *msh, const t_cmd *cmd);
+void			msh_exec_cmd_update_env(t_msh *msh, t_cmd *cmd);
 void			msh_free_env(t_msh *msh);
 
 /*
@@ -348,6 +350,8 @@ void			msh_errmem(t_mshc *msh);
 */
 void			msh_print_tokens(t_list *tkn);
 void			msh_print_cmds(t_list *lst);
+void			msh_print_lvar(t_list *lst);
+void			msh_print_av(char **tab);
 void			msh_print_redirs(t_list *lst);
 
 #endif

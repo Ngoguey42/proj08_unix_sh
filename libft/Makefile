@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/20 10:59:50 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/01/30 07:20:53 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -84,7 +84,7 @@ ft_lstnewwhere.c  ft_lstfreecont.c  ft_lstrev.c    ft_lstmap.c    ft_lstfind.c\
                                                                   ft_lstprnt.c\
 \
 ft_log10.c ft_powi.c      ft_ceil.c    ft_abs.c         \
-ft_log16.c ft_sqrtfloor.c ft_floor.c   operations.c     \
+ft_log16.c ft_sqrtfloor.c ft_floor.c   operations.c     ft_nextval.c\
 ft_log2.c                 ft_dbltype.c ft_getbitarray.c ft_idiv.c\
 \
 ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c ft_printvar.c\
@@ -107,7 +107,8 @@ PTFSRCSFILES = \
 	debug.c             build_nonprintable_string_deps.c\
 	                    build_uppercases2.c         buffer_flush_lscols.c\
 	                    build_dec_float.c           buffer_lscols_getdatas.c\
-	                    build_dec_float_nbr.c
+	                    build_dec_float_nbr.c       \
+                        build_wchars_and_wstrings.c
 
 #SOURCES/OBJECTS TARGETS
 SRC = $(addprefix $(SRCPATH)/,$(SRCSFILES))

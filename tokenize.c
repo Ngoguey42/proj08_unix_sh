@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/28 12:50:28 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/22 09:35:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/30 15:05:34 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 #define IS_OP (*line == ';' || *line == '|' || *line == '<' || *line == '>')
 #define IS_FILE MTK_ISRED(p[1])
-#define IS_LVAR (p[0] == 0 && ft_memchr(line, '=', ft_strcspn(line, "<>;| \t")))
+#define IS_LVAR2 (ft_memchr(line, '=', ft_strcspn(line, "<>;| \t")))
+#define IS_LVAR (p[0] == 0 && *line != '=' && IS_LVAR2)
 #define IS_CMD (p[0] == 0)
 
 /*

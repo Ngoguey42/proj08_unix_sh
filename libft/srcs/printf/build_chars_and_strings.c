@@ -6,12 +6,16 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/12 12:33:52 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/11/12 12:36:49 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/28 11:21:19 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "ft_math.h"
+
+#define WID part->width
+#define STR part->nbr_ptr
+#define PRE part->precision
 
 /*
 ** 'build_nbr_15' %c.
@@ -29,76 +33,73 @@
 
 int		build_nbr_15(t_printf_part *part, va_list *args)
 {
-	int		precision;
-	char	*str;
 	char	c;
 
+	if (part->length > 0 && CHARS_LENGTH[part->length - 1] == 'l')
+		return (build_nbr_25(part, args));
 	part->width = AND_I(WSTA_MASK) ? va_arg(*args, int) : part->width;
-	precision = AND_I(PSTA_MASK) ? va_arg(*args, int) : part->precision;
+	PRE = AND_I(PSTA_MASK) ? va_arg(*args, int) : PRE;
 	c = (char)va_arg(*args, int);
-	precision = c == 0 ? 1 : 0;
-	if (!(str = ft_strnew(1)))
+	PRE = c == 0 ? 1 : 0;
+	if (!(STR = ft_strnew(1)))
 		return (0);
-	str[0] = precision ? 1 : c;
+	STR[0] = PRE ? 1 : c;
 	if (part->width > 1)
 	{
 		if (AND_F(MINU_MASK))
-			str = ft_pad_string(str, ' ', -part->width, 1);
+			STR = ft_pad_string(STR, ' ', -part->width, 1);
 		else
-			str = ft_pad_string(str, PAD_CHAR, part->width, 1);
+			STR = ft_pad_string(STR, PAD_CHAR, part->width, 1);
 	}
 	else if (part->width < -1)
-		str = ft_pad_string(str, ' ', part->width, 1);
-	part->nbr_ptr = str;
-	part->nbr_size = ft_strlen(str);
-	if (precision)
-		part->nbr_ptr[ft_strcharlen(str, '\1')] = '\0';
+		STR = ft_pad_string(STR, ' ', part->width, 1);
+	part->nbr_size = ft_strlen(STR);
+	if (PRE)
+		STR[ft_strcharlen(STR, '\1')] = '\0';
 	return (1);
 }
 
 int		build_nbr_16(t_printf_part *part, va_list *args)
 {
 	int		width;
-	int		precision;
-	char	*str;
 
+	if (part->length > 0 && CHARS_LENGTH[part->length - 1] == 'l')
+		return (build_nbr_26(part, args));
 	width = AND_I(WSTA_MASK) ? va_arg(*args, int) : part->width;
-	precision = AND_I(PSTA_MASK) ? va_arg(*args, int) : part->precision;
-	str = (char*)va_arg(*args, char*);
-	str = (str == NULL) ? ft_strdup("(null)") : ft_strdup(str);
-	if (AND_I(PNUM_MASK) && precision >= 0 && precision < (int)ft_strlen(str))
-		str[precision] = '\0';
-	if (width > 0 && width > (int)ft_strlen(str))
+	PRE = AND_I(PSTA_MASK) ? va_arg(*args, int) : PRE;
+	STR = (char*)va_arg(*args, char*);
+	STR = (STR == NULL) ? ft_strdup("(null)") : ft_strdup(STR);
+	if (AND_I(PNUM_MASK) && PRE >= 0 && PRE < (int)ft_strlen(STR))
+		STR[PRE] = '\0';
+	if (width > 0 && width > (int)ft_strlen(STR))
 	{
 		if (AND_F(MINU_MASK))
-			str = ft_pad_string(str, ' ', -width, 1);
+			STR = ft_pad_string(STR, ' ', -width, 1);
 		else
-			str = ft_pad_string(str, PAD_CHAR, width, 1);
+			STR = ft_pad_string(STR, PAD_CHAR, width, 1);
 	}
-	else if (width < 0 && ABS(width) > (int)ft_strlen(str))
-		str = ft_pad_string(str, ' ', width, 1);
-	part->nbr_ptr = str;
+	else if (width < 0 && ABS(width) > (int)ft_strlen(STR))
+		STR = ft_pad_string(STR, ' ', width, 1);
 	return (1);
 }
 
 int		build_nbr_19(t_printf_part *part, va_list *args)
 {
 	int		width;
-	int		precision;
 
 	width = AND_I(WSTA_MASK) ? va_arg(*args, int) : part->width;
-	precision = AND_I(PSTA_MASK) ? va_arg(*args, int) : part->precision;
-	(void)precision;
+	PRE = AND_I(PSTA_MASK) ? va_arg(*args, int) : PRE;
+	(void)PRE;
 	if (width > 1)
 	{
 		if (AND_F(MINU_MASK))
-			part->nbr_ptr = ft_pad_string("%", ' ', -width, 0);
+			STR = ft_pad_string("%", ' ', -width, 0);
 		else
-			part->nbr_ptr = ft_pad_string("%", PAD_CHAR, width, 0);
+			STR = ft_pad_string("%", PAD_CHAR, width, 0);
 	}
 	else if (width < -1)
-		part->nbr_ptr = ft_pad_string("%", ' ', width, 0);
+		STR = ft_pad_string("%", ' ', width, 0);
 	else
-		part->nbr_ptr = (char*)ft_strdup("%");
+		STR = (char*)ft_strdup("%");
 	return (1);
 }

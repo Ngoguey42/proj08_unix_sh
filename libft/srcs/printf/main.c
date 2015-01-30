@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 10:13:15 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/27 10:35:23 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/28 10:09:08 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,13 +168,13 @@ size_t strlen_doublezero(char *str)
 /* #define SPEC "s"  // %ls +faire meilleurs tests */
 /* #define SPEC "S"  // */
 /* #define SPEC "c"  // %lc +faire meilleurs tests */
-/* #define SPEC "C"  // */
+#define SPEC "C"  //
 
 
 /* #define SPEC "a"  // %LA +approfondir tests */
 /* #define SPEC "A"  // %LA +approfondir tests */
 
-#define SPEC "f"  // undone
+// #define SPEC "f"  // undone
 // #define SPEC "F"  // undone
 // #define SPEC "e"  // undone
 // #define SPEC "E"  // undone
@@ -189,7 +189,7 @@ size_t strlen_doublezero(char *str)
 
 #if BONUS_TESTS == 0// DONT TOUCH
 
-#define FLOAT_NUMBERS 1
+#define FLOAT_NUMBERS 0
 #define FLOAT_TO_TEST 1 //1->6	1:(250 norm randoms)  2:(250 unnorm randoms)  3:(fixes et 30 random nan)  
 //								4:(nan bornes et delta 33)  5:(norm bornes et delta 33)  6:(unnorm bornes et delta 33)
 //								7:(norm randoms via %f)	8:(norm randoms via %a)  9:(norm randoms via %e) 

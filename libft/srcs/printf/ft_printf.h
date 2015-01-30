@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 18:35:17 by ngoguey           #+#    #+#             */
-/*   Updated: 2014/12/22 09:44:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/28 10:24:41 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@
 */
 # define CHARS_LENGTH		"jztLhl"
 # define NUM_DBL_CHAR_LEN	2
-# define CHARS_SPECIFIERS	"diuoxXfFeEgGaAcspn%brDUO"
-# define NUM_SPECIFIERS		25 + 1
+# define CHARS_SPECIFIERS	"diuoxXfFeEgGaAcspn%brDUOCS"
+# define NUM_SPECIFIERS		27 + 1
 
 /*
 ** MACROS
@@ -129,6 +129,8 @@ int		build_nbr_21(t_printf_part *part, va_list *args);
 int		build_nbr_22(t_printf_part *part, va_list *args);
 int		build_nbr_23(t_printf_part *part, va_list *args);
 int		build_nbr_24(t_printf_part *part, va_list *args);
+int		build_nbr_25(t_printf_part *part, va_list *args);
+int		build_nbr_26(t_printf_part *part, va_list *args);
 t_i64	get_signed_varg(t_byte length, va_list *args);
 t_ui64	get_unsigned_varg(t_byte length, va_list *args);
 

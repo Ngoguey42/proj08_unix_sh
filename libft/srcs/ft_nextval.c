@@ -1,35 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_envdel.c                                        :+:      :+:    :+:   */
+/*   ft_nextval.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/20 10:44:55 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/30 10:22:51 by ngoguey          ###   ########.fr       */
+/*   Created: 2015/01/28 08:50:34 by ngoguey           #+#    #+#             */
+/*   Updated: 2015/01/28 08:52:28 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <math.h>
 #include "libft.h"
 
-int			ft_envdel(char **env, const char *key)
+double		ft_nextval(double val, double direction)
 {
-	char	*line;
-	size_t	envlen;
-
-	if (env == NULL)
-		return (1);
-	line = ft_envget((const char**)env, key);
-	if (line == NULL)
-		return (1);
-	envlen = 0;
-	while (env[envlen] != NULL)
-		envlen++;
-	while (*env != line)
-	{
-		env++;
-		envlen--;
-	}
-	ft_memmove(env, env + 1, envlen * sizeof(char*));
-	return (0);
+	if (direction > 0)
+		return (floor(val) + 1.);
+	else if (direction < 0)
+		return (ceil(val) - 1.);
+	return (val);
 }

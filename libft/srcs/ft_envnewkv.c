@@ -6,15 +6,14 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/20 09:31:23 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 09:40:39 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/01/28 11:26:05 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "libft.h"
 
-
-static char*	cat(char *k, char *v)
+static char		*cat(char *k, char *v)
 {
 	char	*ret;
 

@@ -102,3 +102,26 @@ int	ft_lstpushprev(t_list **alst, t_list *lst, t_list *new)
 	}
 	return (1);
 }
+
+int	ft_lstpushsort(t_list **alst, t_list *new,
+		int (*f)(const void*, const void*))
+{
+	t_list	*cur;
+
+	if (*alst == NULL || f(new->content, (*alst)->content))
+	{
+		new->next = *alst;
+		*alst = new;
+		return (1);
+	}
+	cur = *alst;
+	while (cur->next != NULL)
+	{
+		if (f(new->content, cur->next->content))
+			break ;
+		cur = cur->next;
+	}
+	new->next = cur->next;
+	cur->next = new;
+	return (1);
+}

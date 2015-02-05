@@ -87,3 +87,16 @@ t_list	*ft_lstnewnext(t_list **alst, t_list *lst,
 	}
 	return (new);
 }
+
+t_list	*ft_lstnewsort(t_list **alst,
+	void const *content, size_t content_size,
+	int (*f)(const void*, const void*))
+{
+	t_list	*new;
+
+	new = ft_lstnew(content, content_size);
+	if (!new)
+		return (NULL);
+	ft_lstpushsort(alst, new, f);
+	return (new);
+}

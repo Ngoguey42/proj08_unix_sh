@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/20 10:35:50 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 11:03:55 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 08:27:11 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		msh_builtin_setenv(t_msh *msh, t_cmd *cmd)
 	if (msh_builtin_init_fds(msh, cmd, fd_saves))
 		return ;
 	if (cmd->cmdav[1] == NULL)
-		msh_print_env(msh, 1);
+		msh_print_env(msh, cmd, 1);
 	else if (cmd->cmdav[2] == NULL || cmd->cmdav[3] == NULL)
 		set_env(msh, cmd);
 	else

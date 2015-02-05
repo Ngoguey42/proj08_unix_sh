@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/02 15:38:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 09:01:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 07:24:03 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ int			msh_cmd_error(t_mshc *msh, const t_cmd *cmd)
 	if (cmd->ared != NULL)
 		if (red_error(msh, *cmd->ared))
 			return (1);
-	if (cmd->binerr != 0)
+/* 	qprintf("err: %d", cmd->binerr); */
+ 	if (cmd->binerr != 0)
 	{
 		if (cmd->binerr > 0)
 			msh_err(msh, "%! $r: %s", cmd->cmdpath, sys_errlist[cmd->binerr]);

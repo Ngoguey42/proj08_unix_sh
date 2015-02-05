@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/28 08:53:09 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/03 13:37:11 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,17 @@ int		ft_match(char *s1, char *s2);
 int		ft_voidstrcmp(const void *s1, const void *s2);
 int		ft_voiduintcmp(const void *s1, const void *s2);
 int		ft_voidintcmp(const void *s1, const void *s2);
+int		ft_cmpi_e(const void *a, const void *b);
+int		ft_cmpi_l(const void *a, const void *b);
+int		ft_cmpi_le(const void *a, const void *b);
+int		ft_cmpi_g(const void *a, const void *b);
+int		ft_cmpi_ge(const void *a, const void *b);
+
+int		ft_cmpui_e(const void *a, const void *b);
+int		ft_cmpui_l(const void *a, const void *b);
+int		ft_cmpui_le(const void *a, const void *b);
+int		ft_cmpui_g(const void *a, const void *b);
+int		ft_cmpui_ge(const void *a, const void *b);
 /*
 ** Searching:
 */
@@ -265,6 +276,8 @@ int		ft_lstpushfront(t_list **alst, t_list *new);
 int		ft_lstpushback(t_list **alst, t_list *new);
 int		ft_lstpushprev(t_list **alst, t_list *lst, t_list *new);
 int		ft_lstpushnext(t_list **alst, t_list *lst, t_list *new);
+int		ft_lstpushsort(t_list **alst, t_list *new,
+			int (*f)(const void*, const void*));
 t_list	*ft_lstnewfront(t_list **alst,
 			void const *content, size_t content_size);
 t_list	*ft_lstnewback(t_list **alst,
@@ -273,6 +286,10 @@ t_list	*ft_lstnewprev(t_list **alst, t_list *lst,
 			void const *content, size_t content_size);
 t_list	*ft_lstnewnext(t_list **alst, t_list *lst,
 			void const *content, size_t content_size);
+t_list	*ft_lstnewsort(t_list **alst,
+			void const *content, size_t content_size,
+			int (*f)(const void*, const void*));
+
 /*
 ** Delete functions
 */
@@ -360,6 +377,12 @@ char	**ft_envnewkv_m(char ***env, char *k, char *v);
 int		ft_envdel(char **env, const char *key);
 int		ft_expand_tilde(const char *src, char *ref[3], char **ptr);
 int		ft_expand_tilde_env(const char *src, const char **env, char **ptr);
+
+int		ft_dstor_init(t_dstor *dstor, size_t size);
+int		ft_dstor_realloc(t_dstor *dstor, size_t new_size);
+int		ft_dbuff_init(t_dbuff *dbuff, size_t size, size_t rear_pad);
+int		ft_dbuff_recenter(t_dbuff *dbuff);
+void	ft_dbuff_initzone(t_dbuff *dbuff, size_t rear_pad, DBUFF_T v);
 
 /*
 ** -

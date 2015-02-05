@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:41:37 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/30 15:45:11 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 07:30:05 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,14 +78,16 @@ static void	process_cmds(t_msh *msh, t_list *alst[1])
 	while (lst != NULL)
 	{
 		cmd = (t_cmd*)lst->content;
-		if (cmd->is_builtin == true || cmd->cmdpath != NULL)
-		{
+/* 		if (cmd->is_builtin == true || cmd->cmdpath != NULL) */
+/* 		{ */
 			if (msh_exec_cmd(msh, lst))
 			{
-				err_close_allfd(msh, *alst, cmd);
-				return ;
+/* 				err_close_allfd(msh, *alst, cmd); */
+/* 				return ; */
+				(void)cmd;
+				(void)err_close_allfd;
 			}
-		}
+/* 		} */
 		lst = lst->next;
 	}
 	return ;

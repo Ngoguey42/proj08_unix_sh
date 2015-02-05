@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 10:04:04 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 07:55:32 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 07:48:13 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int			ft_getcmdpath(const char *cmd, char *refs[4], char **ptr)
 	if (ft_strchr(cmdname, (int)'/') != NULL)
 		ret = cmd_as_path(&cmdname, refs);
 	else if (refs[0] == NULL)
-		ret = ENOENT;
+		ret = -2;
 	else
 		ret = cmd_as_cmd(refs[0], &cmdname);
 	if (ret != 0)

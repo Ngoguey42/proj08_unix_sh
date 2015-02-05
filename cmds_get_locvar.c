@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/22 10:18:33 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/22 10:38:16 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 08:49:43 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void		msh_cmd_get_locvar(t_mshc *msh, t_cmd *cmd)
 		tkn = (t_tkn*)lst->content;
 		if (tkn->type == MTK_LVAR)
 		{
+			(void)msh_delin_locvars(tkn->ptr, cmd->alvar);
 			new = ft_lstnew(tkn->ptr, tkn->len + 1);
 			if (new == NULL)
 				msh_errmem(msh);

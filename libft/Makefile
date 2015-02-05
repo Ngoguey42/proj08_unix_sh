@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2015/01/30 07:20:53 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/02/03 08:13:17 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -92,7 +92,9 @@ ft_getptri.c ft_myassert.c ft_myputnchar.c ft_memprint.c qprintf.c ft_printvar.c
 ft_tabadd.c ft_tabcc.c ft_tabdel.c ft_tabsize.c ft_tabsort.c ft_tabadddebug.c\
 ft_metacc.c ft_metaget.c ft_metaset.c ft_metagetdebug.c\
 \
-ft_clock_cc.c ft_clock_update.c
+ft_clock_cc.c ft_clock_update.c\
+\
+ft_dstor.c ft_dbuff.c
 
 #PRINTF_SOURCES
 PTFSRCSFILES = \

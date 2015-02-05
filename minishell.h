@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/22 10:33:31 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 08:49:18 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,9 @@ char			**msh_new_envvar(t_msh *msh, char *line);
 char			**msh_new_envvar_m(t_msh *msh, char *line);
 char			*msh_get_envvar(t_mshc *msh, const char *key);
 char			**msh_get_envvarp(t_mshc *msh, const char *key);
-void			msh_print_env(t_mshc *msh, int fd);
+int				msh_isin_locvars(const char *kv, const t_list *lvars);
+int				msh_delin_locvars(const char *kv, t_list *alvar[1]);
+void			msh_print_env(t_mshc *msh, const t_cmd *cmd, int fd);
 void			msh_update_pwd(t_msh *msh);
 
 /*

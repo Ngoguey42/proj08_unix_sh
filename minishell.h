@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 08:49:18 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:55:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@
 # define MSH_RFDTOOLONG 0x08
 # define MSH_RFDOVERLIM 0x10
 # define MSH_RINVALID 0x20
+# define MSH_RMISSING 0x40
 
 /*
 ** ************************************************************************** **
@@ -124,6 +125,7 @@
 **				0x8		rhsfd too long
 **				0x10	rhsfd over limit
 **				0x20	rhs is invalid
+**				0x40	rhs missing
 **		ptr		pointers of the two tokens into the user input
 **		len		characters inside the two tokens.
 **		prev_cp	for builtins, 'dup' of the previous destination fd.
@@ -191,6 +193,7 @@ typedef struct	s_tkn
 typedef struct	s_cmd
 {
 	t_list		*atkn[1];
+	const char	*cmd_str;
 
 	t_bool		ignore_env;
 	t_list		*alvar[1];
@@ -346,6 +349,7 @@ void			msh_builtin_exit(t_msh *msh, t_cmd *cmd);
 */
 void			msh_err(t_mshc *msh, const char *format, ...);
 void			msh_errmem(t_mshc *msh);
+void			msh_cmd_err(t_mshc *msh, const t_cmd *cmd, int err);
 
 /*
 ** Debug:

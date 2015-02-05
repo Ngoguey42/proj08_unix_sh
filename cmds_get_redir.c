@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:40 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 09:00:47 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:59:11 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	extract_redir_and_file(t_mshc *msh, t_red *red, t_list **lstp)
 	redir = (t_tkn*)(*lstp)->content;
 	if ((*lstp)->next == NULL)
 	{
-		red->error |= MSH_RINVALID;
+		red->error |= MSH_RMISSING;
 		return ;
 	}
 	next = (t_tkn*)(*lstp)->next->content;

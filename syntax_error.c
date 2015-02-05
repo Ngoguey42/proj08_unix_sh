@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/16 14:55:13 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 07:29:57 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:09:09 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int			msh_catch_syntax_errors(t_mshc *msh, const t_list *lst)
 	if (lst == NULL)
 		return (1);
 	tkn = (const t_tkn*)lst->content;
-	if (MTK_ISBRK(tkn->type))
+	if (MTK_ISBRKO(tkn->type))
 	{
 		msh_err(msh, "%s `%!$ .1r'", STX_ERR_MSH, (char*)tkn->ptr);
 		return (1);

@@ -6,10 +6,12 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:46:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 07:30:35 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:49:18 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <errno.h>
 #include <minishell.h>
 #include <stdlib.h>
 
@@ -37,6 +39,21 @@ void		msh_err(t_mshc *msh, const char *format, ...)
 
 void		msh_errmem(t_mshc *msh)
 {
-	msh_err(msh, "Malloc failed.");
+	msh_err(msh, sys_errlist[ENOMEM]);
 	exit(1);
+}
+
+void		msh_cmd_err(t_mshc *msh, const t_cmd *cmd, int err)
+{
+	if (err == -2)
+		msh_err(msh, "%! $.*r: %s", (int)ft_strcspn(cmd->cmd_str, "<>;| \t"),
+				cmd->cmd_str, "Command not found");		
+	else
+	{
+		if (err < 0)
+			err = 0;
+		msh_err(msh, "%! $.*r: %s", (int)ft_strcspn(cmd->cmd_str, "<>;| \t"),
+				cmd->cmd_str, sys_errlist[err]);
+	}
+	return ;
 }

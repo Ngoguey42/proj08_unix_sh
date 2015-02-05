@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:18 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 07:49:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:11:37 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void		msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd)
 		tkn = (t_tkn*)lst->content;
 		if (tkn->type == MTK_CMD)
 		{
+			cmd->cmd_str = tkn->ptr;
 			cmd->is_builtin = msh_is_builtin(msh, tkn->ptr, tkn->len);
 			if (cmd->is_builtin == false)
 			{

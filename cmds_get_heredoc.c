@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:30 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/30 14:50:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 10:04:54 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	request_heredoc(t_mshc *msh, t_red *red)
 	int		ret;
 	char	*cat;
 
-	red->hdoc = ft_strdup("");
-	return ;
+/* 	red->hdoc = ft_strdup(""); */
+/* 	return ; */
 	msh_ps2(msh, MSH_PSHERE);
 	cat = NULL;
 	while ((ret = get_next_line(0, &line)) > 0)
@@ -72,7 +72,8 @@ void		msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd)
 	while (lst != NULL)
 	{
 		red = (t_red*)lst->content;
-		if (red->type == MTK_HERE && (red->error & MSH_RINVALID) == 0)
+		if (red->type == MTK_HERE && (red->error & MSH_RINVALID) == 0 &&
+			(red->error & MSH_RMISSING) == 0)
 			request_heredoc(msh, red);
 		lst = lst->next;
 	}

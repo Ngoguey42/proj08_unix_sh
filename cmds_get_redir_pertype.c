@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 09:05:54 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:56:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		msh_saveredir_here(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 {
 	red->error |= extract_nbr(tkn->ptr, &red->lhsfd, 0);
 	if (n->type != MTK_FILE)
-		red->error |= MSH_RINVALID;
+		red->error |= MSH_RMISSING;
 	else
 	{
 		red->rhsfd = -2;
@@ -81,7 +81,7 @@ void		msh_saveredir_apnd(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 {
 	red->error |= extract_nbr(tkn->ptr, &red->lhsfd, 1);
 	if (n->type != MTK_FILE || n->len == 0)
-		red->error |= MSH_RINVALID;
+		red->error |= MSH_RMISSING;
 	else
 	{
 		red->rhsfd = -2;
@@ -100,7 +100,7 @@ void		msh_saveredir_read(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 {
 	red->error |= extract_nbr(tkn->ptr, &red->lhsfd, 0);
 	if (n->type != MTK_FILE)
-		red->error |= MSH_RINVALID;
+		red->error |= MSH_RMISSING;
 	else if (*n->ptr == '&')
 		red->error |= extract_nbr(n->ptr + 1, &red->rhsfd, -1) << 3;
 	else
@@ -124,7 +124,7 @@ void		msh_saveredir_write(t_mshc *msh, t_red *red, t_tkn *tkn, t_tkn *n)
 	else
 		red->error |= extract_nbr(tkn->ptr, &red->lhsfd, 1);
 	if (n->type != MTK_FILE)
-		red->error |= MSH_RINVALID;
+		red->error |= MSH_RMISSING;
 	else if (*n->ptr == '&')
 		red->error |= extract_nbr(n->ptr + 1, &red->rhsfd, -1) << 3;
 	else

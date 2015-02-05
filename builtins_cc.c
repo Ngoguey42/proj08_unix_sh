@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 08:05:01 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 14:50:28 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:42:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int			msh_get_builtin_index(t_mshc *msh, const char *cmd, size_t len)
 		if (ft_strnequ(msh->bi_n[i], cmd, len2))
 			return (i);
 	}
-	msh_err(msh, "Could not retreive %r builtin.", cmd);
+	msh_err(msh, "Could not retreive %*.r builtin.",
+		(int)ft_strcspn(cmd, "<>;| \t"), cmd);
 	return (0);
 }
 

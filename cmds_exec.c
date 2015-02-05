@@ -6,11 +6,12 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 07:32:22 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:41:48 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <minishell.h>
@@ -47,7 +48,7 @@ static void	child(t_msh *msh, t_cmd *cmd)
 			exit(1);
 	}
 	execve(cmd->cmdpath, cmd->cmdav + cmd->avpad, msh->env);
-	msh_err(msh, "%s: execve failed.", cmd->cmdpath);
+	msh_cmd_err(msh, cmd, ENOEXEC);
 	exit(1);
 }
 

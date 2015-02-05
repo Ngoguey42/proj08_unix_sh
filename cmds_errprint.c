@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/02 15:38:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 07:24:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/05 09:57:00 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ static void	print_red_error(t_mshc *msh, const t_red *red)
 		else
 			msh_err(msh, "%! $r: %s", red->file, sys_errlist[0]);
 	}
-	else
-		msh_err(msh, "%s", sys_errlist[0]);
+	else if (red->file_err & ~MSH_RMISSING)
+		msh_err(msh, "Redirection: %s", sys_errlist[0]);
 	return ;
 }
 
@@ -63,15 +63,9 @@ int			msh_cmd_error(t_mshc *msh, const t_cmd *cmd)
 	if (cmd->ared != NULL)
 		if (red_error(msh, *cmd->ared))
 			return (1);
-/* 	qprintf("err: %d", cmd->binerr); */
  	if (cmd->binerr != 0)
 	{
-		if (cmd->binerr > 0)
-			msh_err(msh, "%! $r: %s", cmd->cmdpath, sys_errlist[cmd->binerr]);
-		else if (cmd->binerr == -2)
-			msh_err(msh, "%! $r: %s", cmd->cmdpath, "Command not found");
-		else
-			msh_err(msh, "%! $r: %s", cmd->cmdpath, sys_errlist[0]);
+		msh_cmd_err(msh, cmd, cmd->binerr);
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/02 15:38:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 09:57:00 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:36:15 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int			msh_cmd_error(t_mshc *msh, const t_cmd *cmd)
 	if (cmd->ared != NULL)
 		if (red_error(msh, *cmd->ared))
 			return (1);
- 	if (cmd->binerr != 0)
+	if (cmd->binerr != 0)
 	{
 		msh_cmd_err(msh, cmd, cmd->binerr);
 		return (1);

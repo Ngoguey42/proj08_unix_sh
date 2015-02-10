@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/21 09:17:16 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 08:59:07 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:35:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void		add_env_locvars(t_list *alvar[1], t_list *alvartmp[1])
 }
 
 static void		store_lvar
-		(t_mshc *msh, t_list *alvar[1], char *arg, t_list *alvar2[1])
+	(t_mshc *msh, t_list *alvar[1], char *arg, t_list *alvar2[1])
 {
 	(void)msh_delin_locvars(arg, alvar);
 	(void)msh_delin_locvars(arg, alvar2);

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:58 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/22 10:34:12 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:34:42 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ void		msh_print_lvar(t_list *lst)
 		lvar = lst->content;
 		ft_dprintf(2, "Local Var#%i: \"%! $zr\"\n", ++i, lvar);
 		lst = lst->next;
-	}	
+	}
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 09:55:55 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:38:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 
 # include <limits.h>
 # include <libft.h>
-/* #include <stdio.h> //debug */
 #include <ft_debug.h> //debug
-
-/* #define msh_err(env, format, args...) do {ft_putstr(format); } while (0) */
 
 /* # define msh_err(...) ft_putstr("salut\n") */
 /*
@@ -272,8 +269,7 @@ void			msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_locvar(t_mshc *msh, t_cmd *cmd);
-void            msh_cmd_get_env_interpretation(t_mshc *msh, t_cmd *cmd);
-
+void			msh_cmd_get_env_interpretation(t_mshc *msh, t_cmd *cmd);
 
 int				msh_catch_syntax_errors(t_mshc *msh, const t_list *lst);
 
@@ -321,6 +317,9 @@ int				msh_isin_locvars(const char *kv, const t_list *lvars);
 int				msh_delin_locvars(const char *kv, t_list *alvar[1]);
 void			msh_print_env(t_mshc *msh, const t_cmd *cmd, int fd);
 void			msh_update_pwd(t_msh *msh);
+
+char			*msh_get_envvar_l(t_mshc *msh, const t_list *lvars,
+				const char *key);
 
 /*
 ** Builtins.

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 09:41:48 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:36:02 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int			msh_exec_cmd(t_msh *msh, t_list *lst)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd*)lst->content;
-/* 	msh_print_cmds(&(t_list){cmd, 0, NULL}); */
 	if (cmd->iotypes[1] == 1)
 		if (msh_exec_cmd_openpipe(msh, lst))
 			return (1);

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/22 08:47:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 08:49:14 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:37:44 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,21 @@ char	**msh_get_envvarp(t_mshc *msh, const char *key)
 char	*msh_get_envvar(t_mshc *msh, const char *key)
 {
 	return (ft_envget((const char**)msh->env, key));
+}
+
+char	*msh_get_envvar_l(t_mshc *msh, const t_list *lvars, const char *kv)
+{
+	size_t	len;
+
+	len = ft_strcspn(kv, "=");
+	while (lvars != NULL)
+	{
+		if (ft_strnequ(kv, (char*)lvars->content,
+				MAX(len, ft_strcspn((char*)lvars->content, "="))))
+			return ((char*)lvars->content);
+		lvars = lvars->next;
+	}
+	return (ft_envget((const char**)msh->env, kv));
 }
 
 int		msh_isin_locvars(const char *kv, const t_list *lvars)

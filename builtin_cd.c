@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/31 10:39:25 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/20 10:07:33 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:33:49 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,10 @@
 #include <stdio.h>
 #include <minishell.h>
 
-static void	home_dir(t_msh *msh)
+static void	home_dir(t_msh *msh, char *ptr)
 {
-	char	*ptr;
 	int		err;
 
-	ptr = msh_get_envvar(msh, "HOME");
 	if (ptr == NULL)
 		msh_err(msh, "cd: HOME not set");
 	else
@@ -37,12 +35,10 @@ static void	home_dir(t_msh *msh)
 	return ;
 }
 
-static void oldpwd_dir(t_msh *msh)
+static void oldpwd_dir(t_msh *msh, char *ptr)
 {
-	char	*ptr;
 	int		err;
 
-	ptr = msh_get_envvar(msh, "OLDPWD");
 	if (ptr == NULL)
 		msh_err(msh, "cd: OLDPWD not set");
 	else
@@ -83,9 +79,19 @@ static void	regular(t_msh *msh, t_cmd *cmd)
 static void	changedir(t_msh *msh, t_cmd *cmd)
 {
 	if (cmd->cmdav[1] == NULL)
-		home_dir(msh);
+	{
+		if (cmd->ignore_env)
+			home_dir(msh, NULL);
+		else
+			home_dir(msh, msh_get_envvar_l(msh, *cmd->alvar, "HOME"));
+	}
 	else if (ft_strequ(cmd->cmdav[1], "-"))
-		oldpwd_dir(msh);
+	{
+		if (cmd->ignore_env)
+			oldpwd_dir(msh, NULL);
+		else
+			oldpwd_dir(msh, msh_get_envvar_l(msh, *cmd->alvar, "OLDPWD"));
+	}
 	else
 		regular(msh, cmd);
 	msh_update_pwd(msh);
@@ -94,7 +100,7 @@ static void	changedir(t_msh *msh, t_cmd *cmd)
 
 void		msh_builtin_cd(t_msh *msh, t_cmd *cmd)
 {
-	int		fd_saves[2];
+	int	fd_saves[2];
 
 	if (msh_builtin_init_fds(msh, cmd, fd_saves))
 		return ;

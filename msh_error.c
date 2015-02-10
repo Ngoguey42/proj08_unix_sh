@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:46:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 09:49:18 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:34:31 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		msh_cmd_err(t_mshc *msh, const t_cmd *cmd, int err)
 {
 	if (err == -2)
 		msh_err(msh, "%! $.*r: %s", (int)ft_strcspn(cmd->cmd_str, "<>;| \t"),
-				cmd->cmd_str, "Command not found");		
+				cmd->cmd_str, "Command not found");
 	else
 	{
 		if (err < 0)

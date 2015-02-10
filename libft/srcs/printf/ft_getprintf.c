@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/07 18:17:15 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/30 07:17:53 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:46:16 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ static int	concat_parts(t_printf_part **beginning, char **ret)
 static int	build_specifiers(t_printf_part **beginning, va_list *args)
 {
 	t_printf_part	*current;
-	int	(*specifiers[NUM_SPECIFIERS])(t_printf_part *part, va_list *args) = {
+	int				(*specifiers[NUM_SPECIFIERS])
 
-	build_nbr_0, build_nbr_1, build_nbr_1, build_nbr_3,
+	(t_printf_part *part, va_list *args);
+	ft_memcpy(specifiers,
+	(int (*[])()){build_nbr_0, build_nbr_1, build_nbr_1, build_nbr_3,
 	build_nbr_4, build_nbr_5, build_nbr_6, build_nbr_7,
 	build_nbr_8, build_nbr_0, build_nbr_0, build_nbr_0,
 	build_nbr_0, build_nbr_13, build_nbr_14, build_nbr_15,
 	build_nbr_16, build_nbr_17, build_nbr_0, build_nbr_19,
 	build_nbr_20, build_nbr_21, build_nbr_22, build_nbr_23,
-	build_nbr_24, build_nbr_25, build_nbr_26, NULL};
+	build_nbr_24, build_nbr_25, build_nbr_26, NULL}, sizeof(specifiers));
 	current = *beginning;
 	while (current)
 	{

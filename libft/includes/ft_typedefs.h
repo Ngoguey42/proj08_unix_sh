@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:39:33 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/03 13:37:56 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:40:12 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct					s_metat
 **			Before 'zone_size' > 'buf_size'
 */
 
-#define DSTOR_T t_byte
+# define DSTOR_T t_byte
 
 typedef struct					s_dstor
 {
@@ -108,7 +108,7 @@ typedef struct					s_dstor
 **			Before 'zone_front' > 'buf_front'
 */
 
-#define DBUFF_T t_dbyte
+# define DBUFF_T t_dbyte
 
 typedef struct					s_dbuff
 {

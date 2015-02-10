@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/03 07:55:36 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/03 13:43:38 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:40:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void		ft_dbuff_initzone(t_dbuff *dbuff, size_t rear_pad, DBUFF_T v)
 	*dbuff->zone_rear = v;
 	return ;
 }
-
 
 int			ft_dbuff_init(t_dbuff *dbuff, size_t size, size_t rear_pad)
 {

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:41:37 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 07:37:15 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/10 07:45:22 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,15 @@ static void err_close_allfd(t_mshc *msh, t_list *lst, t_cmd *cmd)
 
 static void	process_cmds(t_msh *msh, t_list *alst[1])
 {
-	t_cmd	*cmd;
 	t_list	*lst;
 
 	lst = *alst;
 	while (lst != NULL)
 	{
-		cmd = (t_cmd*)lst->content;
 		(void)msh_exec_cmd(msh, lst);
 		lst = lst->next;
 	}
+	(void)err_close_allfd;
 	return ;
 }
 

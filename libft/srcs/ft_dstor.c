@@ -15,6 +15,20 @@
 #include "ft_math.h"
 #include "libft.h"
 
+int			ft_dstor_dup(const t_dstor *ref, t_dstor *dst)
+{
+	ptrdiff_t	diff;
+
+	ft_memcpy(dst, ref, sizeof(t_dstor));
+	dst->buf_rear = (DSTOR_T*)ft_memdup(ref->buf_rear,
+			ref->buf_size * sizeof(DSTOR_T));
+	if (dst->buf_rear == NULL)
+		return (ENOMEM);
+	diff = (void*)dst->buf_rear - (void*)ref->buf_rear;
+	dst->zone_front += diff;
+	return (0);
+}
+
 int			ft_dstor_init(t_dstor *dstor, size_t size)
 {
 	dstor->buf_rear = (DSTOR_T*)ft_memalloc(size * sizeof(DSTOR_T));

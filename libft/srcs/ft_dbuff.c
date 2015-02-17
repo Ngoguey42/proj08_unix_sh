@@ -22,14 +22,38 @@
 **				'zone_size' should never be 0 when resizing.
 */
 
-void		ft_dbuff_initzone(t_dbuff *dbuff, size_t rear_pad, DBUFF_T v)
+// void		ft_dbuff_initzone(t_dbuff *dbuff, size_t rear_pad, DBUFF_T v)
+// {
+	// return ;
+	// dbuff->zone_size = 1;
+	// dbuff->zone_rear = dbuff->buf_front + rear_pad;
+	// dbuff->zone_front = dbuff->zone_rear;
+	// *dbuff->zone_rear = v;
+	// return ;
+// }
+
+int			ft_dbuff_dup(const t_dbuff *ref, t_dbuff *dst)
 {
-	return ;
-	dbuff->zone_size = 1;
-	dbuff->zone_rear = dbuff->buf_front + rear_pad;
-	dbuff->zone_front = dbuff->zone_rear;
-	*dbuff->zone_rear = v;
-	return ;
+	ptrdiff_t	diff;
+
+	ft_memcpy(dst, ref, sizeof(t_dbuff));
+	dst->buf_rear = (DBUFF_T*)ft_memdup(ref->buf_rear,
+			ref->buf_size * sizeof(DBUFF_T));
+	if (dst->buf_rear == NULL)
+		return (ENOMEM);
+	diff = (void*)dst->buf_rear - (void*)ref->buf_rear;
+	// dst->buf_rear = (void*)dst->buf_rear + diff;
+	dst->buf_front = (void*)dst->buf_front + diff;
+	dst->zone_rear = (void*)dst->zone_rear + diff;
+	dst->zone_front = (void*)dst->zone_front + diff;
+	dst->zone_start = (void*)dst->zone_start + diff;
+	
+	
+	// dst->buf_front += diff;
+	// dst->zone_rear += diff;
+	// dst->zone_front += diff;
+	// dst->zone_start += diff;
+	return (0);
 }
 
 int			ft_dbuff_init(t_dbuff *dbuff, size_t size, size_t rear_pad)

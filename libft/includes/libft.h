@@ -385,6 +385,8 @@ int		ft_dstor_realloc(t_dstor *dstor, size_t new_size);
 int		ft_dbuff_init(t_dbuff *dbuff, size_t size, size_t rear_pad);
 int		ft_dbuff_recenter(t_dbuff *dbuff);
 void	ft_dbuff_initzone(t_dbuff *dbuff, size_t rear_pad, DBUFF_T v);
+int		ft_dbuff_dup(const t_dbuff *ref, t_dbuff *dst);
+int		ft_dstor_dup(const t_dstor *ref, t_dstor *dst);
 
 /*
 ** -

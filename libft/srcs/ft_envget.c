@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/13 08:22:49 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 06:47:30 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/18 07:33:29 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,19 @@ int		ft_isin_locvars(const char *kv, const t_list *lvars)
 		lvars = lvars->next;
 	}
 	return (0);
+}
+
+char	*ft_envgetl(const char **env, const t_list *lvars, const char *key)
+{
+	size_t	len;
+
+	len = ft_strcspn(key, "=");
+	while (lvars != NULL)
+	{
+		if (ft_strnequ(key, (char*)lvars->content,
+				MAX(len, ft_strcspn((char*)lvars->content, "="))))
+			return ((char*)lvars->content);
+		lvars = lvars->next;
+	}
+	return (ft_envget(env, key));
 }

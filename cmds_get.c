@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:21:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/30 15:44:17 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/18 07:32:56 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 ** 'move_tokens' Moves all tokens into t_cmd.
 ** *
 ** 'new_cmd' Creates a new t_cmd, fills it, and stores it in 'acmd'
+**		Step1:		Pull tokens from list
+**		Step2:		Get Local Variables
+**		Step2b:		Get redirections bones (fill it in part5)
+**		Step3:		Request here-documents
+**		Step4:		(See update_iotypes below)
+**	!!!(next steps have been moved right before each t_cmd executions)!!!
+**		Step5:		Get redirections details
+**		Step5b:		Get argv.
+**		Step5t:		Get command binary / builtin
+**		Step6:		Do some magic if step5t matched 'env' builtin.
 ** *
 ** 'update_iotypes' Creates links between pipe-connected t_cmd.
 ** *
@@ -58,11 +68,11 @@ static int		new_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1])
 		else
 			msh_err(msh, "Could not pull token link. 2");
 	}
-	msh_cmd_get_cmd(msh, &cmd);
+	msh_cmd_get_locvar(msh, &cmd);
+	msh_cmd_get_av(msh, &cmd);
 	msh_cmd_get_redir(msh, &cmd);
 	msh_cmd_get_heredoc(msh, &cmd);
-	msh_cmd_get_av(msh, &cmd);
-	msh_cmd_get_locvar(msh, &cmd);
+	msh_cmd_get_cmd(msh, &cmd);
 	if (cmd.is_builtin == true && cmd.bi_index == MSHENVINDEX)
 		msh_cmd_get_env_interpretation(msh, &cmd);
 	if (ft_lstnewback((t_list**)acmd, (void*)&cmd, sizeof(t_cmd)) == NULL)

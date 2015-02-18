@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 06:35:30 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/18 07:19:16 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,6 +376,9 @@ char	**ft_envupdatekv_m(char ***env, char *k, char *v);
 char	**ft_envnewkv_m(char ***env, char *k, char *v);
 int		ft_envdel(char **env, const char *key);
 int		ft_isin_locvars(const char *kv, const t_list *lvars);
+char	*ft_envgetl(const char **env, const t_list *lvars, const char *key);
+int		ft_expand_tilde_envl(const char *src, const char **env,
+								const t_list *lvars, char **ptr);
 
 int		ft_expand_tilde(const char *src, char *ref[3], char **ptr);
 int		ft_expand_tilde_env(const char *src, const char **env, char **ptr);
@@ -387,6 +390,8 @@ int		ft_dbuff_recenter(t_dbuff *dbuff);
 void	ft_dbuff_initzone(t_dbuff *dbuff, size_t rear_pad, DBUFF_T v);
 int		ft_dbuff_dup(const t_dbuff *ref, t_dbuff *dst);
 int		ft_dstor_dup(const t_dstor *ref, t_dstor *dst);
+
+
 
 /*
 ** -

@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2015/02/10 07:44:32 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/02/18 07:10:26 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -35,7 +35,7 @@ E = \033[39m
 COUNT = 0
 TABLEN = 28
 W = 0
-OBJPERLINES = 4
+OBJPERLINES = 3
 
 #PRINTF SOURCES VARIABLES
 PTFCOUNT = 0

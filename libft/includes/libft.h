@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/11/03 20:28:26 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/18 07:19:16 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/18 07:57:27 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,9 @@ char	*ft_filename(const char *path, char *dst);
 int		ft_resolve_path(char *buf);
 int		ft_getcmdpath(const char *cmd, char *refs[4], char **ptr);
 int		ft_getcmdpath_env(const char *cmd, const char **env, char **ptr);
+int		ft_getcmdpath_envl(const char *cmd, const char **env,
+								const t_list *lvars, char **ptr);
+
 int		ft_access(const char *pathname, int mode);
 void	*ft_memccpy2(void *dst, const void *src, size_t n);
 /*
@@ -379,6 +382,7 @@ int		ft_isin_locvars(const char *kv, const t_list *lvars);
 char	*ft_envgetl(const char **env, const t_list *lvars, const char *key);
 int		ft_expand_tilde_envl(const char *src, const char **env,
 								const t_list *lvars, char **ptr);
+
 
 int		ft_expand_tilde(const char *src, char *ref[3], char **ptr);
 int		ft_expand_tilde_env(const char *src, const char **env, char **ptr);

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 07:36:02 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/18 09:01:37 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ int			msh_exec_cmd(t_msh *msh, t_list *lst)
 	if (cmd->iotypes[1] == 1)
 		if (msh_exec_cmd_openpipe(msh, lst))
 			return (1);
+	msh_cmd_get_cmd(msh, cmd);
+	msh_cmd_get_redir(msh, cmd);
+	msh_cmd_get_av(msh, cmd);
 	if (msh_cmd_error(msh, cmd) ||
 			(cmd->is_builtin == false && cmd->cmdpath == NULL))
 	{

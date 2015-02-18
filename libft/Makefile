@@ -6,7 +6,7 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:29:36 by ngoguey           #+#    #+#              #
-#    Updated: 2015/02/18 07:10:26 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/02/18 08:22:23 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -39,9 +39,9 @@ OBJPERLINES = 3
 
 #PRINTF SOURCES VARIABLES
 PTFCOUNT = 0
-PTFTABLEN = 34
+PTFTABLEN = 40
 X = 0
-PTFOBJPERLINES = 3
+PTFOBJPERLINES = 2
 
 #SOURCES
 SRCSFILES =\

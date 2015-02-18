@@ -6,38 +6,20 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:40 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/05 09:59:11 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/18 09:06:54 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include <stdlib.h>
+/* #include <errno.h> */
+/* #include <stdlib.h> */
 #include <minishell.h>
 
 /*
-** 'msh_expand_redir_tilde' Tries to expand tilde.
 ** 'extract_redir_and_file' Exctrats infos, and calls the right function.
 ** 'msh_cmd_get_redir' Creates t_red from t_tkn tokens.
 */
 
-void		msh_expand_redir_tilde(t_mshc *msh, t_red *red)
-{
-	char	*expansion;
-	int		ret;
-
-	ret = ft_expand_tilde_env(red->file, (const char**)msh->env, &expansion);
-	if (ret == ENOMEM)
-		msh_errmem(msh);
-	else if (ret >= 0)
-	{
-		free(red->file);
-		red->file = expansion;
-		red->file_err = ret;
-	}
-	return ;
-}
-
-static void	extract_redir_and_file(t_mshc *msh, t_red *red, t_list **lstp)
+static void	extract_redir_and_file(t_red *red, t_list **lstp)
 {
 	t_tkn	*redir;
 	t_tkn	*next;
@@ -51,19 +33,20 @@ static void	extract_redir_and_file(t_mshc *msh, t_red *red, t_list **lstp)
 	}
 	next = (t_tkn*)(*lstp)->next->content;
 	red->type = redir->type;
-	msh->red_f[redir->type - 1](msh, red, redir, next);
 	red->ptr[0] = redir->ptr;
 	red->len[0] = redir->len;
+	red->tkn[0] = redir;
 	if (next->type == MTK_FILE)
 	{
 		*lstp = (*lstp)->next;
 		red->ptr[1] = next->ptr;
 		red->len[1] = next->len;
+		red->tkn[1] = next;
 	}
 	return ;
 }
 
-void		msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd)
+void		msh_cmd_get_redir_bones(t_mshc *msh, t_cmd *cmd)
 {
 	t_list	*lst;
 	t_tkn	*tkn;
@@ -75,13 +58,29 @@ void		msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd)
 		tkn = (t_tkn*)lst->content;
 		if (MTK_ISRED(tkn->type))
 		{
-			extract_redir_and_file(msh, &red, &lst);
+			extract_redir_and_file(&red, &lst);
 			if (ft_lstnewback((t_list**)cmd->ared, (void*)&red,
 								sizeof(t_red)) == NULL)
 				msh_errmem(msh);
 		}
 		else if (tkn->type == MTK_FILE)
 			msh_err(msh, "Encountered an MTK_FILE without a redirection.");
+		lst = lst->next;
+	}
+	return ;
+}
+
+void		msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd)
+{
+	t_list	*lst;
+	t_red	*red;
+
+	lst = cmd->ared == NULL ? NULL : *cmd->ared;
+	while (lst != NULL)
+	{
+		red = (t_red*)lst->content;
+		msh->red_f[red->type - 1]
+				(msh, red, (const t_tkn*[2]){red->tkn[0], red->tkn[1]}, cmd);
 		lst = lst->next;
 	}
 	return ;

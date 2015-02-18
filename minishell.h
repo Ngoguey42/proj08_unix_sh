@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 07:38:06 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/18 09:04:21 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,20 @@
 /*
 ** ************************************************************************** **
 ** *
+**		'struct s_tkn'	Token, as extracted from the input. (See tokenize.c)
+**		type	type as in MTK_ defines.
+**		ptr		pointer into the string.
+**		len		token's length in 'ptr'.
+*/
+typedef struct	s_tkn
+{
+	int			type;
+	char		*ptr;
+	size_t		len;
+}				t_tkn;
+/*
+** ************************************************************************** **
+** *
 **		'struct s_red'	One per redirection token.
 **		type	type as in MTK_ defines.
 **		lhsfd	left hand side file descriptor.		(-1) if all.
@@ -123,6 +137,7 @@
 **				0x10	rhsfd over limit
 **				0x20	rhs is invalid
 **				0x40	rhs missing
+**		tkn		quick and dirty fix, (redundant)
 **		ptr		pointers of the two tokens into the user input
 **		len		characters inside the two tokens.
 **		prev_cp	for builtins, 'dup' of the previous destination fd.
@@ -140,24 +155,11 @@ typedef struct	s_red
 	int			file_err;
 	char		*hdoc;
 	int			error;
+	t_tkn		*tkn[2];
 	char		*ptr[2];
 	size_t		len[2];
 	int			prev_cp;
 }				t_red;
-/*
-** ************************************************************************** **
-** *
-**		'struct s_tkn'	Token, as extracted from the input. (See tokenize.c)
-**		type	type as in MTK_ defines.
-**		ptr		pointer into the string.
-**		len		token's length in 'ptr'.
-*/
-typedef struct	s_tkn
-{
-	int			type;
-	char		*ptr;
-	size_t		len;
-}				t_tkn;
 /*
 ** ************************************************************************** **
 ** *
@@ -239,7 +241,7 @@ typedef struct	s_msh
 	void		(*bi_f[NUMBUILTINS + 1])(struct s_msh *msh, t_cmd *cmd);
 	char		bi_n[NUMBUILTINS + 1][MSHBIN_MAXN];
 	char		op[NUMOPERATORS + 1][3];
-	void		(*red_f[4])(CMSHS *msh, t_red *re, t_tkn *r, t_tkn *n);
+	void		(*red_f[4])();
 	int			stdin_isatty;
 }				t_msh;
 typedef CMSH	t_mshc;
@@ -266,6 +268,8 @@ t_tkn			*msh_new_token(int type, char *line, t_tkn *tkn);
 
 void			msh_cmd_get_av(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd);
+void			msh_cmd_get_cmd_bones(t_mshc *msh, t_cmd *cmd);
+void			msh_cmd_get_redir_bones(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_redir(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_heredoc(t_mshc *msh, t_cmd *cmd);
 void			msh_cmd_get_locvar(t_mshc *msh, t_cmd *cmd);
@@ -273,11 +277,21 @@ void			msh_cmd_get_env_interpretation(t_mshc *msh, t_cmd *cmd);
 
 int				msh_catch_syntax_errors(t_mshc *msh, const t_list *lst);
 
-void			msh_expand_redir_tilde(t_mshc *msh, t_red *red);
-void			msh_saveredir_here(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
-void			msh_saveredir_apnd(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
-void			msh_saveredir_read(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
-void			msh_saveredir_write(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n);
+void			msh_expand_redir_tilde(t_mshc *msh, t_red *red,
+						const t_cmd *cmd);
+int				msh_get_redir_nbr(const char *ptr, int *fdp, int def);
+void			msh_saveredir_here(t_mshc *m, t_red *red, const t_tkn *t[2],
+						const t_cmd *cmd);
+void			msh_saveredir_apnd(t_mshc *m, t_red *red, const t_tkn *t[2],
+						const t_cmd *cmd);
+void			msh_saveredir_read(t_mshc *m, t_red *red, const t_tkn *t[2],
+						const t_cmd *cmd);
+void			msh_saveredir_write(t_mshc *m, t_red *red, const t_tkn *t[2],
+						const t_cmd *cmd);
+/* void			msh_saveredir_here(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n); */
+/* void			msh_saveredir_apnd(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n); */
+/* void			msh_saveredir_read(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n); */
+/* void			msh_saveredir_write(t_mshc *m, t_red *red, t_tkn *r, t_tkn *n); */
 
 /*
 ** Commands executions.

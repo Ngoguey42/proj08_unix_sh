@@ -12,6 +12,7 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <errno.h>
 #include <minishell.h>
 
 static void	home_dir(t_msh *msh, char *ptr)
@@ -23,6 +24,7 @@ static void	home_dir(t_msh *msh, char *ptr)
 	else
 	{
 		err = ft_access(ptr + 5, X_OK);
+		err = (err == EISDIR) ? 0 : err;
 		if (err != 0)
 		{
 			msh_err(msh, "% !$r: %s", ptr + 5, sys_errlist[err > 0 ? err : 0]);
@@ -44,6 +46,7 @@ static void oldpwd_dir(t_msh *msh, char *ptr)
 	else
 	{
 		err = ft_access(ptr + 7, X_OK);
+		err = (err == EISDIR) ? 0 : err;
 		if (err != 0)
 		{
 			msh_err(msh, "% !$r: %s", ptr + 7, sys_errlist[err > 0 ? err : 0]);
@@ -65,6 +68,7 @@ static void	regular(t_msh *msh, t_cmd *cmd)
 
 	ptr = cmd->cmdav[1];
 	err = ft_access(ptr, X_OK);
+	err = (err == EISDIR) ? 0 : err;
 	if (err != 0)
 	{
 		msh_err(msh, "% !$r: %s", ptr, sys_errlist[err > 0 ? err : 0]);

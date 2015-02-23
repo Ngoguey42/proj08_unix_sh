@@ -43,6 +43,7 @@
 ** *debug
 ** free mem before execve
 ** free mem
+** verif cette histoire de emacs
 
 	#1 ls dans l1
 	#2 ls -d de tous les lvl

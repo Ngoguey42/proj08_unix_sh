@@ -6,11 +6,11 @@
 #    By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/04 11:28:17 by ngoguey           #+#    #+#              #
-#    Updated: 2015/02/18 08:35:56 by ngoguey          ###   ########.fr        #
+#    Updated: 2015/02/23 10:18:31 by ngoguey          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
-NAME = ft_minishell1
+NAME = ft_minishell2
 
 # LIBFT
 LFTPATH = libft/

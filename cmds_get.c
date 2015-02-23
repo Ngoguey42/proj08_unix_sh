@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 14:21:11 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/18 09:01:28 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 10:34:05 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int		new_cmd(t_mshc *msh, t_list *atknp[1], t_list *acmd[1])
 	msh_cmd_get_locvar(msh, &cmd);
 /* 	msh_cmd_get_cmd(msh, &cmd); */
 /* 	msh_cmd_get_redir(msh, &cmd); */
-/* 	msh_cmd_get_av(msh, &cmd); */
+	msh_cmd_get_av(msh, &cmd);
 	msh_cmd_get_redir_bones(msh, &cmd);
 	msh_cmd_get_cmd_bones(msh, &cmd);
 	msh_cmd_get_heredoc(msh, &cmd);

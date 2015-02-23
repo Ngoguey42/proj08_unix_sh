@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:46:06 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 07:34:31 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 11:12:06 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,26 @@ void		msh_errmem(t_mshc *msh)
 
 void		msh_cmd_err(t_mshc *msh, const t_cmd *cmd, int err)
 {
+	const char	*ptr;
+	int			len;
+
+	if (cmd->is_builtin == false && cmd->bi_index == 3)
+	{
+		ptr = *(cmd->cmdav + cmd->avpad);
+		len = ft_strlen(ptr);
+	}
+	else
+	{
+		ptr = cmd->cmd_str;
+		len = (int)ft_strcspn(cmd->cmd_str, "<>;| \t");
+	}
 	if (err == -2)
-		msh_err(msh, "%! $.*r: %s", (int)ft_strcspn(cmd->cmd_str, "<>;| \t"),
-				cmd->cmd_str, "Command not found");
+		msh_err(msh, "%! $.*r: %s", len, ptr, "Command not found");
 	else
 	{
 		if (err < 0)
 			err = 0;
-		msh_err(msh, "%! $.*r: %s", (int)ft_strcspn(cmd->cmd_str, "<>;| \t"),
-				cmd->cmd_str, sys_errlist[err]);
+		msh_err(msh, "%! $.*r: %s", len, ptr, sys_errlist[err]);
 	}
 	return ;
 }

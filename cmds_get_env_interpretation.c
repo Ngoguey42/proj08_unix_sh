@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/21 09:17:16 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 07:35:46 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 11:24:59 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@
 **				2	binary found(unused)
 */
 
-static void		add_env_locvars(t_list *alvar[1], t_list *alvartmp[1])
+static void		add_env_locvars(t_cmd *cmd, t_list *alvar[1],
+								t_list *alvartmp[1])
 {
+	if (cmd->ignore_env)
+		ft_lstdel((t_list**)cmd->alvar, &ft_lstfreecont);
 	while (*alvartmp != NULL)
 		ft_lstpushback((t_list**)alvar, ft_lstpullfirst((t_list**)alvartmp));
 	return ;
@@ -47,14 +50,14 @@ static void		store_lvar
 
 static void		interpret_binary(t_mshc *msh, t_cmd *cmd)
 {
-	cmd->is_builtin = false;
-	cmd->bi_index = 0;
-	cmd->binerr = ft_getcmdpath_env(*(cmd->cmdav + cmd->avpad),
-					(const char**)msh->env, &cmd->cmdpath);
+	if (cmd->is_builtin == true)
+		return ;
+	/* cmd->bi_index = 0; */
+	cmd->binerr = ft_getcmdpath_envl(*(cmd->cmdav + cmd->avpad),
+			cmd->ignore_env ? NULL : (const char**)msh->env,
+			*cmd->alvar, &cmd->cmdpath);
 	if (cmd->binerr == ENOMEM)
 		msh_errmem(msh);
-	if (cmd->ignore_env)
-		ft_lstdel((t_list**)cmd->alvar, &ft_lstfreecont);
 	return ;
 }
 
@@ -77,11 +80,12 @@ void			msh_cmd_get_env_interpretation(t_mshc *msh, t_cmd *cmd)
 		else
 		{
 			cmd->avpad++;
-			interpret_binary(msh, cmd);
+			cmd->is_builtin = false;
 			break ;
 		}
 		av++;
 	}
-	add_env_locvars(cmd->alvar, alvartmp);
+	add_env_locvars(cmd, cmd->alvar, alvartmp);
+	interpret_binary(msh, cmd);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:09:35 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/18 09:01:37 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 11:06:10 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int			msh_exec_cmd(t_msh *msh, t_list *lst)
 			return (1);
 	msh_cmd_get_cmd(msh, cmd);
 	msh_cmd_get_redir(msh, cmd);
-	msh_cmd_get_av(msh, cmd);
+	/* msh_cmd_get_av(msh, cmd); */
 	if (msh_cmd_error(msh, cmd) ||
 			(cmd->is_builtin == false && cmd->cmdpath == NULL))
 	{

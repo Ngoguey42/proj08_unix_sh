@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:30 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/23 09:41:07 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 11:38:55 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,8 @@ static void	request_heredoc(t_mshc *msh, t_red *red)
 	cat = NULL;
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
-		/* ft_printf("(%.*r)\n", red->len[0], red->ptr[0]); */
-		/* ft_printf("(%.*r)\n", red->len[1], red->ptr[1]); */
-		/* qprintf("%p %p\n", red->file, line); */
-		/* if (ft_strequ(red->file, line)) */
-		if (ft_strnequ(red->ptr[1], line, MAX((int)red->len[1], ret)))
+		if (ft_strnequ(red->ptr[1], line, MAX((int)red->len[1],
+				(int)ft_strlen(line))))
 			break ;
 		cat = concat(cat, line);
 		msh_ps2(msh, MSH_PSHERE);

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:18 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/18 09:04:56 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 11:06:02 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		msh_cmd_get_cmd_bones(t_mshc *msh, t_cmd *cmd)
 
 void		msh_cmd_get_cmd(t_mshc *msh, t_cmd *cmd)
 {
-	if (cmd->is_builtin == false)
+	if (cmd->is_builtin == false && cmd->cmdpath == NULL && cmd->binerr == 0)
 	{
 		cmd->binerr = ft_getcmdpath_envl(cmd->cmd_str,
 			(const char**)msh->env, *cmd->alvar, &cmd->cmdpath);

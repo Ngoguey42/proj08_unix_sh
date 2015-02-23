@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/31 10:39:25 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 07:33:49 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 13:06:46 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	home_dir(t_msh *msh, char *ptr)
 		msh_err(msh, "cd: HOME not set");
 	else
 	{
-		err = ft_access(ptr + 5, 0);
+		err = ft_access(ptr + 5, X_OK);
 		if (err != 0)
 		{
 			msh_err(msh, "% !$r: %s", ptr + 5, sys_errlist[err > 0 ? err : 0]);
@@ -43,7 +43,7 @@ static void oldpwd_dir(t_msh *msh, char *ptr)
 		msh_err(msh, "cd: OLDPWD not set");
 	else
 	{
-		err = ft_access(ptr + 7, 0);
+		err = ft_access(ptr + 7, X_OK);
 		if (err != 0)
 		{
 			msh_err(msh, "% !$r: %s", ptr + 7, sys_errlist[err > 0 ? err : 0]);
@@ -64,7 +64,7 @@ static void	regular(t_msh *msh, t_cmd *cmd)
 	int		err;
 
 	ptr = cmd->cmdav[1];
-	err = ft_access(ptr, 0);
+	err = ft_access(ptr, X_OK);
 	if (err != 0)
 	{
 		msh_err(msh, "% !$r: %s", ptr, sys_errlist[err > 0 ? err : 0]);

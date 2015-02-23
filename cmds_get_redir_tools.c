@@ -6,11 +6,11 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/18 08:35:16 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/18 09:06:53 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 09:24:37 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* #include <unistd.h> */
+#include <unistd.h>
 #include <minishell.h>
 #include <errno.h>
 #include <stdlib.h>
@@ -68,4 +68,43 @@ void			msh_expand_redir_tilde(t_mshc *msh, t_red *red, const t_cmd *cmd)
 		red->file_err = ret;
 	}
 	return ;
+}
+
+static int		test_parent_dir(const char *filepath, int mode)
+{
+	char	path[PATH_MAX + 1];
+	char	*ptr;
+	int		err;
+
+	if (!filepath)
+	{
+		msh_err(NULL, "Null file path where it shouldn't be.");
+		return (EFAULT);
+	}
+	ft_strlcpy(path, filepath, PATH_MAX + 1);
+	ptr = ft_strrchr(path, '/');
+	if (ptr == NULL)
+		ft_strcpy(path, ".");
+	else
+		*(ptr + 1) = '\0';
+	err = ft_access(path, mode);
+	if ((mode & X_OK) && err == EISDIR)
+		return (0);
+	return (err);
+}
+
+int			msh_get_redirout_perm(t_mshc *msh, const t_red *red)
+{
+	int		err;
+
+	if ((err = test_parent_dir(red->file, X_OK)) != 0)
+		return (err);
+	if ((err = ft_access(red->file, 0)) != 0)
+	{
+		if (err == ENOENT)
+			return (test_parent_dir(red->file, W_OK));
+		return (err);
+	}
+	(void)msh;
+	return (ft_access(red->file, W_OK));
 }

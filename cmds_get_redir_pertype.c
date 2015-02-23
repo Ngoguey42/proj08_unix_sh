@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:47 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/18 08:34:51 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 07:41:52 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ void		msh_saveredir_apnd(t_mshc *msh, t_red *red, const t_tkn *t[2],
 			msh_errmem(msh);
 		red->file[t[1]->len] = '\0';
 		msh_expand_redir_tilde(msh, red, cmd);
-		if (red->file_err || (red->file_err = ft_access(red->file, W_OK)) != 0)
+		/* if (red->file_err || (red->file_err = ft_access(red->file, W_OK)) != 0) */
+		if (red->file_err || (red->file_err =  msh_get_redirout_perm(msh, red)))
 			red->error |= MSH_RINVALID;
 	}
 	return ;
@@ -103,7 +104,8 @@ void		msh_saveredir_write(t_mshc *msh, t_red *red, const t_tkn *t[2],
 			msh_errmem(msh);
 		red->file[t[1]->len] = '\0';
 		msh_expand_redir_tilde(msh, red, cmd);
-		if (red->file_err || (red->file_err = ft_access(red->file, W_OK)) != 0)
+		/* if (red->file_err || (red->file_err = ft_access(red->file, W_OK)) != 0) */
+		if (red->file_err || (red->file_err =  msh_get_redirout_perm(msh, red)) != 0)
 			red->error |= MSH_RINVALID;
 	}
 	return ;

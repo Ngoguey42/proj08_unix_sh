@@ -6,11 +6,14 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/08 07:45:30 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/10 07:35:32 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 09:41:07 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
+#include <errno.h>
+#include <ft_math.h>
 #include <minishell.h>
 
 /*
@@ -50,10 +53,19 @@ static void	request_heredoc(t_mshc *msh, t_red *red)
 	cat = NULL;
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
-		if (ft_strequ(red->file, line))
+		/* ft_printf("(%.*r)\n", red->len[0], red->ptr[0]); */
+		/* ft_printf("(%.*r)\n", red->len[1], red->ptr[1]); */
+		/* qprintf("%p %p\n", red->file, line); */
+		/* if (ft_strequ(red->file, line)) */
+		if (ft_strnequ(red->ptr[1], line, MAX((int)red->len[1], ret)))
 			break ;
 		cat = concat(cat, line);
 		msh_ps2(msh, MSH_PSHERE);
+	}
+	if (ret < 0)
+	{
+		msh_err(msh, "%d", sys_errlist[EIO]);
+		exit(0);
 	}
 	red->hdoc = cat;
 	return ;

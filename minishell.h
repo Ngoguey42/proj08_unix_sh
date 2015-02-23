@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:21:38 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/18 09:04:21 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 07:40:45 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,7 @@ int				msh_catch_syntax_errors(t_mshc *msh, const t_list *lst);
 void			msh_expand_redir_tilde(t_mshc *msh, t_red *red,
 						const t_cmd *cmd);
 int				msh_get_redir_nbr(const char *ptr, int *fdp, int def);
+int				msh_get_redirout_perm(t_mshc *msh, const t_red *red);
 void			msh_saveredir_here(t_mshc *m, t_red *red, const t_tkn *t[2],
 						const t_cmd *cmd);
 void			msh_saveredir_apnd(t_mshc *m, t_red *red, const t_tkn *t[2],

@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/05 15:05:43 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/21 08:50:03 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 09:46:37 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ static int	redir_heredoc(t_mshc *msh, t_red *red)
 		msh_err(msh, "here-document pipe, failed.");
 		return (1);
 	}
-	ft_putstr_fd(red->hdoc, pipefd[1]);
+	if (red->hdoc != NULL)
+		ft_putstr_fd(red->hdoc, pipefd[1]);
 	if (close(pipefd[1]) < 0)
 		msh_err(msh, "here-doc pipe_in(%d) close, failed.", pipefd[1]);
 	if (dup2(pipefd[0], red->lhsfd) < 0)

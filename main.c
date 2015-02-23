@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/30 09:26:55 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 07:07:50 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,79 @@
 /*
 ** TODO:
 ** exit return val
+** remove exit on getcwdfail
 ** *debug
 **	builtins
 ** check WX permission in folder, before O_CREATE
 ** free mem before execve
+	#1 ls dans l1
+	#2 ls -d de tous les lvl
+	#3 Owrite in l3
+	#4 Ocreate in l3
+	#5 Owrite in l1
+	#6 Ocreate in l1
+	#7 Owrite in l2
+	#8 Ocreate in l2
+	#9 Cat in l1
+	#10 Cat in l2
+	#11 Cat in l3
+	#12 cd ~tol1 l1to..
+	#13 cd l1tol2 l2tol1
+
+X missing somewhere in tree, can't read dir, but can still wri/crea
+W missing somewhere in tree, pas d'impact
+
+l1:
+-wx #1 ls:noperm
+	#2 OK
+	#3 OK
+	#4 OK
+	#5 OK
+	#6 OK
+	#7 OK
+	#8 OK
+	#9 OK
+	#10 OK
+	#11 OK
+	#12 OK
+	#13 OK
+
+ls: le contenu d'un sans R: noperm (suivant ok)
+ls: le contenu d'un sans X: noperm (no suivant)
+cat: un fichier dans un sans X: noperm
+cd: dans un sans X, ou un dir dans sans X: noperm
+owrite: dans un sans W: noperm
+ocreate: dans un sans WX: noperm
+seul les perm du dossier . importent pour les options
+
+rw- #1 ls:noperm
+	#2 l1 OK, then NOPERM
+	#3 OK
+	#4 OK
+	#5 noperm
+	#6 noperm
+	#7 OK
+	#8 OK
+	#9 cat:noperm
+	#10 OK
+	#11 OK
+	#12 cd: seul ./l1/.. fonctionne, tout le reste fail
+	#13 cd: seul ./l1/.. fonctionne, tout le reste fail
+
+r-x #1 OK
+	#2 OK
+	#3 OK
+	#4 OK
+	#5 OK
+	#6 noperm
+	#7 OK
+	#8 OK
+	#9 OK
+	#10 OK
+	#11 OK
+	#12 OK
+	#13 OK
+
 */
 
 static void	handler(int s)

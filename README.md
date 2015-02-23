@@ -1,14 +1,14 @@
 # Project #8 SH, Jan 2015
 >>>>> #####A shell of my own.
 
-#####sh1 grade ``(tbd/100)`` ``(tbd/118)*``
+#####sh1 grade ``(111/100)`` ``(111/118)*``
 #####sh2 grade ``(tbd/100)`` ``(tbd/118)*``
 #####sh3 grade ``(tbd/100)`` ``(tbd/118)*``
 --------  -----------------------
 
 This project is subdivided into 4 parts.
-- [ ] sh1: Implement basic built-in commands, execute any command from PATH, etc...
-- [ ] sh2: Handle those six operators: "**; | < << >> >**" Introduced in [[PIPEX project](https://github.com/Ngoguey42/proj07_unix_pipex)].
+- [X] sh1: Implement basic built-in commands, execute any command from PATH, etc...
+- [X] sh2: Handle those six operators: "**; | < << >> >**" Introduced in [[PIPEX project](https://github.com/Ngoguey42/proj07_unix_pipex)].
 - [ ] sh3: Cursor position and keyboard control keys. Introduced in [ft_select project].
 - [ ] 42sh: Group project.
 
@@ -17,12 +17,12 @@ This project is subdivided into 4 parts.
 sh1 Goals:
 - [X] Display a prompt.
 - [X] Execute any command from PATH.
-- [ ] Full error handling without errno.
+- [X] Full error handling without errno.
 - [X] Built-ins: cd, setenv, unsetenv, env, exit.
 - [X] Read commands through argv's -c option or stdin reading.
 
 My sh1 additions:
-- [ ] All env's options.
+- [X] All env's options.
 - [X] Tilde '~' + options ('~+', '~-').
 
 sh2 Goals:

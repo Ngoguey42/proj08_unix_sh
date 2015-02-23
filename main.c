@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/23 07:07:50 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/23 13:09:35 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@
 ** exit return val
 ** remove exit on getcwdfail
 ** *debug
-**	builtins
-** check WX permission in folder, before O_CREATE
 ** free mem before execve
+** free mem
+
 	#1 ls dans l1
 	#2 ls -d de tous les lvl
 	#3 Owrite in l3
@@ -55,11 +55,19 @@
 	#9 Cat in l1
 	#10 Cat in l2
 	#11 Cat in l3
-	#12 cd ~tol1 l1to..
-	#13 cd l1tol2 l2tol1
+	#12 cd dans tous les sens
 
 X missing somewhere in tree, can't read dir, but can still wri/crea
 W missing somewhere in tree, pas d'impact
+
+ls: le contenu d'un sans R: noperm (suivant ok)
+ls: le contenu d'un sans X: noperm (no suivant)
+cat: un fichier dans un sans X: noperm
+cd: dans un sans X, ou un dir dans sans X: noperm
+owrite: dans un sans W: noperm
+ocreate: dans un sans WX: noperm
+seul les perm du dossier en cours importent pour les options de write
+
 
 l1:
 -wx #1 ls:noperm
@@ -74,15 +82,6 @@ l1:
 	#10 OK
 	#11 OK
 	#12 OK
-	#13 OK
-
-ls: le contenu d'un sans R: noperm (suivant ok)
-ls: le contenu d'un sans X: noperm (no suivant)
-cat: un fichier dans un sans X: noperm
-cd: dans un sans X, ou un dir dans sans X: noperm
-owrite: dans un sans W: noperm
-ocreate: dans un sans WX: noperm
-seul les perm du dossier . importent pour les options
 
 rw- #1 ls:noperm
 	#2 l1 OK, then NOPERM
@@ -96,7 +95,6 @@ rw- #1 ls:noperm
 	#10 OK
 	#11 OK
 	#12 cd: seul ./l1/.. fonctionne, tout le reste fail
-	#13 cd: seul ./l1/.. fonctionne, tout le reste fail
 
 r-x #1 OK
 	#2 OK
@@ -110,7 +108,6 @@ r-x #1 OK
 	#10 OK
 	#11 OK
 	#12 OK
-	#13 OK
 
 */
 

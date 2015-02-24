@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/27 12:19:51 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/02/23 13:09:35 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/24 06:26:37 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@
 ** *debug
 ** free mem before execve
 ** free mem
-** verif cette histoire de emacs
 
 	#1 ls dans l1
 	#2 ls -d de tous les lvl

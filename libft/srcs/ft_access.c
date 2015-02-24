@@ -6,7 +6,7 @@
 /*   By: ngoguey <ngoguey@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/12/30 13:41:31 by ngoguey           #+#    #+#             */
-/*   Updated: 2015/01/16 07:53:30 by ngoguey          ###   ########.fr       */
+/*   Updated: 2015/02/24 06:24:26 by ngoguey          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	analyse_fullpath(const char *path, int mode)
 	{
 		if ((mode & X_OK) != 0)
 		{
-			if (lstat(path, &s) < 0)
+			if (stat(path, &s) < 0)
 				return (EIO);
 			if (!S_ISREG(s.st_mode))
 				return (S_ISDIR(s.st_mode) ? EISDIR : EACCES);
